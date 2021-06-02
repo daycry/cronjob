@@ -1,0 +1,38 @@
+{
+    "name": "daycry/cronjob",
+    "description": "Rest Server for Codeigniter 4",
+    "homepage": "https://github.com/daycry/restserver",
+    "authors":
+    [
+        {
+            "name": "daycry",
+            "homepage": "https://github.com/daycry",
+            "role": "Developer"
+        }
+    ],
+    "license": "MIT",
+    "require": {
+      "php": ">=7.4"
+    },
+    "require-dev":
+    {
+        "phpunit/phpunit" : "8.5.*",
+        "codeigniter4/framework": "^4.0.2"
+    },
+    "autoload":
+    {
+        "psr-4": {
+            "Daycry\\CronJob\\": "src/"
+        }
+    },
+    "autoload-dev":
+    {
+        "psr-4":
+        {
+            "Daycry\\CronJob\\": "tests/CronJob/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
