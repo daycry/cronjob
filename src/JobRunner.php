@@ -30,7 +30,7 @@ class JobRunner
 
 	public function __construct()
 	{
-		$this->scheduler = service('scheduler');
+		$this->scheduler = service( 'scheduler' );
 	}
 
 	/**
@@ -42,14 +42,16 @@ class JobRunner
 	{
 		$tasks = $this->scheduler->getTasks();
 
-		if (! count($tasks))
+		if( !count( $tasks ) )
 		{
 			return;
 		}
 
-		foreach ($tasks as $task)
+		foreach( $tasks as $task )
 		{
-			if (! $task->shouldRun($this->testTime))
+			$cron = \Cron\CronExpression::factory( $task->getExpression() );
+
+			if( !$cron->isDue() )
 			{
 				continue;
 			}
@@ -62,23 +64,27 @@ class JobRunner
 			{
 				$output = $task->run();
 			}
-			catch (\Throwable $e)
+			catch( \Throwable $e )
 			{
-				log_message('error', $e->getMessage(), $e->getTrace());
+				log_message( 'critical', $e->getMessage(), $e->getTrace() );
 				$error = $e;
 			}
 			finally
 			{
 				// Save performance info
-				$this->performanceLogs[] = new TaskLog([
-					'task'     => $task,
-					'output'   => $output,
-					'runStart' => $start,
-					'runEnd'   => Time::now(),
-					'error'    => $error,
-				]);
+				$this->performanceLogs[] = ( new JobLog(
+					[
+						'task'     => $task,
+						'output'   => $output,
+						'runStart' => $start,
+						'runEnd'   => Time::now(),
+						'error'    => $error,
+					]
+				) )->getData();
 			}
 		}
+
+		$this->storePerformanceLogs();
 	}
 
 	/**
@@ -118,14 +124,23 @@ class JobRunner
 			return;
 		}
 
+		$config = config( 'CronJob' );
+
 		// Ensure we have someplace to store the log
-		if (! is_dir(WRITEPATH . 'tasks'))
+		if( file_exists( $config->FilePath . $config->FileName ) )
 		{
-			mkdir(WRITEPATH . 'tasks', 0777);
+			if( !is_dir( $config->FilePath ) ){ mkdir( $config->FilePath ); }
 		}
 
-		$fileName = 'tasks_' . date('Y_m_d') . '.json';
+		$fileName = 'jobs_' . date('Y_m_d') . '.json';
 
-		dd($fileName);
+		// write the file with json content
+		file_put_contents(
+			$config->FilePath . $fileName,
+			json_encode(
+				$this->performanceLogs, 
+				JSON_PRETTY_PRINT
+			)
+		);
 	}
 }

@@ -78,4 +78,34 @@ abstract class CronJobCommand extends BaseCommand
 
         return false;	
 	}
+
+	protected function disabled()
+	{
+		CLI::newLine( 1 );
+		CLI::write( '**** Cronjob is now disabled. ****', 'white', 'red' );
+		CLI::newLine( 1 );
+	}
+
+	protected function enabled()
+	{
+		CLI::newLine( 1 );
+		CLI::write( '**** CronJob is now Enabled. ****', 'black', 'green' );
+		CLI::newLine( 1 );
+	}
+
+	protected function alreadyEnabled()
+	{
+		CLI::newLine( 1 );
+		CLI::error( '**** CronJob is already Enabled. ****' );
+		CLI::newLine( 1 );
+	}
+
+	protected function tryToEnable()
+	{
+		CLI::newLine( 1 );
+		CLI::write( '**** WARNING: Task running is currently disabled. ****', 'red' );
+		CLI::newLine( 1 );
+		CLI::write( '**** To re-enable tasks run: cronjob:enable ****', 'black', 'green' );
+		CLI::newLine( 1 );
+	}
 }

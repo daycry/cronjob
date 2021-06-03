@@ -5,24 +5,13 @@
  *
  * Provides the methods to assign frequencies to individual tasks.
  *
- * @package CodeIgniter\Tasks
+ * @package Daycry\CronJob
  */
+
+use Daycry\CronJob\Exceptions\CronJobException;
 
 trait FrequenciesTrait
 {
-	/**
-	 * The generated cron expression
-	 *
-	 * @var array<string|int, string|int>
-	 */
-	protected $expression = [
-		'min'        => '*',
-		'hour'       => '*',
-		'dayOfMonth' => '*',
-		'month'      => '*',
-		'dayOfWeek'  => '*',
-	];
-
 	/**
 	 * If listed, will restrict this to running
 	 * within only those environments.
@@ -30,6 +19,16 @@ trait FrequenciesTrait
 	 * @var null
 	 */
 	protected $allowedEnvironments = null;
+
+	/**
+	 * Returns the generated expression.
+	 *
+	 * @return string
+	 */
+	public function getExpression()
+	{
+		return $this->expression;
+	}
 
 	/**
 	 * Schedules the task through a raw crontab expression string.
@@ -40,19 +39,14 @@ trait FrequenciesTrait
 	 */
 	public function cron( string $expression )
 	{
-		$this->expression = explode(' ', $expression);
+		if( !\Cron\CronExpression::isValidExpression( $expression ) )
+		{
+			throw CronJobException::forInvalidExpression();
+		}
+
+		$this->expression = \Cron\CronExpression::factory( $expression )->getExpression();
 
 		return $this;
-	}
-
-	/**
-	 * Returns the generated expression.
-	 *
-	 * @return string
-	 */
-	public function getExpression()
-	{
-		return implode(' ', array_values($this->expression));
 	}
 
 	/**
@@ -66,14 +60,17 @@ trait FrequenciesTrait
 	public function daily(string $time = null)
 	{
 		$min = $hour = 0;
-
-		if (! empty($time))
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']  = $min;
-		$this->expression['hour'] = $hour;
+		$cron = \Cron\CronExpression::factory( '@daily' );
+
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -85,8 +82,11 @@ trait FrequenciesTrait
 	 */
 	public function hourly(int $minute = null)
 	{
-		$this->expression['min']  = is_null($minute) ? "00" : $minute;
-		$this->expression['hour'] = '*';
+		$cron = \Cron\CronExpression::factory( '@hourly' );
+
+		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -99,10 +99,14 @@ trait FrequenciesTrait
 	 * @param null $minute
 	 * @return self
 	 */
-	public function everyHour(int $hour = 1, $minute = null)
+	public function everyHour( int $hour = 1, $minute = null )
 	{
-		$this->expression['min'] = is_null($minute) ? "0" : $minute;
-		$this->expression['hour'] = ($hour == 1) ? "*" : '*/' . $hour;
+		$cron = \Cron\CronExpression::factory( '@hourly' );
+
+		if( !is_null( $hour ) ){ $cron->setPart( 1, '*/' . $hour ); }
+		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -114,9 +118,13 @@ trait FrequenciesTrait
 	 * @param int $toHour
 	 * @return self
 	 */
-	public function betweenHours(int $fromHour, int $toHour)
+	public function betweenHours( int $fromHour, int $toHour )
 	{
-		$this->expression['hour'] = $fromHour . "-" . $toHour;
+		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron->setPart( 1, implode( ",", $fromHour . "-" . $toHour ) );
+		
+		$this->expression = $cron->getExpression();
+
 		return $this;
 	}
 
@@ -126,14 +134,13 @@ trait FrequenciesTrait
 	 * @param array $hours
 	 * @return self
 	 */
-	public function hours(array $hours = [])
+	public function hours( array $hours )
 	{
-		if (!is_array($hours))
-		{
-			$hours = [$hours];
-		}
+		$cron = \Cron\CronExpression::factory( '@hourly' );
 
-		$this->expression['hour'] = implode(",", $hours);
+		$cron->setPart( 1, implode( ",", $hours ) );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -145,9 +152,13 @@ trait FrequenciesTrait
 	 *
 	 * @return self
 	 */
-	public function everyMinute($minute = null)
+	public function everyMinute( $minute = null )
 	{
-		$this->expression['min'] = is_null($minute) ? "*" : '*/' . $minute;
+		$minute = is_null( $minute ) ? "*" : '*/' . $minute;
+
+		$cron = \Cron\CronExpression::factory( $minute . ' * * * *' );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -159,7 +170,7 @@ trait FrequenciesTrait
 	 */
 	public function everyFiveMinutes()
 	{
-		return $this->everyMinute(5);
+		return $this->everyMinute( 5 );
 	}
 
 	/**
@@ -169,7 +180,7 @@ trait FrequenciesTrait
 	 */
 	public function everyFifteenMinutes()
 	{
-		return $this->everyMinute(15);
+		return $this->everyMinute( 15 );
 	}
 
 	/**
@@ -179,7 +190,7 @@ trait FrequenciesTrait
 	 */
 	public function everyThirtyMinutes()
 	{
-		return $this->everyMinute(30);
+		return $this->everyMinute( 30 );
 	}
 
 
@@ -190,9 +201,14 @@ trait FrequenciesTrait
 	 * @param int $toMinute
 	 * @return self
 	 */
-	public function betweenMinutes(int $fromMinute,int $toMinute)
+	public function betweenMinutes( int $fromMinute, int $toMinute )
 	{
-		$this->expression['min'] = $fromMinute . "-" . $toMinute;
+		$cron = \Cron\CronExpression::factory( '@hourly' );
+
+		$cron->setPart( 0, $fromMinute . "-" . $toMinute );
+		
+		$this->expression = $cron->getExpression();
+
 		return $this;
 	}
 
@@ -202,14 +218,13 @@ trait FrequenciesTrait
 	 * @param array $minutes
 	 * @return self
 	 */
-	public function minutes(array $minutes = [])
+	public function minutes( array $minutes )
 	{
-		if (!is_array($minutes))
-		{
-			$minutes = [$minutes];
-		}
+		$cron = \Cron\CronExpression::factory( '@hourly' );
 
-		$this->expression['min'] = implode(",", $minutes);
+		$cron->setPart( 0, implode( ",", $minutes ) );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}

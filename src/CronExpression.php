@@ -73,6 +73,21 @@ class CronExpression
 	 */
 	public function nextRun( string $expression ): Time
 	{
+		// Set our current time
+		if( !$this->testTime instanceof Time )
+		{
+			$this->testTime = Time::now( $this->timezone );
+		}
+
+		// Break the expression into separate parts
+		[
+			$min,
+			$hour,
+			$monthDay,
+			$month,
+			$weekDay,
+		] = explode( ' ', $expression );
+
 		return new Time();
 	}
 

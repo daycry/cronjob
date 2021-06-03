@@ -6,7 +6,7 @@ use CodeIgniter\CLI\CLI;
 /**
  * Disable Task Running.
  */
-class Disable extends TaskCommand
+class Disable extends CronJobCommand
 {
 	/**
 	 * The Command's name
@@ -37,12 +37,10 @@ class Disable extends TaskCommand
 	public function run(array $params)
 	{
         $this->getConfig();
-        
+
 		//delete the file with json content
 		@unlink( $this->config->FilePath . $this->config->FileName );
 
-		CLI::newLine( 1 );
-		CLI::write( '**** Cronjob is now disabled. ****', 'black', 'green' );
-		CLI::newLine( 1 );
+		$this->disabled();
 	}
 }

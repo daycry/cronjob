@@ -3,12 +3,10 @@
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
-use Daycry\CronJob\TaskRunner;
-
 /**
  * Lists currently scheduled tasks.
  */
-class Lister extends TaskCommand
+class Lister extends CronJobCommand
 {
 	/**
 	 * The Command's name
@@ -36,39 +34,32 @@ class Lister extends TaskCommand
 	 *
 	 * @param array $params
 	 */
-	public function run(array $params)
+	public function run( array $params )
 	{
         $this->getConfig();
 		$settings = $this->getSettings();
 
-		if( $settings->status !== 'enabled' )
+		if( !$settings || ( isset( $settings->status ) && $settings->status !== 'enabled' ) )
 		{
-            CLI::newLine( 1 );
-			CLI::write( '**** WARNING: Task running is currently disabled. ****', 'red' );
-            CLI::newLine( 1 );
-			CLI::write( '**** To re-enable tasks run: tasks:enable ****', 'black', 'green' );
-            CLI::newLine( 1 );
+			$this->tryToEnable();
+			return false;
 		}
 
 		$scheduler = \Config\Services::scheduler();
 
 		$this->config->init( $scheduler );
 
-		$runner = new TaskRunner();
-
 		$tasks = [];
 
 		foreach( $scheduler->getTasks() as $task )
 		{
-			$cron = service( 'cronExpression' );
-
-			$nextRun = $cron->nextRun( $task->getExpression() );
+			$cron = \Cron\CronExpression::factory( $task->getExpression() );
+			$nextRun = $cron->getNextRunDate()->format( 'Y-m-d H:i:s' );
 
 			$tasks[] = [
 				'name'     => $task->name ?: $task->getAction(),
 				'type'     => $task->getType(),
-				'next_run' => $nextRun,
-				'runs_in'  => $nextRun->humanize(),
+				'next_run' => $nextRun
 			];
 		}
 
@@ -81,8 +72,7 @@ class Lister extends TaskCommand
             [
                 'Name',
                 'Type',
-                'Next Run',
-                '',
+                'Next Run'
             ]
         );
 	}

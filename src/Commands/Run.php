@@ -3,12 +3,12 @@
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
-use Daycry\CronJob\TaskRunner;
+use Daycry\CronJob\JobRunner;
 
 /**
  * Runs current tasks.
  */
-class Run extends TaskCommand
+class Run extends CronJobCommand
 {
 	/**
 	 * The Command's name
@@ -41,10 +41,9 @@ class Run extends TaskCommand
         $this->getConfig();
 		$settings = $this->getSettings();
 
-		if ($settings['status'] !== 'enabled')
+		if( !$settings || ( isset( $settings->status ) && $settings->status !== 'enabled' ) )
 		{
-			CLI::write(CLI::color('WARNING: Task running is currently disabled.', 'red'));
-			CLI::write('To re-enable tasks run: tasks:enable');
+			$this->tryToEnable();
 			return false;
 		}
 
@@ -54,7 +53,7 @@ class Run extends TaskCommand
 
 		$this->config->init( \Config\Services::scheduler() );
 
-		$runner = new TaskRunner();
+		$runner = new JobRunner();
 
 		$runner->run();
 

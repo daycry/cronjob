@@ -70,9 +70,9 @@ class Job
 	 */
 	public function __construct(string $type, $action)
 	{
-		if (! in_array($type, $this->types))
+		if( !in_array( $type, $this->types ) )
 		{
-			throw CronJobException::forInvalidTaskType($type);
+			throw CronJobException::forInvalidTaskType( $type );
 		}
 
 		$this->type   = $type;
@@ -120,8 +120,8 @@ class Job
 	 */
 	public function run()
 	{
-		$method = 'run' . ucfirst($this->type);
-		if (! method_exists($this, $method))
+		$method = 'run' . ucfirst( $this->type );
+		if( !method_exists( $this, $method ) )
 		{
 			throw CronJobException::forInvalidTaskType($this->type);
 		}

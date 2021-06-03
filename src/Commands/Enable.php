@@ -6,7 +6,7 @@ use CodeIgniter\CLI\CLI;
 /**
  * Enables Task Running
  */
-class Enable extends TaskCommand
+class Enable extends CronJobCommand
 {
 	/**
 	 * The Command's name
@@ -40,13 +40,9 @@ class Enable extends TaskCommand
 
         if( $settings )
         {
-            CLI::newLine( 1 );
-			CLI::write( '**** CronJob is now Enabled. ****', 'white', 'red' );
-			CLI::newLine( 1 );
+            $this->enabled();
         }else{
-            CLI::newLine( 1 );
-			CLI::error( '**** CronJob is already Enabled. ****' );
-			CLI::newLine( 1 );
+            $this->alreadyEnabled();
         }
 	}
 }

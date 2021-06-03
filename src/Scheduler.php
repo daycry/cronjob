@@ -79,7 +79,7 @@ class Scheduler
 	 */
 	protected function createTask(string $type, $action)
 	{
-		$task          = new Job($type, $action);
+		$task = new Job( $type, $action );
 		$this->tasks[] = $task;
 
 		return $task;

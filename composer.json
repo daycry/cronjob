@@ -12,7 +12,8 @@
     ],
     "license": "MIT",
     "require": {
-      "php": ">=7.4"
+        "php": ">=7.4",
+        "dragonmantank/cron-expression": "^3.1"
     },
     "require-dev":
     {

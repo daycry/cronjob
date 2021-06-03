@@ -65,4 +65,15 @@ class JobLog
 
 		return str_pad((string)$minutes, 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)$seconds, 2, '0', STR_PAD_LEFT);
 	}
+
+	/**
+	 * Returns JobLog as array
+	 *
+	 * @return string
+	 * @throws \Exception
+	 */
+	public function getData()
+	{
+		return get_object_vars( $this );
+	}
 }

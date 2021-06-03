@@ -1,11 +1,12 @@
 <?php namespace Daycry\CronJob\Config;
 
 use CodeIgniter\Config\BaseConfig;
+use Daycry\CronJob\Scheduler;
 
 class CronJob extends BaseConfig
 {
-    public $FilePath = WRITEPATH . 'tasks/';
-    public $FileName = 'tasks';
+    public $FilePath = WRITEPATH . 'cronJob/';
+    public $FileName = 'jobs';
 
     /**
 	 * Register any tasks within this method for the application.
@@ -13,7 +14,7 @@ class CronJob extends BaseConfig
 	 *
 	 * @param Scheduler $schedule
 	 */
-	public function init(Scheduler $schedule)
+	public function init( Scheduler $schedule )
 	{
 		// $schedule->command('foo:bar')->nightly();
 
