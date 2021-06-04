@@ -21,6 +21,13 @@ trait FrequenciesTrait
 	protected $allowedEnvironments = null;
 
 	/**
+	 * The generated cron expression
+	 *
+	 * @var string
+	 */
+	protected $expression = '* * * * *';
+
+	/**
 	 * Returns the generated expression.
 	 *
 	 * @return string
@@ -65,7 +72,7 @@ trait FrequenciesTrait
 			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$cron = \Cron\CronExpression::factory( '@daily' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
 		$cron->setPart( 0, $min );
 		$cron->setPart( 1, $hour );
@@ -82,9 +89,10 @@ trait FrequenciesTrait
 	 */
 	public function hourly(int $minute = null)
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
 		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
+		$cron->setPart( 1, '*' );
 
 		$this->expression = $cron->getExpression();
 
@@ -101,7 +109,7 @@ trait FrequenciesTrait
 	 */
 	public function everyHour( int $hour = 1, $minute = null )
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
 		if( !is_null( $hour ) ){ $cron->setPart( 1, '*/' . $hour ); }
 		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
@@ -120,8 +128,8 @@ trait FrequenciesTrait
 	 */
 	public function betweenHours( int $fromHour, int $toHour )
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
-		$cron->setPart( 1, implode( ",", $fromHour . "-" . $toHour ) );
+		$cron = \Cron\CronExpression::factory( $this->expression );
+		$cron->setPart( 1, $fromHour . "-" . $toHour );
 		
 		$this->expression = $cron->getExpression();
 
@@ -136,7 +144,9 @@ trait FrequenciesTrait
 	 */
 	public function hours( array $hours )
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !is_array( $hours ) ) { $hours = [$hours]; }
 
 		$cron->setPart( 1, implode( ",", $hours ) );
 
@@ -156,7 +166,8 @@ trait FrequenciesTrait
 	{
 		$minute = is_null( $minute ) ? "*" : '*/' . $minute;
 
-		$cron = \Cron\CronExpression::factory( $minute . ' * * * *' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
+		$cron->setPart( 0, $minute );
 
 		$this->expression = $cron->getExpression();
 
@@ -203,7 +214,7 @@ trait FrequenciesTrait
 	 */
 	public function betweenMinutes( int $fromMinute, int $toMinute )
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
 		$cron->setPart( 0, $fromMinute . "-" . $toMinute );
 		
@@ -220,7 +231,9 @@ trait FrequenciesTrait
 	 */
 	public function minutes( array $minutes )
 	{
-		$cron = \Cron\CronExpression::factory( '@hourly' );
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !is_array( $minutes ) ) { $minutes = [ $minutes ]; }
 
 		$cron->setPart( 0, implode( ",", $minutes ) );
 
@@ -236,14 +249,15 @@ trait FrequenciesTrait
 	 * @param array|int $days [0 : Sunday - 6 : Saturday]
 	 * @return self
 	 */
-	public function days($days)
+	public function days( $days )
 	{
-		if (!is_array($days))
-		{
-			$days = [$days];
-		}
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
-		$this->expression['dayOfWeek'] = implode(",", $days);
+		if( !is_array( $days ) ) { $days = [ $days ]; }
+
+		$cron->setPart( 4, implode( ",", $days ) );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -343,14 +357,18 @@ trait FrequenciesTrait
 	{
 		$min = $hour = 0;
 
-		if (! empty($time))
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']        = $min;
-		$this->expression['hour']       = $hour;
-		$this->expression['dayOfMonth'] = 1;
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 2, 1 );
+		
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -361,14 +379,15 @@ trait FrequenciesTrait
 	 * @param array|int $days [1-31]
 	 * @return self
 	 */
-	public function daysOfMonth($days)
+	public function daysOfMonth( $days )
 	{
-		if (!is_array($days))
-		{
-			$days = [$days];
-		}
+		$cron = \Cron\CronExpression::factory( $this->expression );
 
-		$this->expression['dayOfMonth'] = implode(",", $days);
+		if( !is_array( $days ) ){ $days = [ $days ]; }
+
+		$cron->setPart( 2, implode( ",", $days ) );
+		
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -397,15 +416,19 @@ trait FrequenciesTrait
 	{
 		$min = $hour = 0;
 
-		if (! empty($time))
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']        = $min;
-		$this->expression['hour']       = $hour;
-		$this->expression['dayOfMonth'] = 1;
-		$this->expression['month']      = '*/3';
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 2, 1 );
+		$cron->setPart( 3, '*/3' );
+		
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -421,15 +444,19 @@ trait FrequenciesTrait
 	{
 		$min = $hour = 0;
 
-		if (! empty($time))
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']        = $min;
-		$this->expression['hour']       = $hour;
-		$this->expression['dayOfMonth'] = 1;
-		$this->expression['month']      = 1;
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 2, 1 );
+		$cron->setPart( 3, 1 );
+		
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -445,14 +472,18 @@ trait FrequenciesTrait
 	{
 		$min = $hour = 0;
 
-		if (! empty($time))
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']       = $min;
-		$this->expression['hour']      = $hour;
-		$this->expression['dayOfWeek'] = '1-5';
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 4, '1-5' );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -468,14 +499,18 @@ trait FrequenciesTrait
 	{
 		$min = $hour = 0;
 
-		if (! empty($time))
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']       = $min;
-		$this->expression['hour']      = $hour;
-		$this->expression['dayOfWeek'] = '6-7';
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 4, '6-7' );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}
@@ -493,14 +528,18 @@ trait FrequenciesTrait
 	{
 		$min = $hour = '*';
 
-		if (! empty($time))
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		if( !empty( $time ) )
 		{
-			[$min, $hour] = $this->parseTime($time);
+			[ $min, $hour ] = $this->parseTime( $time );
 		}
 
-		$this->expression['min']       = $min;
-		$this->expression['hour']      = $hour;
-		$this->expression['dayOfWeek'] = $day;
+		$cron->setPart( 0, $min );
+		$cron->setPart( 1, $hour );
+		$cron->setPart( 4, $day );
+
+		$this->expression = $cron->getExpression();
 
 		return $this;
 	}

@@ -84,7 +84,7 @@ class JobRunner
 			}
 		}
 
-		$this->storePerformanceLogs();
+		//$this->storePerformanceLogs();
 	}
 
 	/**
