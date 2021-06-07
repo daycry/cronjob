@@ -29,7 +29,14 @@ class Run extends CronJobCommand
 	 *
 	 * @var string
 	 */
-	protected $usage = 'cronjob:run';
+	protected $usage = 'cronjob:run [options]';
+
+	/**
+	 * the Command's option
+	 *
+	 * @var array
+	 */
+	protected $options = [ '-testTime' => 'Set Date to run script' ];
 
 	/**
 	 * Runs tasks at the proper time.
@@ -55,6 +62,9 @@ class Run extends CronJobCommand
 
 		$runner = new JobRunner();
 
+		$testTime = $params[ 'testTime' ] ?? CLI::getOption( 'testTime' );
+
+		if( $testTime ){ $runner->withTestTime( $testTime ); }
 		$runner->run();
 
         CLI::newLine( 1 );

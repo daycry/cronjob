@@ -18,7 +18,7 @@ class JobRunner
 	/**
 	 * @var string
 	 */
-	protected $testTime;
+	protected $testTime = null;
 
 	/**
 	 * Stores execution logs for each
@@ -47,11 +47,12 @@ class JobRunner
 			return;
 		}
 
+		$data = [];
+
 		foreach( $tasks as $task )
 		{
-			$cron = \Cron\CronExpression::factory( $task->getExpression() );
-
-			if( !$cron->isDue() )
+			$temp = [];
+			if ( !$task->shouldRun( $this->testTime ) )
 			{
 				continue;
 			}
@@ -59,6 +60,8 @@ class JobRunner
 			$error  = null;
 			$start  = Time::now();
 			$output = null;
+
+			//var_dump( \strval( $start ) );exit;
 
 			try
 			{
@@ -71,20 +74,30 @@ class JobRunner
 			}
 			finally
 			{
+				$end = Time::now();
+
+				$log = new JobLog( ['task'     => $task, 'output'   => $output, 'runStart' => $start, 'runEnd'   => $end, 'error'    => $error ] );
+
+				$temp = array(
+					'name' => ( $task->name ) ? $task->name : null,
+					'type' => $task->getType(),
+					'action' => $task->getAction(),
+					'environment' => \json_encode( $task->environments ),
+					'output' => $output,
+					'error' => $error,
+					'start_at' => \strval( $start ),
+					'end_at' => \strval( $end ),
+					'duration' => $log->duration(),
+					'test_time' => $this->testTime->format( 'Y-m-d H:i:s' ),
+
+				);
+
 				// Save performance info
-				$this->performanceLogs[] = ( new JobLog(
-					[
-						'task'     => $task,
-						'output'   => $output,
-						'runStart' => $start,
-						'runEnd'   => Time::now(),
-						'error'    => $error,
-					]
-				) )->getData();
+				$this->performanceLogs[] = $temp;
 			}
 		}
 
-		//$this->storePerformanceLogs();
+		$this->storePerformanceLogs();
 	}
 
 	/**
@@ -98,7 +111,7 @@ class JobRunner
 	 */
 	public function withTestTime(string $time)
 	{
-		$this->testTime = $time;
+		$this->testTime = new \DateTime( $time );
 
 		return $this;
 	}
@@ -119,28 +132,38 @@ class JobRunner
 	 */
 	protected function storePerformanceLogs()
 	{
-		if( empty( $this->performanceLogs ) )
+		$config = config( 'CronJob' );
+
+		if( empty( $this->performanceLogs ) || !$config->saveLog )
 		{
 			return;
 		}
 
-		$config = config( 'CronJob' );
-
-		// Ensure we have someplace to store the log
-		if( file_exists( $config->FilePath . $config->FileName ) )
+		if( $config->logSavingMethod == 'database' )
 		{
-			if( !is_dir( $config->FilePath ) ){ mkdir( $config->FilePath ); }
+			$logModel = new \Daycry\CronJob\Models\CronJobLogModel();
+			$logModel->setDBGroup( $config->databaseGroup );
+			$logModel->setTableName( $config->tableName );
+			$logModel->insertBatch( $this->performanceLogs );
+
+		}else{
+
+			// Ensure we have someplace to store the log
+			if( file_exists( $config->FilePath . $config->FileName ) )
+			{
+				if( !is_dir( $config->FilePath ) ){ mkdir( $config->FilePath ); }
+			}
+
+			$fileName = 'jobs_' . date('Y-m-d--H-i-s') . '.json';
+
+			// write the file with json content
+			file_put_contents(
+				$config->FilePath . $fileName,
+				json_encode(
+					$this->performanceLogs, 
+					JSON_PRETTY_PRINT
+				)
+			);
 		}
-
-		$fileName = 'jobs_' . date('Y_m_d') . '.json';
-
-		// write the file with json content
-		file_put_contents(
-			$config->FilePath . $fileName,
-			json_encode(
-				$this->performanceLogs, 
-				JSON_PRETTY_PRINT
-			)
-		);
 	}
 }

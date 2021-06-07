@@ -68,7 +68,7 @@ class Job
 	 *
 	 * @throws CronJobException
 	 */
-	public function __construct(string $type, $action)
+	public function __construct( string $type, $action )
 	{
 		if( !in_array( $type, $this->types ) )
 		{
@@ -86,7 +86,7 @@ class Job
 	 *
 	 * @return $this
 	 */
-	public function named(string $name)
+	public function named( string $name )
 	{
 		$this->name = $name;
 
@@ -123,7 +123,7 @@ class Job
 		$method = 'run' . ucfirst( $this->type );
 		if( !method_exists( $this, $method ) )
 		{
-			throw CronJobException::forInvalidTaskType($this->type);
+			throw CronJobException::forInvalidTaskType( $this->type );
 		}
 
 		return $this->$method();
@@ -133,27 +133,20 @@ class Job
 	 * Determines whether this task should be run now
 	 * according to its schedule and environment.
 	 *
-	 * @param string|null $testTime
-	 *
 	 * @return boolean
 	 */
-	public function shouldRun(string $testTime = null): bool
+	public function shouldRun( \Datetime $testTime = null ): bool
 	{
-		$cron = service('cronExpression');
-
-		// Allow times to be set during testing
-		if (! empty($testTime))
-		{
-			$cron->testTime($testTime);
-		}
-
 		// Are we restricting to environments?
-		if (! empty($this->environments) && ! $this->runsInEnvironment($_SERVER['CI_ENVIRONMENT']))
+		if( !empty( $this->environments ) && ! $this->runsInEnvironment( ENVIRONMENT ) )
 		{
 			return false;
 		}
 
-		return $cron->shouldRun($this->getExpression());
+		$cron = \Cron\CronExpression::factory( $this->getExpression() );
+		$testTime = ( $testTime ) ? $testTime : 'now';
+		
+		return $cron->isDue( $testTime );
 	}
 
 	/**

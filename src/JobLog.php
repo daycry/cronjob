@@ -38,9 +38,9 @@ class JobLog
 	 */
 	public function __construct(array $data)
 	{
-		foreach ($data as $key => $value)
+		foreach( $data as $key => $value )
 		{
-			if (property_exists($this, $key))
+			if( property_exists( $this, $key ) )
 			{
 				$this->$key = $value;
 			}
@@ -55,25 +55,29 @@ class JobLog
 	 */
 	public function duration()
 	{
-		$dif = $this->runEnd->difference($this->runStart);
+		$dif = $this->runEnd->difference( $this->runStart );
 
-		$minutes = (int)$dif->getMinutes(true);
-		$seconds = $dif->getSeconds(true);
+		$minutes = (int) $dif->getMinutes( true );
+		$seconds = $dif->getSeconds( true );
 
 		// Since $seconds includes the minutes, calc the extra
-		$seconds = $seconds - ($minutes * 60);
+		$seconds = $seconds - ( $minutes * 60 );
 
-		return str_pad((string)$minutes, 2, '0', STR_PAD_LEFT) . ':' . str_pad((string)$seconds, 2, '0', STR_PAD_LEFT);
+		return str_pad( (string) $minutes, 2, '0', STR_PAD_LEFT ) . ':' . str_pad( (string) $seconds, 2, '0', STR_PAD_LEFT );
 	}
 
 	/**
-	 * Returns JobLog as array
+	 * Magic getter
 	 *
-	 * @return string
-	 * @throws \Exception
+	 * @param string $key
+	 *
+	 * @return mixed
 	 */
-	public function getData()
+	public function __get(string $key)
 	{
-		return get_object_vars( $this );
+		if (property_exists($this, $key))
+		{
+			return $this->$key;
+		}
 	}
 }
