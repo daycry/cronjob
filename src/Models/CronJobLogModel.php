@@ -2,10 +2,12 @@
 namespace Daycry\CronJob\Models;
 
 use CodeIgniter\Model;
+use CodeIgniter\Validation\ValidationInterface;
+use CodeIgniter\Database\ConnectionInterface;
 
 class CronJobLogModel extends Model
 {
-    protected $DBGroup = 'api';
+    protected $DBGroup = 'default';
 
     protected $table      = 'cronjob';
 
@@ -28,13 +30,13 @@ class CronJobLogModel extends Model
     protected $validationMessages = [];
     protected $skipValidation     = false;
 
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
+    {
+        parent::__construct( $db, $validation );
+    }
+
     public function setTableName( $tableName )
     {
         $this->table = $tableName;
-    }
-
-    public function setDBGroup( $DBGroup )
-    {
-        $this->DBGroup = $DBGroup;
     }
 }

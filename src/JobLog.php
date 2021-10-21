@@ -7,7 +7,7 @@ class JobLog
 	/**
 	 * @var Job
 	 */
-	protected $task;
+	protected Job $task;
 
 	/**
 	 * @var string
@@ -36,7 +36,7 @@ class JobLog
 	 *
 	 * @param array $data
 	 */
-	public function __construct(array $data)
+	public function __construct( Array $data )
 	{
 		foreach( $data as $key => $value )
 		{
@@ -75,9 +75,9 @@ class JobLog
 	 */
 	public function __get(string $key)
 	{
-		if (property_exists($this, $key))
+		if( property_exists( $this, $key ) )
 		{
-			return $this->$key;
+			return $this->{ $key };
 		}
 	}
 }

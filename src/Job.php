@@ -68,9 +68,9 @@ class Job
 	 *
 	 * @throws CronJobException
 	 */
-	public function __construct( string $type, $action )
+	public function __construct( String $type, $action )
 	{
-		if( !in_array( $type, $this->types ) )
+		if( !in_array( $type, $this->types, true ) )
 		{
 			throw CronJobException::forInvalidTaskType( $type );
 		}
@@ -86,7 +86,7 @@ class Job
 	 *
 	 * @return $this
 	 */
-	public function named( string $name )
+	public function named( String $name ) : Job
 	{
 		$this->name = $name;
 
@@ -98,7 +98,7 @@ class Job
 	 *
 	 * @return string
 	 */
-	public function getType(): string
+	public function getType(): String
 	{
 		return $this->type;
 	}
@@ -135,7 +135,7 @@ class Job
 	 *
 	 * @return boolean
 	 */
-	public function shouldRun( \Datetime $testTime = null ): bool
+	public function shouldRun( \Datetime $testTime = null ) : bool
 	{
 		// Are we restricting to environments?
 		if( !empty( $this->environments ) && ! $this->runsInEnvironment( ENVIRONMENT ) )
@@ -179,7 +179,7 @@ class Job
 			return true;
 		}
 
-		return in_array($environment, $this->environments);
+		return in_array( $environment, $this->environments, true );
 	}
 
 	/**
@@ -188,9 +188,9 @@ class Job
 	 * @return string Buffered output from the Command
 	 * @throws \InvalidArgumentException
 	 */
-	protected function runCommand(): string
+	protected function runCommand() : String
 	{
-		return command($this->getAction());
+		return command( $this->getAction() );
 	}
 
 	/**
@@ -198,9 +198,9 @@ class Job
 	 *
 	 * @return array Lines of output from exec
 	 */
-	protected function runShell(): array
+	protected function runShell(): Array
 	{
-		exec($this->getAction(), $output);
+		exec( $this->getAction(), $output );
 
 		return $output;
 	}
@@ -220,9 +220,9 @@ class Job
 	 *
 	 * @return boolean Result of the trigger
 	 */
-	protected function runEvent(): bool
+	protected function runEvent() : Bool
 	{
-		return Events::trigger($this->getAction());
+		return Events::trigger( $this->getAction() );
 	}
 
 	/**
@@ -232,10 +232,48 @@ class Job
 	 */
 	protected function runUrl()
 	{
-		$response = Services::curlrequest()->request('GET', $this->getAction());
+		$response = Services::curlrequest()->request( 'GET', $this->getAction() );
 
 		return $response->getBody();
 	}
+
+	/**
+     * Builds a unique name for the task.
+     * Used when an existing name doesn't exist.
+     *
+     * @return string
+     * @throws \ReflectionException
+     */
+    protected function buildName()
+    {
+        // Get a hash based on the action
+        // Closures cannot be serialized so do it the hard way
+        if( $this->getType() === 'closure' )
+		{
+            $ref  = new \ReflectionFunction( $this->getAction() );
+            $file = new \SplFileObject( $ref->getFileName() );
+            $file->seek( $ref->getStartLine() - 1 );
+            $content = '';
+
+            while( $file->key() < $ref->getEndLine() )
+			{
+                $content .= $file->current();
+                $file->next();
+            }
+            $actionString = json_encode([
+                $content,
+                $ref->getStaticVariables()
+            ]);
+
+        } else {
+            $actionString = serialize( $this->getAction() );
+        }
+
+        // Get a hash based on the expression
+        $expHash = $this->getExpression();
+
+        return  $this->getType() . '_' . md5( $actionString . '_' . $expHash );
+    }
 
 	/**
 	 * Magic getter
@@ -244,11 +282,16 @@ class Job
 	 *
 	 * @return mixed
 	 */
-	public function __get(string $key)
+	public function __get( String $key )
 	{
-		if (property_exists($this, $key))
+		if( $key === 'name' && empty( $this->name ) )
 		{
-			return $this->$key;
+            return $this->buildName();
+        }
+
+		if ( property_exists( $this, $key ) )
+		{
+			return $this->{ $key };
 		}
 	}
 }

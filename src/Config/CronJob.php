@@ -18,7 +18,7 @@ class CronJob extends BaseConfig
 	/**
 	 * Set true if you want save logs
 	 */
-	public $saveLog = false;
+	public $logPerformance = false;
 
 	/*
     |--------------------------------------------------------------------------

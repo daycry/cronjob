@@ -2,6 +2,7 @@
 
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
+use Config\Database;
 
 /**
  * Class TaskRunner
@@ -19,6 +20,14 @@ class JobRunner
 	 * @var string
 	 */
 	protected $testTime = null;
+
+	/**
+     * Stores aliases of tasks to run
+     * If empty, All tasks will be executed as per their schedule
+     *
+     * @var array
+     */
+    protected $only = [];
 
 	/**
 	 * Stores execution logs for each
@@ -47,12 +56,15 @@ class JobRunner
 			return;
 		}
 
-		$data = [];
-
 		foreach( $tasks as $task )
 		{
-			$temp = [];
-			if ( !$task->shouldRun( $this->testTime ) )
+			// If specific tasks were chosen then skip executing remaining tasks
+            if( !empty( $this->only ) && ! in_array( $task->name, $this->only, true ) )
+			{
+                continue;
+            }
+
+			if ( !$task->shouldRun( $this->testTime ) && empty( $this->only ) )
 			{
 				continue;
 			}
@@ -61,44 +73,57 @@ class JobRunner
 			$start  = Time::now();
 			$output = null;
 
-			//var_dump( \strval( $start ) );exit;
+			$this->cliWrite( 'Processing: ' . ( $task->name ?: 'Task' ), 'green' );
 
 			try
 			{
 				$output = $task->run();
+				$this->cliWrite( 'Executed: ' . ( $task->name ?: 'Task' ), 'cyan' );
 			}
 			catch( \Throwable $e )
 			{
-				log_message( 'critical', $e->getMessage(), $e->getTrace() );
+				$this->cliWrite( 'Failed: ' . ($task->name ?: 'Task'), 'red' );
+				log_message( 'error', $e->getMessage(), $e->getTrace() );
 				$error = $e;
 			}
 			finally
 			{
 				$end = Time::now();
 
-				$log = new JobLog( ['task'     => $task, 'output'   => $output, 'runStart' => $start, 'runEnd'   => $end, 'error'    => $error ] );
-
-				$temp = array(
+				$jobLog = new JobLog( [ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => $end, 'error' => $error, 'testTime' => $this->testTime ] );
+				//$this->performanceLogs[] = $jobLog;
+				
+				$this->performanceLogs[] = array(
 					'name' => ( $task->name ) ? $task->name : null,
 					'type' => $task->getType(),
-					'action' => $task->getAction(),
+					'action' => ( \is_object( $task->getAction() ) ) ? \json_encode( $task->getAction() ) : $task->getAction(),
 					'environment' => \json_encode( $task->environments ),
 					'output' => $output,
 					'error' => $error,
 					'start_at' => \strval( $start ),
 					'end_at' => \strval( $end ),
-					'duration' => $log->duration(),
-					'test_time' => $this->testTime->format( 'Y-m-d H:i:s' ),
-
+					'duration' => $jobLog->duration(),
+					'test_time' => ($this->testTime) ? $this->testTime->format( 'Y-m-d H:i:s' ) : null
 				);
 
-				// Save performance info
-				$this->performanceLogs[] = $temp;
+				$this->storePerformanceLogs();
 			}
 		}
-
-		$this->storePerformanceLogs();
 	}
+
+	/**
+     * Specify tasks to run
+     *
+     * @param array $tasks
+     *
+     * @return TaskRunner
+     */
+    public function only( Array $tasks = [] ) : JobRunner
+    {
+        $this->only = $tasks;
+
+        return $this;
+    }
 
 	/**
 	 * Sets a time that will be used.
@@ -109,22 +134,13 @@ class JobRunner
 	 *
 	 * @return $this
 	 */
-	public function withTestTime(string $time)
+	public function withTestTime( String $time ) : JobRunner
 	{
 		$this->testTime = new \DateTime( $time );
 
 		return $this;
 	}
 
-	/**
-	 * Returns the performance logs, if any.
-	 *
-	 * @return array
-	 */
-	public function performanceLogs()
-	{
-		return $this->performanceLogs;
-	}
 
 	/**
 	 * Performance log information is stored
@@ -134,15 +150,15 @@ class JobRunner
 	{
 		$config = config( 'CronJob' );
 
-		if( empty( $this->performanceLogs ) || !$config->saveLog )
+		if( empty( $this->performanceLogs ) )
 		{
 			return;
 		}
 
 		if( $config->logSavingMethod == 'database' )
 		{
-			$logModel = new \Daycry\CronJob\Models\CronJobLogModel();
-			$logModel->setDBGroup( $config->databaseGroup );
+			$db = Database::connect( $config->databaseGroup );
+			$logModel = new \Daycry\CronJob\Models\CronJobLogModel( $db );
 			$logModel->setTableName( $config->tableName );
 			$logModel->insertBatch( $this->performanceLogs );
 
@@ -166,4 +182,26 @@ class JobRunner
 			);
 		}
 	}
+
+	/**
+     * Write a line to command line interface
+     *
+     * @param string      $text
+     * @param string|null $foreground
+     */
+    protected function cliWrite( String $text, String $foreground = null )
+    {
+        // Skip writing to cli in tests
+        if( defined( "ENVIRONMENT" ) && ENVIRONMENT === "testing" )
+		{
+            return ;
+        }
+
+        if( !is_cli() )
+		{
+            return ;
+        }
+
+        CLI::write("[" . date("Y-m-d H:i:s") . "] " . $text, $foreground );
+    }
 }
