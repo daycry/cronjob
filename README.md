@@ -34,6 +34,10 @@ Run command:
 This command will copy a config file to your app namespace.
 Then you can adjust it to your needs. By default file will be present in `app/Config/CronJob.php`.
 
+    > php spark migrate -all
+
+This command create rest server tables in your database.
+
 ## Starting the Scheduler
 
 You only need to add a single line to your cronjob: 

@@ -49,29 +49,6 @@ class CronJob extends BaseConfig
     |--------------------------------------------------------------------------
     |
     | The table name in your database that stores cronjobs
-	|
-	| Default table schema:
-    |   CREATE TABLE `cronjob` (
-			`id` INT(11) NOT NULL AUTO_INCREMENT,
-			`name` VARCHAR(50) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-			`type` VARCHAR(25) NOT NULL COLLATE 'utf8_general_ci',
-			`action` VARCHAR(255) NOT NULL COLLATE 'utf8_general_ci',
-			`environment` VARCHAR(100) NOT NULL COLLATE 'utf8_general_ci',
-			`output` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-			`error` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8_general_ci',
-			`start_at` DATETIME NOT NULL,
-			`end_at` DATETIME NOT NULL,
-			`duration` TIME NOT NULL,
-			`test_time` DATETIME NULL DEFAULT NULL,
-			`created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-			`updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-			`deleted_at` DATETIME NULL DEFAULT NULL,
-			PRIMARY KEY (`id`) USING BTREE,
-			INDEX `deleted_at` (`deleted_at`) USING BTREE
-		)
-		COLLATE='utf8_general_ci'
-		ENGINE=InnoDB
-		;
     |
     */
 	public $tableName = 'cronjob';
