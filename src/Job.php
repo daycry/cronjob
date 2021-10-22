@@ -144,6 +144,7 @@ class Job
 		}
 
 		$cron = \Cron\CronExpression::factory( $this->getExpression() );
+
 		$testTime = ( $testTime ) ? $testTime : 'now';
 		
 		return $cron->isDue( $testTime );

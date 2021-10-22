@@ -29,6 +29,7 @@
     </filter>
 
     <php>
+        <env name="XDEBUG_MODE" value="coverage"/>
         <server name="app.baseURL" value="http://localhost/"/>
 
         <!-- Directory containing phpunit.xml -->
@@ -39,5 +40,22 @@
 
         <!-- Directory containing the front controller (index.php) -->
         <const name="PUBLICPATH" value="./vendor/codeigniter4/framework/public/"/>
+
+        <!-- Directory containing the front controller (index.php) -->
+        <const name="WRITEPATH" value="tests/_support/"/>
+
+        <!-- https://getcomposer.org/xdebug -->
+		<env name="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
+
+		<!-- Database configuration -->
+		<env name="database.tests.strictOn" value="true"/>
+		<!-- Uncomment to use alternate testing database configuration
+		<env name="database.tests.hostname" value="localhost"/>
+		<env name="database.tests.database" value="tests"/>
+		<env name="database.tests.username" value="tests_user"/>
+		<env name="database.tests.password" value=""/>
+		<env name="database.tests.DBDriver" value="MySQLi"/>
+		<env name="database.tests.DBPrefix" value="tests_"/>
+		-->
     </php>
 </phpunit>

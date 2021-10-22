@@ -91,7 +91,9 @@ trait FrequenciesTrait
 	{
 		$cron = \Cron\CronExpression::factory( $this->expression );
 
-		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
+		$minute = ( $minute ) ? $minute : '0';
+
+		$cron->setPart( 0, $minute );
 		$cron->setPart( 1, '*' );
 
 		$this->expression = $cron->getExpression();
@@ -111,8 +113,11 @@ trait FrequenciesTrait
 	{
 		$cron = \Cron\CronExpression::factory( $this->expression );
 
-		if( !is_null( $hour ) ){ $cron->setPart( 1, '*/' . $hour ); }
-		if( !is_null( $minute ) ){ $cron->setPart( 0, $minute ); }
+		$minute = ( $minute ) ? $minute : '0';
+		$hour = ( $hour === 1 ) ? '*' : '*/' . $hour;
+
+		$cron->setPart( 0, $minute );
+		$cron->setPart( 1, $hour );
 
 		$this->expression = $cron->getExpression();
 
@@ -400,7 +405,12 @@ trait FrequenciesTrait
 	 */
 	public function months(array $months = [])
 	{
-		$this->expression['month'] = implode(",", $months);
+		$cron = \Cron\CronExpression::factory( $this->expression );
+
+		$cron->setPart( 3, implode(",", $months) );
+
+		$this->expression = $cron->getExpression();
+		
 		return $this;
 	}
 
@@ -555,7 +565,7 @@ trait FrequenciesTrait
 
 		return [
 			date('i', $time), // mins
-			date('G', $time),
+			date('H', $time),
 		];
 	}
 }

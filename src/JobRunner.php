@@ -78,6 +78,12 @@ class JobRunner
 			try
 			{
 				$output = $task->run();
+				
+				if( !$output )
+				{
+					$output = \ob_get_contents();
+				}
+
 				$this->cliWrite( 'Executed: ' . ( $task->name ?: 'Task' ), 'cyan' );
 			}
 			catch( \Throwable $e )
