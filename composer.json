@@ -1,7 +1,7 @@
 {
     "name": "daycry/cronjob",
-    "description": "Rest Server for Codeigniter 4",
-    "homepage": "https://github.com/daycry/restserver",
+    "description": "Cronjob library for Codeigniter 4",
+    "homepage": "https://github.com/daycry/cronjob",
     "authors":
     [
         {
