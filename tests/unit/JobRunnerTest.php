@@ -32,11 +32,13 @@ final class JobRunnerTest extends TestCase
 
     public function testRunWithSuccess()
     {
+        $config = config( 'CronJob' );
+        
         $task1 = (new Job('closure', static function () {
             echo 'Task 1';
         }))->daily('12:05 am', true)->named('task1');
         $task2 = (new Job('closure', static function () {
-            return 'Task 2';
+            echo 'Task 2';
         }))->daily('12:00 am')->named('task2');
 
         ob_start();
@@ -51,6 +53,8 @@ final class JobRunnerTest extends TestCase
 
         ob_end_clean();
 
+        $this->assertTrue( is_dir( $config->FilePath ) );
+        $this->assertTrue( is_file( $config->FilePath . 'jobs_' . date('Y-m-d--H-i-s') . '.json' ) );
         // Should have logged the stats
         /*$expected = [
             [
