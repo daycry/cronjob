@@ -1,16 +1,14 @@
-<?php namespace Daycry\Cronjob\Database\Migrations;
+<?php 
+
+namespace Daycry\Cronjob\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class CreateCronjobTables extends Migration
+class CreateCronjobTable extends Migration
 {
     public function up()
     {
-        $config = $this->_getConfig();
-
-        /*
-         * Jobs
-         */
+	// Jobs
         $this->forge->addField([
             'id'                    => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'name'                  => ['type' => 'varchar', 'constraint' => 50, 'null' => true, 'default' => null],
@@ -23,33 +21,19 @@ class CreateCronjobTables extends Migration
             'end_at'                => ['type' => 'datetime', 'null' => false],
             'duration'              => ['type' => 'time', 'null' => false],
             'test_time'             => ['type' => 'datetime', 'null' => true, 'default' => null],
-            'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
+            'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMPc',
             'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-            'deleted_at'       => ['type' => 'datetime', 'null' => true, 'default' => null]
+            'deleted_at'            => ['type' => 'datetime', 'null' => true, 'default' => null]
         ]);
 
         $this->forge->addKey('id', true);
         $this->forge->addKey('deleted_at');
 
-        $this->forge->createTable($config->tableName, true);
+        $this->forge->createTable('cronjob', true);
     }
 
     public function down()
     {
-        $config = $this->_getConfig();
-
-		$this->forge->dropTable($config->tableName, true);
-    }
-
-    private function _getConfig()
-    {
-        $config = config( 'CronJob' );
-
-        if( !$config )
-        {
-            $config = new \Daycry\CronJob\Config\CronJob();
-        }
-
-        return $config;
+	$this->forge->dropTable('cronjob', true);
     }
 }
