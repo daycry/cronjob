@@ -2,7 +2,7 @@
 
 use CodeIgniter\Database\Migration;
 
-class CreateCronjobTables extends Migration
+class CreateCronjobTable extends Migration
 {
     public function up()
     {
