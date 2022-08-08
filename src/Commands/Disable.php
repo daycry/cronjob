@@ -1,4 +1,6 @@
-<?php namespace Daycry\CronJob\Commands;
+<?php
+
+namespace Daycry\CronJob\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -8,39 +10,39 @@ use CodeIgniter\CLI\CLI;
  */
 class Disable extends CronJobCommand
 {
-	/**
-	 * The Command's name
-	 *
-	 * @var string
-	 */
-	protected $name = 'cronjob:disable';
+    /**
+     * The Command's name
+     *
+     * @var string
+     */
+    protected $name = 'cronjob:disable';
 
-	/**
-	 * the Command's short description
-	 *
-	 * @var string
-	 */
-	protected $description = 'Disables the cronjob runner.';
+    /**
+     * the Command's short description
+     *
+     * @var string
+     */
+    protected $description = 'Disables the cronjob runner.';
 
-	/**
-	 * the Command's usage
-	 *
-	 * @var string
-	 */
-	protected $usage = 'cronjob:disable';
+    /**
+     * the Command's usage
+     *
+     * @var string
+     */
+    protected $usage = 'cronjob:disable';
 
-	/**
-	 * Disables task running
-	 *
-	 * @param array $params
-	 */
-	public function run(array $params)
-	{
+    /**
+     * Disables task running
+     *
+     * @param array $params
+     */
+    public function run(array $params)
+    {
         $this->getConfig();
 
-		//delete the file with json content
-		@unlink( $this->config->FilePath . $this->config->FileName );
+        //delete the file with json content
+        @unlink($this->config->FilePath . $this->config->FileName);
 
-		$this->disabled();
-	}
+        $this->disabled();
+    }
 }

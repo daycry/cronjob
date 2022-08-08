@@ -1,4 +1,6 @@
-<?php namespace Daycry\Cronjob\Database\Migrations;
+<?php
+
+namespace Daycry\Cronjob\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
@@ -38,15 +40,14 @@ class CreateCronjobTable extends Migration
     {
         $config = $this->_getConfig();
 
-		$this->forge->dropTable($config->tableName, true);
+        $this->forge->dropTable($config->tableName, true);
     }
 
     private function _getConfig()
     {
-        $config = config( 'CronJob' );
+        $config = config('CronJob');
 
-        if( !$config )
-        {
+        if (!$config) {
             $config = new \Daycry\CronJob\Config\CronJob();
         }
 

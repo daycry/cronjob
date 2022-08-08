@@ -32,8 +32,8 @@ final class JobRunnerTest extends TestCase
 
     public function testRunWithSuccess()
     {
-        $config = config( 'CronJob' );
-        
+        $config = config('CronJob');
+
         $task1 = (new Job('closure', static function () {
             echo 'Task 1';
         }))->daily('12:05 am', true)->named('task1');
@@ -45,16 +45,16 @@ final class JobRunnerTest extends TestCase
 
         $runner = $this->getRunner([$task1, $task2]);
 
-        $time = ( new \DateTime( 'now' ) )->setTime( 00, 00 )->format('Y-m-d H:i:s');
-        $runner->withTestTime( $time )->run();
+        $time = ( new \DateTime('now') )->setTime(00, 00)->format('Y-m-d H:i:s');
+        $runner->withTestTime($time)->run();
 
         // Only task 2 should have ran
         $this->assertSame('Task 2', $this->getActualOutput());
 
         ob_end_clean();
 
-        $this->assertTrue( is_dir( $config->FilePath ) );
-        $this->assertTrue( is_file( $config->FilePath . 'jobs_' . date('Y-m-d') . '.json' ) );
+        $this->assertTrue(is_dir($config->FilePath));
+        $this->assertTrue(is_file($config->FilePath . 'jobs_' . date('Y-m-d') . '.json'));
     }
 
     protected function getRunner(array $tasks = [])

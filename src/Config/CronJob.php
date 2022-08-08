@@ -1,26 +1,28 @@
-<?php namespace Daycry\CronJob\Config;
+<?php
+
+namespace Daycry\CronJob\Config;
 
 use CodeIgniter\Config\BaseConfig;
 use Daycry\CronJob\Scheduler;
 
 class CronJob extends BaseConfig
 {
-	/**
-	 * Directory
-	 */
+    /**
+     * Directory
+     */
     public $FilePath = WRITEPATH . 'cronJob/';
-    
-	/**
-	 * Filename setting
-	 */
-	public $FileName = 'jobs';
 
-	/**
-	 * Set true if you want save logs
-	 */
-	public $logPerformance = true;
+    /**
+     * Filename setting
+     */
+    public $FileName = 'jobs';
 
-	/*
+    /**
+     * Set true if you want save logs
+     */
+    public $logPerformance = true;
+
+    /*
     |--------------------------------------------------------------------------
     | Log Saving Method
     |--------------------------------------------------------------------------
@@ -31,9 +33,9 @@ class CronJob extends BaseConfig
     | 'database'  Save in database
     |
     */
-	public $logSavingMethod = 'file';
+    public $logSavingMethod = 'file';
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Database Group
     |--------------------------------------------------------------------------
@@ -41,9 +43,9 @@ class CronJob extends BaseConfig
     | Connect to a database group for logging, etc.
     |
     */
-	public $databaseGroup = 'default';
+    public $databaseGroup = 'default';
 
-	/*
+    /*
     |--------------------------------------------------------------------------
     | Cronjob Table Name
     |--------------------------------------------------------------------------
@@ -51,26 +53,26 @@ class CronJob extends BaseConfig
     | The table name in your database that stores cronjobs
     |
     */
-	public $tableName = 'cronjob';
+    public $tableName = 'cronjob';
 
 
 
     /*
     |--------------------------------------------------------------------------
-	| Cronjobs
-	|--------------------------------------------------------------------------
+    | Cronjobs
+    |--------------------------------------------------------------------------
     |
-	| Register any tasks within this method for the application.
-	| Called by the TaskRunner.
-	|
-	| @param Scheduler $schedule
-	*/
-	public function init( Scheduler $schedule )
-	{
-		// $schedule->command('foo:bar')->everyMinute();
+    | Register any tasks within this method for the application.
+    | Called by the TaskRunner.
+    |
+    | @param Scheduler $schedule
+    */
+    public function init(Scheduler $schedule)
+    {
+        // $schedule->command('foo:bar')->everyMinute();
 
-		// $schedule->shell('cp foo bar')->daily( '11:00 pm' );
+        // $schedule->shell('cp foo bar')->daily( '11:00 pm' );
 
-		// $schedule->call( function() { do something.... } )->everyMonday()->named( 'foo' )
-	}
+        // $schedule->call( function() { do something.... } )->everyMonday()->named( 'foo' )
+    }
 }

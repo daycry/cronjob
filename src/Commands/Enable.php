@@ -1,4 +1,6 @@
-<?php namespace Daycry\CronJob\Commands;
+<?php
+
+namespace Daycry\CronJob\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
@@ -8,41 +10,40 @@ use CodeIgniter\CLI\CLI;
  */
 class Enable extends CronJobCommand
 {
-	/**
-	 * The Command's name
-	 *
-	 * @var string
-	 */
-	protected $name = 'cronjob:enable';
+    /**
+     * The Command's name
+     *
+     * @var string
+     */
+    protected $name = 'cronjob:enable';
 
-	/**
-	 * the Command's short description
-	 *
-	 * @var string
-	 */
-	protected $description = 'Enables the cronjob runner.';
+    /**
+     * the Command's short description
+     *
+     * @var string
+     */
+    protected $description = 'Enables the cronjob runner.';
 
-	/**
-	 * the Command's usage
-	 *
-	 * @var string
-	 */
-	protected $usage = 'cronjob:enable';
+    /**
+     * the Command's usage
+     *
+     * @var string
+     */
+    protected $usage = 'cronjob:enable';
 
-	/**
-	 * Enables task running
-	 *
-	 * @param array $params
-	 */
-	public function run(array $params)
-	{
-		$settings = $this->saveSettings( 'enabled' );
+    /**
+     * Enables task running
+     *
+     * @param array $params
+     */
+    public function run(array $params)
+    {
+        $settings = $this->saveSettings('enabled');
 
-        if( $settings )
-        {
+        if ($settings) {
             $this->enabled();
-        }else{
+        } else {
             $this->alreadyEnabled();
         }
-	}
+    }
 }

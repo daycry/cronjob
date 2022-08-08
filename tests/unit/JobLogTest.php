@@ -40,7 +40,7 @@ final class JobLogTest extends TestCase
      */
     public function testDuration($start, $end, $expected)
     {
-        $job = new Job( 'command', 'foo:bar' );
+        $job = new Job('command', 'foo:bar');
         $start = new Time($start);
         $end   = new Time($end);
 
