@@ -4,6 +4,8 @@ use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
 use Config\Database;
 
+use DateTime;
+
 /**
  * Class TaskRunner
  *
@@ -15,11 +17,10 @@ class JobRunner
 	 * @var Scheduler
 	 */
 	protected $scheduler;
-
 	/**
 	 * @var string
 	 */
-	protected $testTime = null;
+	protected ?Datetime $testTime = null;
 
 	/**
      * Stores aliases of tasks to run
@@ -51,10 +52,9 @@ class JobRunner
 	{
 		$tasks = $this->scheduler->getTasks();
 
-		if( !count( $tasks ) )
-		{
-			return;
-		}
+		if ($tasks === []) {
+            return;
+        }
 
 		foreach( $tasks as $task )
 		{
@@ -124,7 +124,7 @@ class JobRunner
      *
      * @return TaskRunner
      */
-    public function only( Array $tasks = [] ) : JobRunner
+    public function only( array $tasks = [] ) : JobRunner
     {
         $this->only = $tasks;
 
@@ -140,9 +140,9 @@ class JobRunner
 	 *
 	 * @return $this
 	 */
-	public function withTestTime( String $time ) : JobRunner
+	public function withTestTime( string $time ) : JobRunner
 	{
-		$this->testTime = new \DateTime( $time );
+		$this->testTime = new DateTime( $time );
 
 		return $this;
 	}
@@ -176,7 +176,7 @@ class JobRunner
 				if( !is_dir( $config->FilePath ) ){ mkdir( $config->FilePath ); }
 			}
 
-			$fileName = 'jobs_' . date('Y-m-d--H-i-s') . '.json';
+			$fileName = 'jobs_' . date('Y-m-d') . '.json';
 
 			// write the file with json content
 			file_put_contents(

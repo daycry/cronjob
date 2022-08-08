@@ -1,35 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit bootstrap="./vendor/codeigniter4/framework/system/Test/bootstrap.php"
-     backupGlobals="false"
-     colors="true"
-     convertErrorsToExceptions="true"
-     convertNoticesToExceptions="true"
-     convertWarningsToExceptions="true"
-     stopOnError="false"
-     stopOnFailure="false"
-     stopOnIncomplete="false"
-     stopOnSkipped="false">
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		bootstrap="vendor/codeigniter4/framework/system/Test/bootstrap.php"
+		backupGlobals="false"
+		colors="true"
+		convertErrorsToExceptions="true"
+		convertNoticesToExceptions="true"
+		convertWarningsToExceptions="true"
+		stopOnError="false"
+		stopOnFailure="false"
+		stopOnIncomplete="false"
+		stopOnSkipped="false"
+		xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+
+        <coverage includeUncoveredFiles="true" processUncoveredFiles="true">
+		<include>
+			<directory suffix=".php">./src</directory>
+		</include>
+
+		<report>
+			<clover outputFile="build/clover.xml"/>
+			<html outputDirectory="build/html"/>
+			<php outputFile="build/coverage.serialized"/>
+			<text outputFile="php://stdout" showUncoveredFiles="false"/>
+		</report>
+	</coverage>
 
     <testsuites>
         <testsuite name="CronJob">
-            <directory suffix="Test.php">tests</directory>
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
 
     <logging>
-        <log type="coverage-html" target="build/coverage"/>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="junit" target="build/logs/junit.xml"/>
-    </logging>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-    </filter>
+		<testdoxHtml outputFile="build/testdox.html"/>
+		<testdoxText outputFile="build/testdox.txt"/>
+		<junit outputFile="build/logfile.xml"/>
+	</logging>
 
     <php>
-        <env name="XDEBUG_MODE" value="coverage"/>
         <server name="app.baseURL" value="http://localhost/"/>
 
         <!-- Directory containing phpunit.xml -->
@@ -43,19 +51,5 @@
 
         <!-- Directory containing the front controller (index.php) -->
         <const name="WRITEPATH" value="tests/_support/"/>
-
-        <!-- https://getcomposer.org/xdebug -->
-		<env name="COMPOSER_DISABLE_XDEBUG_WARN" value="1"/>
-
-		<!-- Database configuration -->
-		<env name="database.tests.strictOn" value="true"/>
-		<!-- Uncomment to use alternate testing database configuration
-		<env name="database.tests.hostname" value="localhost"/>
-		<env name="database.tests.database" value="tests"/>
-		<env name="database.tests.username" value="tests_user"/>
-		<env name="database.tests.password" value=""/>
-		<env name="database.tests.DBDriver" value="MySQLi"/>
-		<env name="database.tests.DBPrefix" value="tests_"/>
-		-->
     </php>
 </phpunit>

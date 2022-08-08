@@ -1,11 +1,13 @@
 <?php namespace Daycry\CronJob;
 
+use Closure;
+
 class Scheduler
 {
 	/**
 	 * @var array
 	 */
-	protected $tasks = [];
+	protected array $tasks = [];
 
 	/**
 	 * Returns the created Tasks.
@@ -24,7 +26,7 @@ class Scheduler
 	 *
 	 * @param \Closure $func
 	 */
-	public function call(\Closure $func)
+	public function call(Closure $func): Job
 	{
 		return $this->createTask('closure', $func);
 	}
@@ -34,7 +36,7 @@ class Scheduler
 	 *
 	 * @param string $command
 	 */
-	public function command(string $command)
+	public function command(string $command): Job
 	{
 		return $this->createTask('command', $command);
 	}
@@ -44,7 +46,7 @@ class Scheduler
 	 *
 	 * @param string $command
 	 */
-	public function shell(string $command)
+	public function shell(string $command): Job
 	{
 		return $this->createTask('shell', $command);
 	}
@@ -54,7 +56,7 @@ class Scheduler
 	 *
 	 * @param string $name  Name of the event to trigger
 	 */
-	public function event(string $name)
+	public function event(string $name): Job
 	{
 		return $this->createTask('event', $name);
 	}
@@ -64,7 +66,7 @@ class Scheduler
 	 *
 	 * @param string $url
 	 */
-	public function url(string $url)
+	public function url(string $url): Job
 	{
 		return $this->createTask('url', $url);
 	}

@@ -2,6 +2,7 @@
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use CodeIgniter\I18n\Time;
 
 /**
  * Lists currently scheduled tasks.
@@ -53,7 +54,7 @@ class Lister extends CronJobCommand
 
 		foreach( $scheduler->getTasks() as $task )
 		{
-			$cron = \Cron\CronExpression::factory( $task->getExpression() );
+			$cron = new \Cron\CronExpression( $task->getExpression() );
 			$nextRun = $cron->getNextRunDate()->format( 'Y-m-d H:i:s' );
 
 			$tasks[] = [

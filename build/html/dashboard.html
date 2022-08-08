@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for C:\Users\46066917X\Documents\GitHub\cronjob\src</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">C:\Users\46066917X\Documents\GitHub\cronjob\src</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Commands/CronJobCommand.php.html#11">Daycry\CronJob\Commands\CronJobCommand</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Disable.php.html#9">Daycry\CronJob\Commands\Disable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Enable.php.html#9">Daycry\CronJob\Commands\Enable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Lister.php.html#10">Daycry\CronJob\Commands\Lister</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#10">Daycry\CronJob\Commands\Publish</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Run.php.html#11">Daycry\CronJob\Commands\Run</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Config/CronJob.php.html#6">Daycry\CronJob\Config\CronJob</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#5">Daycry\Cronjob\Database\Migrations\CreateCronjobTable</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/CronJobException.php.html#5">Daycry\CronJob\Exceptions\CronJobException</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/CronJobLogModel.php.html#9">Daycry\CronJob\Models\CronJobLogModel</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#24">Daycry\CronJob\Job</a></td><td class="text-right">38%</td></tr>
+       <tr><td><a href="Config/Services.php.html#7">Daycry\CronJob\Config\Services</a></td><td class="text-right">50%</td></tr>
+       <tr><td><a href="JobRunner.php.html#14">Daycry\CronJob\JobRunner</a></td><td class="text-right">73%</td></tr>
+       <tr><td><a href="JobLog.php.html#5">Daycry\CronJob\JobLog</a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Scheduler.php.html#5">Daycry\CronJob\Scheduler</a></td><td class="text-right">77%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Job.php.html#24">Daycry\CronJob\Job</a></td><td class="text-right">181</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#11">Daycry\CronJob\Commands\CronJobCommand</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#10">Daycry\CronJob\Commands\Publish</a></td><td class="text-right">90</td></tr>
+       <tr><td><a href="Commands/Lister.php.html#10">Daycry\CronJob\Commands\Lister</a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="JobRunner.php.html#14">Daycry\CronJob\JobRunner</a></td><td class="text-right">40</td></tr>
+       <tr><td><a href="Commands/Run.php.html#11">Daycry\CronJob\Commands\Run</a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#5">Daycry\Cronjob\Database\Migrations\CreateCronjobTable</a></td><td class="text-right">20</td></tr>
+       <tr><td><a href="JobLog.php.html#5">Daycry\CronJob\JobLog</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Commands/Enable.php.html#9">Daycry\CronJob\Commands\Enable</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Config/Services.php.html#7">Daycry\CronJob\Config\Services</a></td><td class="text-right">6</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Commands/CronJobCommand.php.html#28"><abbr title="Daycry\CronJob\Commands\CronJobCommand::getConfig">getConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#239"><abbr title="Daycry\CronJob\Job::runUrl">runUrl</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#36"><abbr title="Daycry\CronJob\Commands\CronJobCommand::saveSettings">saveSettings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#166"><abbr title="Daycry\CronJob\Job::environments">environments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#180"><abbr title="Daycry\CronJob\Job::runsInEnvironment">runsInEnvironment</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#197"><abbr title="Daycry\CronJob\Job::runCommand">runCommand</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#207"><abbr title="Daycry\CronJob\Job::runShell">runShell</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#229"><abbr title="Daycry\CronJob\Job::runEvent">runEvent</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Job.php.html#253"><abbr title="Daycry\CronJob\Job::buildName">buildName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#44"><abbr title="Daycry\Cronjob\Database\Migrations\CreateCronjobTable::_getConfig">_getConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JobLog.php.html#76"><abbr title="Daycry\CronJob\JobLog::__get">__get</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JobRunner.php.html#127"><abbr title="Daycry\CronJob\JobRunner::only">only</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/CronJobLogModel.php.html#26"><abbr title="Daycry\CronJob\Models\CronJobLogModel::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/CronJobLogModel.php.html#31"><abbr title="Daycry\CronJob\Models\CronJobLogModel::setTableName">setTableName</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Scheduler.php.html#59"><abbr title="Daycry\CronJob\Scheduler::event">event</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Scheduler.php.html#69"><abbr title="Daycry\CronJob\Scheduler::url">url</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/CronJobException.php.html#7"><abbr title="Daycry\CronJob\Exceptions\CronJobException::forInvalidTaskType">forInvalidTaskType</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Exceptions/CronJobException.php.html#12"><abbr title="Daycry\CronJob\Exceptions\CronJobException::forInvalidExpression">forInvalidExpression</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#37"><abbr title="Daycry\Cronjob\Database\Migrations\CreateCronjobTable::down">down</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#38"><abbr title="Daycry\CronJob\Commands\Publish::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#69"><abbr title="Daycry\CronJob\Commands\CronJobCommand::getSettings">getSettings</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#82"><abbr title="Daycry\CronJob\Commands\CronJobCommand::disabled">disabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#89"><abbr title="Daycry\CronJob\Commands\CronJobCommand::enabled">enabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#96"><abbr title="Daycry\CronJob\Commands\CronJobCommand::alreadyEnabled">alreadyEnabled</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#103"><abbr title="Daycry\CronJob\Commands\CronJobCommand::tryToEnable">tryToEnable</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Disable.php.html#37"><abbr title="Daycry\CronJob\Commands\Disable::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Enable.php.html#37"><abbr title="Daycry\CronJob\Commands\Enable::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#7"><abbr title="Daycry\Cronjob\Database\Migrations\CreateCronjobTable::up">up</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Lister.php.html#38"><abbr title="Daycry\CronJob\Commands\Lister::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#49"><abbr title="Daycry\CronJob\Commands\Publish::publishConfig">publishConfig</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#63"><abbr title="Daycry\CronJob\Commands\Publish::determineSourcePath">determineSourcePath</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#81"><abbr title="Daycry\CronJob\Commands\Publish::writeFile">writeFile</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Commands/Run.php.html#46"><abbr title="Daycry\CronJob\Commands\Run::run">run</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Config/CronJob.php.html#68"><abbr title="Daycry\CronJob\Config\CronJob::init">init</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Config/Services.php.html#33"><abbr title="Daycry\CronJob\Config\Services::cronExpression">cronExpression</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="JobRunner.php.html#198"><abbr title="Daycry\CronJob\JobRunner::cliWrite">cliWrite</abbr></a></td><td class="text-right">33%</td></tr>
+       <tr><td><a href="Job.php.html#291"><abbr title="Daycry\CronJob\Job::__get">__get</abbr></a></td><td class="text-right">60%</td></tr>
+       <tr><td><a href="JobRunner.php.html#155"><abbr title="Daycry\CronJob\JobRunner::storePerformanceLogs">storePerformanceLogs</abbr></a></td><td class="text-right">64%</td></tr>
+       <tr><td><a href="Job.php.html#126"><abbr title="Daycry\CronJob\Job::run">run</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="FrequenciesTrait.php.html#47"><abbr title="Daycry\CronJob\FrequenciesTrait::cron">cron</abbr></a></td><td class="text-right">75%</td></tr>
+       <tr><td><a href="Job.php.html#143"><abbr title="Daycry\CronJob\Job::shouldRun">shouldRun</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="Job.php.html#76"><abbr title="Daycry\CronJob\Job::__construct">__construct</abbr></a></td><td class="text-right">80%</td></tr>
+       <tr><td><a href="JobRunner.php.html#51"><abbr title="Daycry\CronJob\JobRunner::run">run</abbr></a></td><td class="text-right">86%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Commands/Lister.php.html#38"><abbr title="Daycry\CronJob\Commands\Lister::run">run</abbr></a></td><td class="text-right">56</td></tr>
+       <tr><td><a href="Commands/Run.php.html#46"><abbr title="Daycry\CronJob\Commands\Run::run">run</abbr></a></td><td class="text-right">30</td></tr>
+       <tr><td><a href="JobRunner.php.html#51"><abbr title="Daycry\CronJob\JobRunner::run">run</abbr></a></td><td class="text-right">15</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#81"><abbr title="Daycry\CronJob\Commands\Publish::writeFile">writeFile</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Job.php.html#253"><abbr title="Daycry\CronJob\Job::buildName">buildName</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#36"><abbr title="Daycry\CronJob\Commands\CronJobCommand::saveSettings">saveSettings</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#63"><abbr title="Daycry\CronJob\Commands\Publish::determineSourcePath">determineSourcePath</abbr></a></td><td class="text-right">12</td></tr>
+       <tr><td><a href="JobRunner.php.html#198"><abbr title="Daycry\CronJob\JobRunner::cliWrite">cliWrite</abbr></a></td><td class="text-right">8</td></tr>
+       <tr><td><a href="JobRunner.php.html#155"><abbr title="Daycry\CronJob\JobRunner::storePerformanceLogs">storePerformanceLogs</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Commands/Publish.php.html#38"><abbr title="Daycry\CronJob\Commands\Publish::run">run</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Config/Services.php.html#33"><abbr title="Daycry\CronJob\Config\Services::cronExpression">cronExpression</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Commands/CronJobCommand.php.html#69"><abbr title="Daycry\CronJob\Commands\CronJobCommand::getSettings">getSettings</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Job.php.html#180"><abbr title="Daycry\CronJob\Job::runsInEnvironment">runsInEnvironment</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Commands/Enable.php.html#37"><abbr title="Daycry\CronJob\Commands\Enable::run">run</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="JobLog.php.html#76"><abbr title="Daycry\CronJob\JobLog::__get">__get</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Database/Migrations/2021-10-21-103415_create_cronjob_tables.php.html#44"><abbr title="Daycry\Cronjob\Database\Migrations\CreateCronjobTable::_getConfig">_getConfig</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Job.php.html#291"><abbr title="Daycry\CronJob\Job::__get">__get</abbr></a></td><td class="text-right">5</td></tr>
+       <tr><td><a href="Job.php.html#143"><abbr title="Daycry\CronJob\Job::shouldRun">shouldRun</abbr></a></td><td class="text-right">4</td></tr>
+       <tr><td><a href="FrequenciesTrait.php.html#47"><abbr title="Daycry\CronJob\FrequenciesTrait::cron">cron</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Job.php.html#126"><abbr title="Daycry\CronJob\Job::run">run</abbr></a></td><td class="text-right">2</td></tr>
+       <tr><td><a href="Job.php.html#76"><abbr title="Daycry\CronJob\Job::__construct">__construct</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 9.2.10</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.27</a> and <a href="https://phpunit.de/">PHPUnit 9.5.13</a> at Mon Aug 8 5:24:46 CDT 2022.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([10,0,0,0,1,0,1,0,3,0,1,0], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([35,0,0,0,1,0,0,2,2,3,0,43], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,10,"<a href=\"Commands\/CronJobCommand.php.html#11\">Daycry\\CronJob\\Commands\\CronJobCommand<\/a>"],[0,1,"<a href=\"Commands\/Disable.php.html#9\">Daycry\\CronJob\\Commands\\Disable<\/a>"],[0,2,"<a href=\"Commands\/Enable.php.html#9\">Daycry\\CronJob\\Commands\\Enable<\/a>"],[0,7,"<a href=\"Commands\/Lister.php.html#10\">Daycry\\CronJob\\Commands\\Lister<\/a>"],[0,9,"<a href=\"Commands\/Publish.php.html#10\">Daycry\\CronJob\\Commands\\Publish<\/a>"],[0,5,"<a href=\"Commands\/Run.php.html#11\">Daycry\\CronJob\\Commands\\Run<\/a>"],[0,1,"<a href=\"Config\/CronJob.php.html#6\">Daycry\\CronJob\\Config\\CronJob<\/a>"],[50,4,"<a href=\"Config\/Services.php.html#7\">Daycry\\CronJob\\Config\\Services<\/a>"],[0,4,"<a href=\"Database\/Migrations\/2021-10-21-103415_create_cronjob_tables.php.html#5\">Daycry\\Cronjob\\Database\\Migrations\\CreateCronjobTable<\/a>"],[0,2,"<a href=\"Exceptions\/CronJobException.php.html#5\">Daycry\\CronJob\\Exceptions\\CronJobException<\/a>"],[38.775510204081634,26,"<a href=\"Job.php.html#24\">Daycry\\CronJob\\Job<\/a>"],[75,6,"<a href=\"JobLog.php.html#5\">Daycry\\CronJob\\JobLog<\/a>"],[73.84615384615385,27,"<a href=\"JobRunner.php.html#14\">Daycry\\CronJob\\JobRunner<\/a>"],[0,2,"<a href=\"Models\/CronJobLogModel.php.html#9\">Daycry\\CronJob\\Models\\CronJobLogModel<\/a>"],[77.77777777777779,7,"<a href=\"Scheduler.php.html#5\">Daycry\\CronJob\\Scheduler<\/a>"],[99.24242424242425,46,"<a href=\"FrequenciesTrait.php.html#13\">Daycry\\CronJob\\FrequenciesTrait<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Commands\/CronJobCommand.php.html#28\">Daycry\\CronJob\\Commands\\CronJobCommand::getConfig<\/a>"],[0,3,"<a href=\"Commands\/CronJobCommand.php.html#36\">Daycry\\CronJob\\Commands\\CronJobCommand::saveSettings<\/a>"],[0,2,"<a href=\"Commands\/CronJobCommand.php.html#69\">Daycry\\CronJob\\Commands\\CronJobCommand::getSettings<\/a>"],[0,1,"<a href=\"Commands\/CronJobCommand.php.html#82\">Daycry\\CronJob\\Commands\\CronJobCommand::disabled<\/a>"],[0,1,"<a href=\"Commands\/CronJobCommand.php.html#89\">Daycry\\CronJob\\Commands\\CronJobCommand::enabled<\/a>"],[0,1,"<a href=\"Commands\/CronJobCommand.php.html#96\">Daycry\\CronJob\\Commands\\CronJobCommand::alreadyEnabled<\/a>"],[0,1,"<a href=\"Commands\/CronJobCommand.php.html#103\">Daycry\\CronJob\\Commands\\CronJobCommand::tryToEnable<\/a>"],[0,1,"<a href=\"Commands\/Disable.php.html#37\">Daycry\\CronJob\\Commands\\Disable::run<\/a>"],[0,2,"<a href=\"Commands\/Enable.php.html#37\">Daycry\\CronJob\\Commands\\Enable::run<\/a>"],[0,7,"<a href=\"Commands\/Lister.php.html#38\">Daycry\\CronJob\\Commands\\Lister::run<\/a>"],[0,2,"<a href=\"Commands\/Publish.php.html#38\">Daycry\\CronJob\\Commands\\Publish::run<\/a>"],[0,1,"<a href=\"Commands\/Publish.php.html#49\">Daycry\\CronJob\\Commands\\Publish::publishConfig<\/a>"],[0,3,"<a href=\"Commands\/Publish.php.html#63\">Daycry\\CronJob\\Commands\\Publish::determineSourcePath<\/a>"],[0,3,"<a href=\"Commands\/Publish.php.html#81\">Daycry\\CronJob\\Commands\\Publish::writeFile<\/a>"],[0,5,"<a href=\"Commands\/Run.php.html#46\">Daycry\\CronJob\\Commands\\Run::run<\/a>"],[0,1,"<a href=\"Config\/CronJob.php.html#68\">Daycry\\CronJob\\Config\\CronJob::init<\/a>"],[100,2,"<a href=\"Config\/Services.php.html#16\">Daycry\\CronJob\\Config\\Services::scheduler<\/a>"],[0,2,"<a href=\"Config\/Services.php.html#33\">Daycry\\CronJob\\Config\\Services::cronExpression<\/a>"],[0,1,"<a href=\"Database\/Migrations\/2021-10-21-103415_create_cronjob_tables.php.html#7\">Daycry\\Cronjob\\Database\\Migrations\\CreateCronjobTable::up<\/a>"],[0,1,"<a href=\"Database\/Migrations\/2021-10-21-103415_create_cronjob_tables.php.html#37\">Daycry\\Cronjob\\Database\\Migrations\\CreateCronjobTable::down<\/a>"],[0,2,"<a href=\"Database\/Migrations\/2021-10-21-103415_create_cronjob_tables.php.html#44\">Daycry\\Cronjob\\Database\\Migrations\\CreateCronjobTable::_getConfig<\/a>"],[0,1,"<a href=\"Exceptions\/CronJobException.php.html#7\">Daycry\\CronJob\\Exceptions\\CronJobException::forInvalidTaskType<\/a>"],[0,1,"<a href=\"Exceptions\/CronJobException.php.html#12\">Daycry\\CronJob\\Exceptions\\CronJobException::forInvalidExpression<\/a>"],[80,2,"<a href=\"Job.php.html#76\">Daycry\\CronJob\\Job::__construct<\/a>"],[100,1,"<a href=\"Job.php.html#94\">Daycry\\CronJob\\Job::named<\/a>"],[100,1,"<a href=\"Job.php.html#106\">Daycry\\CronJob\\Job::getType<\/a>"],[100,1,"<a href=\"Job.php.html#116\">Daycry\\CronJob\\Job::getAction<\/a>"],[75,2,"<a href=\"Job.php.html#126\">Daycry\\CronJob\\Job::run<\/a>"],[80,4,"<a href=\"Job.php.html#143\">Daycry\\CronJob\\Job::shouldRun<\/a>"],[0,1,"<a href=\"Job.php.html#166\">Daycry\\CronJob\\Job::environments<\/a>"],[0,2,"<a href=\"Job.php.html#180\">Daycry\\CronJob\\Job::runsInEnvironment<\/a>"],[0,1,"<a href=\"Job.php.html#197\">Daycry\\CronJob\\Job::runCommand<\/a>"],[0,1,"<a href=\"Job.php.html#207\">Daycry\\CronJob\\Job::runShell<\/a>"],[100,1,"<a href=\"Job.php.html#219\">Daycry\\CronJob\\Job::runClosure<\/a>"],[0,1,"<a href=\"Job.php.html#229\">Daycry\\CronJob\\Job::runEvent<\/a>"],[0,1,"<a href=\"Job.php.html#239\">Daycry\\CronJob\\Job::runUrl<\/a>"],[0,3,"<a href=\"Job.php.html#253\">Daycry\\CronJob\\Job::buildName<\/a>"],[60,4,"<a href=\"Job.php.html#291\">Daycry\\CronJob\\Job::__get<\/a>"],[100,3,"<a href=\"JobLog.php.html#39\">Daycry\\CronJob\\JobLog::__construct<\/a>"],[100,1,"<a href=\"JobLog.php.html#56\">Daycry\\CronJob\\JobLog::duration<\/a>"],[0,2,"<a href=\"JobLog.php.html#76\">Daycry\\CronJob\\JobLog::__get<\/a>"],[100,1,"<a href=\"JobRunner.php.html#41\">Daycry\\CronJob\\JobRunner::__construct<\/a>"],[86.11111111111111,15,"<a href=\"JobRunner.php.html#51\">Daycry\\CronJob\\JobRunner::run<\/a>"],[0,1,"<a href=\"JobRunner.php.html#127\">Daycry\\CronJob\\JobRunner::only<\/a>"],[100,1,"<a href=\"JobRunner.php.html#143\">Daycry\\CronJob\\JobRunner::withTestTime<\/a>"],[64.70588235294117,5,"<a href=\"JobRunner.php.html#155\">Daycry\\CronJob\\JobRunner::storePerformanceLogs<\/a>"],[33.33333333333333,4,"<a href=\"JobRunner.php.html#198\">Daycry\\CronJob\\JobRunner::cliWrite<\/a>"],[0,1,"<a href=\"Models\/CronJobLogModel.php.html#26\">Daycry\\CronJob\\Models\\CronJobLogModel::__construct<\/a>"],[0,1,"<a href=\"Models\/CronJobLogModel.php.html#31\">Daycry\\CronJob\\Models\\CronJobLogModel::setTableName<\/a>"],[100,1,"<a href=\"Scheduler.php.html#17\">Daycry\\CronJob\\Scheduler::getTasks<\/a>"],[100,1,"<a href=\"Scheduler.php.html#29\">Daycry\\CronJob\\Scheduler::call<\/a>"],[100,1,"<a href=\"Scheduler.php.html#39\">Daycry\\CronJob\\Scheduler::command<\/a>"],[100,1,"<a href=\"Scheduler.php.html#49\">Daycry\\CronJob\\Scheduler::shell<\/a>"],[0,1,"<a href=\"Scheduler.php.html#59\">Daycry\\CronJob\\Scheduler::event<\/a>"],[0,1,"<a href=\"Scheduler.php.html#69\">Daycry\\CronJob\\Scheduler::url<\/a>"],[100,1,"<a href=\"Scheduler.php.html#82\">Daycry\\CronJob\\Scheduler::createTask<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#35\">Daycry\\CronJob\\FrequenciesTrait::getExpression<\/a>"],[75,2,"<a href=\"FrequenciesTrait.php.html#47\">Daycry\\CronJob\\FrequenciesTrait::cron<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#67\">Daycry\\CronJob\\FrequenciesTrait::daily<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#90\">Daycry\\CronJob\\FrequenciesTrait::hourly<\/a>"],[100,3,"<a href=\"FrequenciesTrait.php.html#112\">Daycry\\CronJob\\FrequenciesTrait::everyHour<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#134\">Daycry\\CronJob\\FrequenciesTrait::betweenHours<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#150\">Daycry\\CronJob\\FrequenciesTrait::hours<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#170\">Daycry\\CronJob\\FrequenciesTrait::everyMinute<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#187\">Daycry\\CronJob\\FrequenciesTrait::everyFiveMinutes<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#197\">Daycry\\CronJob\\FrequenciesTrait::everyFifteenMinutes<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#207\">Daycry\\CronJob\\FrequenciesTrait::everyThirtyMinutes<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#220\">Daycry\\CronJob\\FrequenciesTrait::betweenMinutes<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#237\">Daycry\\CronJob\\FrequenciesTrait::minutes<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#257\">Daycry\\CronJob\\FrequenciesTrait::days<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#277\">Daycry\\CronJob\\FrequenciesTrait::sundays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#289\">Daycry\\CronJob\\FrequenciesTrait::mondays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#301\">Daycry\\CronJob\\FrequenciesTrait::tuesdays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#313\">Daycry\\CronJob\\FrequenciesTrait::wednesdays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#325\">Daycry\\CronJob\\FrequenciesTrait::thursdays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#337\">Daycry\\CronJob\\FrequenciesTrait::fridays<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#349\">Daycry\\CronJob\\FrequenciesTrait::saturdays<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#361\">Daycry\\CronJob\\FrequenciesTrait::monthly<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#387\">Daycry\\CronJob\\FrequenciesTrait::daysOfMonth<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#406\">Daycry\\CronJob\\FrequenciesTrait::months<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#425\">Daycry\\CronJob\\FrequenciesTrait::quarterly<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#453\">Daycry\\CronJob\\FrequenciesTrait::yearly<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#481\">Daycry\\CronJob\\FrequenciesTrait::weekdays<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#508\">Daycry\\CronJob\\FrequenciesTrait::weekends<\/a>"],[100,2,"<a href=\"FrequenciesTrait.php.html#537\">Daycry\\CronJob\\FrequenciesTrait::setDayOfWeek<\/a>"],[100,1,"<a href=\"FrequenciesTrait.php.html#562\">Daycry\\CronJob\\FrequenciesTrait::parseTime<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

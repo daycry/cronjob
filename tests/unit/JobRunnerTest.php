@@ -45,8 +45,8 @@ final class JobRunnerTest extends TestCase
 
         $runner = $this->getRunner([$task1, $task2]);
 
-        $time = ( new \DateTime( 'now' ) )->setTime( 00, 00 );
-        $runner->withTestTime( $time->format('Y-m-d H:i:s') )->run();
+        $time = ( new \DateTime( 'now' ) )->setTime( 00, 00 )->format('Y-m-d H:i:s');
+        $runner->withTestTime( $time )->run();
 
         // Only task 2 should have ran
         $this->assertSame('Task 2', $this->getActualOutput());
@@ -54,27 +54,7 @@ final class JobRunnerTest extends TestCase
         ob_end_clean();
 
         $this->assertTrue( is_dir( $config->FilePath ) );
-        $this->assertTrue( is_file( $config->FilePath . 'jobs_' . date('Y-m-d--H-i-s') . '.json' ) );
-        // Should have logged the stats
-        /*$expected = [
-            [
-                'task'     => 'task2',
-                'type'     => 'closure',
-                'start'    => date('Y-m-d H:i:s'),
-                'duration' => '00:00',
-                'output'   => null,
-                'error'    => serialize(null),
-            ],
-        ];
-
-        $this->seeInDatabase($this->config->tableName, [
-            'name' => 'task1',
-            'ouput' => serialize($expected),
-        ]);
-
-        $this->dontSeeInDatabase($this->config->tableName, [
-            'key' => 'log-task1',
-        ]);*/
+        $this->assertTrue( is_file( $config->FilePath . 'jobs_' . date('Y-m-d') . '.json' ) );
     }
 
     protected function getRunner(array $tasks = [])

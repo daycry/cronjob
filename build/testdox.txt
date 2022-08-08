@@ -1,0 +1,60 @@
+Frequencies Trait
+ [x] Set cron
+ [x] Daily
+ [x] Daily with time
+ [x] Hourly
+ [x] Hourly with minutes
+ [x] Every five minutes
+ [x] Every fifteen minutes
+ [x] Every thirty minutes
+ [x] Every sunday
+ [x] Every sunday with time
+ [x] Every monday
+ [x] Every monday with time
+ [x] Every tuesday
+ [x] Every tuesday with time
+ [x] Every wednesday
+ [x] Every wednesday with time
+ [x] Every thursday
+ [x] Every thursday with time
+ [x] Every friday
+ [x] Every friday with time
+ [x] Every saturday
+ [x] Every saturday with time
+ [x] Monthly
+ [x] Monthly with time
+ [x] Yearly
+ [x] Yearly with time
+ [x] Quarterly
+ [x] Quarterly with time
+ [x] Weekdays
+ [x] Weekdays with time
+ [x] Weekends
+ [x] Weekends with time
+ [x] Every hour
+ [x] Every hour with hour
+ [x] Every hour with hour and minutes
+ [x] Between hours
+ [x] Hours
+ [x] Every minute
+ [x] Every minute with parameter
+ [x] Between minutes
+ [x] Minutes
+ [x] Days
+ [x] Days of month
+ [x] Months
+
+Job Log
+ [x] Duration with data set #0
+ [x] Duration with data set #1
+ [x] Duration with data set #2
+
+Job Runner
+ [x] Run with no tasks
+ [x] Run with success
+
+Scheduler
+ [x] Call saves task
+ [x] Command saves task
+ [x] Shell saves task
+

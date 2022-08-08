@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="" tests="52" assertions="59" errors="0" warnings="0" failures="0" skipped="0" time="0.446296">
+    <testsuite name="CronJob" tests="52" assertions="59" errors="0" warnings="0" failures="0" skipped="0" time="0.446296">
+      <testsuite name="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" tests="44" assertions="44" errors="0" warnings="0" failures="0" skipped="0" time="0.348662">
+        <testcase name="testSetCron" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="21" assertions="1" time="0.089957"/>
+        <testcase name="testDaily" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="30" assertions="1" time="0.006168"/>
+        <testcase name="testDailyWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="37" assertions="1" time="0.005952"/>
+        <testcase name="testHourly" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="44" assertions="1" time="0.006049"/>
+        <testcase name="testHourlyWithMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="51" assertions="1" time="0.006345"/>
+        <testcase name="testEveryFiveMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="58" assertions="1" time="0.006068"/>
+        <testcase name="testEveryFifteenMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="65" assertions="1" time="0.005696"/>
+        <testcase name="testEveryThirtyMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="72" assertions="1" time="0.006320"/>
+        <testcase name="testEverySunday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="79" assertions="1" time="0.005706"/>
+        <testcase name="testEverySundayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="86" assertions="1" time="0.006171"/>
+        <testcase name="testEveryMonday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="93" assertions="1" time="0.005702"/>
+        <testcase name="testEveryMondayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="100" assertions="1" time="0.005807"/>
+        <testcase name="testEveryTuesday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="107" assertions="1" time="0.005687"/>
+        <testcase name="testEveryTuesdayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="114" assertions="1" time="0.005687"/>
+        <testcase name="testEveryWednesday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="121" assertions="1" time="0.006019"/>
+        <testcase name="testEveryWednesdayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="128" assertions="1" time="0.005688"/>
+        <testcase name="testEveryThursday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="135" assertions="1" time="0.005910"/>
+        <testcase name="testEveryThursdayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="142" assertions="1" time="0.005808"/>
+        <testcase name="testEveryFriday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="149" assertions="1" time="0.005962"/>
+        <testcase name="testEveryFridayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="156" assertions="1" time="0.005821"/>
+        <testcase name="testEverySaturday" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="163" assertions="1" time="0.005904"/>
+        <testcase name="testEverySaturdayWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="170" assertions="1" time="0.005866"/>
+        <testcase name="testMonthly" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="177" assertions="1" time="0.006306"/>
+        <testcase name="testMonthlyWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="184" assertions="1" time="0.007818"/>
+        <testcase name="testYearly" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="191" assertions="1" time="0.006141"/>
+        <testcase name="testYearlyWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="198" assertions="1" time="0.006649"/>
+        <testcase name="testQuarterly" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="205" assertions="1" time="0.008923"/>
+        <testcase name="testQuarterlyWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="212" assertions="1" time="0.006311"/>
+        <testcase name="testWeekdays" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="219" assertions="1" time="0.005668"/>
+        <testcase name="testWeekdaysWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="226" assertions="1" time="0.006072"/>
+        <testcase name="testWeekends" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="233" assertions="1" time="0.005732"/>
+        <testcase name="testWeekendsWithTime" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="240" assertions="1" time="0.006075"/>
+        <testcase name="testEveryHour" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="247" assertions="1" time="0.005725"/>
+        <testcase name="testEveryHourWithHour" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="254" assertions="1" time="0.005635"/>
+        <testcase name="testEveryHourWithHourAndMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="261" assertions="1" time="0.005808"/>
+        <testcase name="testBetweenHours" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="268" assertions="1" time="0.005562"/>
+        <testcase name="testHours" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="275" assertions="1" time="0.005902"/>
+        <testcase name="testEveryMinute" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="282" assertions="1" time="0.005599"/>
+        <testcase name="testEveryMinuteWithParameter" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="289" assertions="1" time="0.005698"/>
+        <testcase name="testBetweenMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="296" assertions="1" time="0.005631"/>
+        <testcase name="testMinutes" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="303" assertions="1" time="0.005816"/>
+        <testcase name="testDays" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="310" assertions="1" time="0.005758"/>
+        <testcase name="testDaysOfMonth" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="317" assertions="1" time="0.005782"/>
+        <testcase name="testMonths" class="FrequenciesTraitTest" classname="FrequenciesTraitTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\FrequenciesTraitTest.php" line="324" assertions="1" time="0.005758"/>
+      </testsuite>
+      <testsuite name="JobLogTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobLogTest.php" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.023069">
+        <testsuite name="JobLogTest::testDuration" tests="3" assertions="3" errors="0" warnings="0" failures="0" skipped="0" time="0.023069">
+          <testcase name="testDuration with data set #0" class="JobLogTest" classname="JobLogTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobLogTest.php" line="41" assertions="1" time="0.009444"/>
+          <testcase name="testDuration with data set #1" class="JobLogTest" classname="JobLogTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobLogTest.php" line="41" assertions="1" time="0.006343"/>
+          <testcase name="testDuration with data set #2" class="JobLogTest" classname="JobLogTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobLogTest.php" line="41" assertions="1" time="0.007282"/>
+        </testsuite>
+      </testsuite>
+      <testsuite name="JobRunnerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobRunnerTest.php" tests="2" assertions="4" errors="0" warnings="0" failures="0" skipped="0" time="0.056489">
+        <testcase name="testRunWithNoTasks" class="JobRunnerTest" classname="JobRunnerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobRunnerTest.php" line="28" assertions="1" time="0.037152"/>
+        <testcase name="testRunWithSuccess" class="JobRunnerTest" classname="JobRunnerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\JobRunnerTest.php" line="33" assertions="3" time="0.019337"/>
+      </testsuite>
+      <testsuite name="SchedulerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\SchedulerTest.php" tests="3" assertions="8" errors="0" warnings="0" failures="0" skipped="0" time="0.018074">
+        <testcase name="testCallSavesTask" class="SchedulerTest" classname="SchedulerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\SchedulerTest.php" line="24" assertions="4" time="0.006179"/>
+        <testcase name="testCommandSavesTask" class="SchedulerTest" classname="SchedulerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\SchedulerTest.php" line="38" assertions="2" time="0.005689"/>
+        <testcase name="testShellSavesTask" class="SchedulerTest" classname="SchedulerTest" file="C:\Users\46066917X\Documents\GitHub\cronjob\tests\unit\SchedulerTest.php" line="46" assertions="2" time="0.006206"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

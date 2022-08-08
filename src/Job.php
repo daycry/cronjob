@@ -1,8 +1,13 @@
 <?php namespace Daycry\CronJob;
 
 use CodeIgniter\Events\Events;
+use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Exceptions\CronJobException;
 use Config\Services;
+use InvalidArgumentException;
+use ReflectionException;
+use ReflectionFunction;
+use SplFileObject;
 
 /**
  * Class Job
@@ -38,7 +43,7 @@ class Job
 	 *
 	 * @var string
 	 */
-	protected $type;
+	protected string $type;
 
 	/**
 	 * The actual content that should be run.
@@ -53,14 +58,14 @@ class Job
 	 *
 	 * @var array
 	 */
-	protected $environments = [];
+	protected array $environments = [];
 
 	/**
 	 * The alias this task can be run by
 	 *
 	 * @var string
 	 */
-	protected $name;
+	protected string $name;
 
 	/**
 	 * @param mixed  $action
@@ -68,7 +73,7 @@ class Job
 	 *
 	 * @throws CronJobException
 	 */
-	public function __construct( String $type, $action )
+	public function __construct( string $type, $action )
 	{
 		if( !in_array( $type, $this->types, true ) )
 		{
@@ -86,7 +91,7 @@ class Job
 	 *
 	 * @return $this
 	 */
-	public function named( String $name ) : Job
+	public function named( string $name ) : Job
 	{
 		$this->name = $name;
 
@@ -98,7 +103,7 @@ class Job
 	 *
 	 * @return string
 	 */
-	public function getType(): String
+	public function getType(): string
 	{
 		return $this->type;
 	}
@@ -143,7 +148,7 @@ class Job
 			return false;
 		}
 
-		$cron = \Cron\CronExpression::factory( $this->getExpression() );
+		$cron = new \Cron\CronExpression( $this->getExpression() );
 
 		$testTime = ( $testTime ) ? $testTime : 'now';
 		
@@ -189,7 +194,7 @@ class Job
 	 * @return string Buffered output from the Command
 	 * @throws \InvalidArgumentException
 	 */
-	protected function runCommand() : String
+	protected function runCommand() : string
 	{
 		return command( $this->getAction() );
 	}
@@ -199,7 +204,7 @@ class Job
 	 *
 	 * @return array Lines of output from exec
 	 */
-	protected function runShell(): Array
+	protected function runShell(): array
 	{
 		exec( $this->getAction(), $output );
 
@@ -221,7 +226,7 @@ class Job
 	 *
 	 * @return boolean Result of the trigger
 	 */
-	protected function runEvent() : Bool
+	protected function runEvent() : bool
 	{
 		return Events::trigger( $this->getAction() );
 	}
@@ -251,8 +256,8 @@ class Job
         // Closures cannot be serialized so do it the hard way
         if( $this->getType() === 'closure' )
 		{
-            $ref  = new \ReflectionFunction( $this->getAction() );
-            $file = new \SplFileObject( $ref->getFileName() );
+            $ref  = new ReflectionFunction( $this->getAction() );
+            $file = new SplFileObject( $ref->getFileName() );
             $file->seek( $ref->getStartLine() - 1 );
             $content = '';
 
