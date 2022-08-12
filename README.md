@@ -7,7 +7,7 @@
 [![Downloads](https://poser.pugx.org/daycry/cronjob/downloads)](https://packagist.org/packages/daycry/cronjob)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
 [![GitHub stars](https://img.shields.io/github/stars/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
-[![GitHub license](https://img.shields.io/github/license/daycry/cronjob)](https://github.com/daycry/cronjob/blob/main/LICENSE)
+[![GitHub license](https://img.shields.io/github/license/daycry/cronjob)](https://github.com/daycry/cronjob/blob/master/LICENSE)
 
 This makes scheduling cronjobs in your application simple, flexible, and powerful. Instead of setting up 
 multiple cronjobs on each server your application runs on, you only need to setup a single cronjob to 
