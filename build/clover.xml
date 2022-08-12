@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1659954632">
-  <project timestamp="1659954632">
+<coverage generated="1660301601">
+  <project timestamp="1660301601">
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\CronJobCommand.php">
       <class name="Daycry\CronJob\Commands\CronJobCommand" namespace="global">
         <metrics complexity="10" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="37" coveredelements="0"/>
@@ -151,7 +151,7 @@
       <class name="Daycry\CronJob\Config\CronJob" namespace="global">
         <metrics complexity="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </class>
-      <metrics loc="79" ncloc="30" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+      <metrics loc="90" ncloc="30" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Config\Services.php">
       <class name="Daycry\CronJob\Config\Services" namespace="global">
@@ -439,7 +439,7 @@
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\JobLog.php">
       <class name="Daycry\CronJob\JobLog" namespace="global">
-        <metrics complexity="6" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="8" elements="13" coveredelements="10"/>
+        <metrics complexity="6" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
       </class>
       <line num="41" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="4"/>
       <line num="43" type="stmt" count="4"/>
@@ -451,18 +451,18 @@
       <line num="61" type="stmt" count="4"/>
       <line num="64" type="stmt" count="4"/>
       <line num="66" type="stmt" count="4"/>
-      <line num="76" type="method" name="__get" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="78" type="stmt" count="0"/>
-      <line num="79" type="stmt" count="0"/>
-      <metrics loc="83" ncloc="47" classes="1" methods="3" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="8" elements="13" coveredelements="10"/>
+      <line num="76" type="method" name="__get" visibility="public" complexity="2" crap="2" count="1"/>
+      <line num="78" type="stmt" count="1"/>
+      <line num="79" type="stmt" count="1"/>
+      <metrics loc="83" ncloc="47" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\JobRunner.php">
       <class name="Daycry\CronJob\JobRunner" namespace="global">
-        <metrics complexity="27" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="42" elements="65" coveredelements="44"/>
+        <metrics complexity="31" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="46" elements="71" coveredelements="48"/>
       </class>
       <line num="43" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
       <line num="45" type="stmt" count="2"/>
-      <line num="53" type="method" name="run" visibility="public" complexity="15" crap="15.78" count="2"/>
+      <line num="53" type="method" name="run" visibility="public" complexity="12" crap="13.48" count="2"/>
       <line num="55" type="stmt" count="2"/>
       <line num="57" type="stmt" count="2"/>
       <line num="58" type="stmt" count="1"/>
@@ -484,58 +484,66 @@
       <line num="87" type="stmt" count="0"/>
       <line num="88" type="stmt" count="0"/>
       <line num="89" type="stmt" count="1"/>
-      <line num="90" type="stmt" count="1"/>
-      <line num="92" type="stmt" count="1"/>
-      <line num="95" type="stmt" count="1"/>
-      <line num="96" type="stmt" count="1"/>
-      <line num="97" type="stmt" count="1"/>
-      <line num="98" type="stmt" count="1"/>
-      <line num="99" type="stmt" count="1"/>
-      <line num="102" type="stmt" count="1"/>
-      <line num="103" type="stmt" count="1"/>
-      <line num="104" type="stmt" count="1"/>
-      <line num="105" type="stmt" count="1"/>
-      <line num="108" type="stmt" count="1"/>
-      <line num="120" type="method" name="only" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="122" type="stmt" count="0"/>
-      <line num="124" type="stmt" count="0"/>
-      <line num="136" type="method" name="withTestTime" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="138" type="stmt" count="1"/>
-      <line num="140" type="stmt" count="1"/>
-      <line num="148" type="method" name="storePerformanceLogs" visibility="protected" complexity="5" crap="7.09" count="1"/>
+      <line num="91" type="stmt" count="1"/>
+      <line num="93" type="stmt" count="1"/>
+      <line num="105" type="method" name="only" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="107" type="stmt" count="0"/>
+      <line num="109" type="stmt" count="0"/>
+      <line num="121" type="method" name="withTestTime" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="123" type="stmt" count="1"/>
+      <line num="125" type="stmt" count="1"/>
+      <line num="132" type="method" name="storePerformanceLog" visibility="protected" complexity="12" crap="15.20" count="1"/>
+      <line num="134" type="stmt" count="1"/>
+      <line num="136" type="stmt" count="1"/>
+      <line num="137" type="stmt" count="0"/>
+      <line num="141" type="stmt" count="1"/>
+      <line num="145" type="stmt" count="1"/>
+      <line num="146" type="stmt" count="1"/>
+      <line num="147" type="stmt" count="1"/>
+      <line num="148" type="stmt" count="1"/>
+      <line num="149" type="stmt" count="1"/>
       <line num="150" type="stmt" count="1"/>
+      <line num="151" type="stmt" count="1"/>
       <line num="152" type="stmt" count="1"/>
-      <line num="153" type="stmt" count="0"/>
-      <line num="156" type="stmt" count="1"/>
-      <line num="157" type="stmt" count="0"/>
+      <line num="153" type="stmt" count="1"/>
+      <line num="157" type="stmt" count="1"/>
       <line num="158" type="stmt" count="0"/>
       <line num="159" type="stmt" count="0"/>
-      <line num="160" type="stmt" count="0"/>
-      <line num="164" type="stmt" count="1"/>
+      <line num="161" type="stmt" count="0"/>
+      <line num="164" type="stmt" count="0"/>
       <line num="165" type="stmt" count="0"/>
-      <line num="166" type="stmt" count="0"/>
-      <line num="170" type="stmt" count="1"/>
+      <line num="168" type="stmt" count="0"/>
+      <line num="172" type="stmt" count="1"/>
       <line num="173" type="stmt" count="1"/>
-      <line num="174" type="stmt" count="1"/>
       <line num="175" type="stmt" count="1"/>
-      <line num="176" type="stmt" count="1"/>
-      <line num="189" type="method" name="cliWrite" visibility="protected" complexity="4" crap="7.46" count="1"/>
-      <line num="192" type="stmt" count="1"/>
+      <line num="176" type="stmt" count="0"/>
+      <line num="179" type="stmt" count="1"/>
+      <line num="180" type="stmt" count="1"/>
+      <line num="182" type="stmt" count="0"/>
+      <line num="186" type="stmt" count="1"/>
+      <line num="187" type="stmt" count="1"/>
+      <line num="191" type="stmt" count="1"/>
       <line num="193" type="stmt" count="1"/>
-      <line num="196" type="stmt" count="0"/>
-      <line num="197" type="stmt" count="0"/>
-      <line num="200" type="stmt" count="0"/>
-      <metrics loc="203" ncloc="144" classes="1" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="59" coveredstatements="42" elements="65" coveredelements="44"/>
+      <line num="195" type="stmt" count="1"/>
+      <line num="209" type="method" name="cliWrite" visibility="protected" complexity="4" crap="7.46" count="1"/>
+      <line num="212" type="stmt" count="1"/>
+      <line num="213" type="stmt" count="1"/>
+      <line num="216" type="stmt" count="0"/>
+      <line num="217" type="stmt" count="0"/>
+      <line num="220" type="stmt" count="0"/>
+      <metrics loc="223" ncloc="164" classes="1" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="46" elements="71" coveredelements="48"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Models\CronJobLogModel.php">
       <class name="Daycry\CronJob\Models\CronJobLogModel" namespace="global">
-        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+        <metrics complexity="2" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="6" coveredelements="0"/>
       </class>
-      <line num="26" type="method" name="__construct" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="28" type="stmt" count="0"/>
-      <line num="31" type="method" name="setTableName" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="33" type="stmt" count="0"/>
-      <metrics loc="36" ncloc="36" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+      <line num="27" type="method" name="__construct" visibility="public" complexity="2" crap="6" count="0"/>
+      <line num="29" type="stmt" count="0"/>
+      <line num="30" type="stmt" count="0"/>
+      <line num="31" type="stmt" count="0"/>
+      <line num="34" type="stmt" count="0"/>
+      <line num="36" type="stmt" count="0"/>
+      <metrics loc="39" ncloc="39" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="0" elements="6" coveredelements="0"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Scheduler.php">
       <class name="Daycry\CronJob\Scheduler" namespace="global">
@@ -563,6 +571,6 @@
       <line num="4" type="stmt" count="0"/>
       <metrics loc="7" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="1" coveredelements="0"/>
     </file>
-    <metrics files="17" loc="1966" ncloc="1262" classes="15" methods="85" coveredmethods="39" conditionals="0" coveredconditionals="0" statements="378" coveredstatements="209" elements="463" coveredelements="248"/>
+    <metrics files="17" loc="2000" ncloc="1285" classes="15" methods="84" coveredmethods="40" conditionals="0" coveredconditionals="0" statements="387" coveredstatements="215" elements="471" coveredelements="255"/>
   </project>
 </coverage>

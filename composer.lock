@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a4b06282865273ea1ad5b53315c1da57",
+    "content-hash": "f7b5f2f582546ca18f64d8bbf3d528c8",
     "packages": [
         {
             "name": "dragonmantank/cron-expression",
@@ -129,16 +129,16 @@
     "packages-dev": [
         {
             "name": "codeigniter4/framework",
-            "version": "v4.1.2",
+            "version": "v4.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeigniter4/framework.git",
-                "reference": "0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4"
+                "reference": "c7549f2efce9b7ab9d3c79987c5f3934cd1ea47b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4",
-                "reference": "0bf61820417a3e4a6e7f6c725c5cccf285a1b7c4",
+                "url": "https://api.github.com/repos/codeigniter4/framework/zipball/c7549f2efce9b7ab9d3c79987c5f3934cd1ea47b",
+                "reference": "c7549f2efce9b7ab9d3c79987c5f3934cd1ea47b",
                 "shasum": ""
             },
             "require": {
@@ -146,18 +146,19 @@
                 "ext-intl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
-                "kint-php/kint": "^3.3",
-                "laminas/laminas-escaper": "^2.6",
-                "php": "^7.3||^8.0",
+                "kint-php/kint": "^4.1.1",
+                "laminas/laminas-escaper": "^2.9",
+                "php": "^7.4 || ^8.0",
                 "psr/log": "^1.1"
             },
             "require-dev": {
-                "codeigniter4/codeigniter4-standard": "^1.0",
+                "codeigniter/coding-standard": "^1.1",
                 "fakerphp/faker": "^1.9",
+                "friendsofphp/php-cs-fixer": "3.6.*",
                 "mikey179/vfsstream": "^1.6",
+                "nexusphp/cs-config": "^3.3",
                 "phpunit/phpunit": "^9.1",
-                "predis/predis": "^1.1",
-                "squizlabs/php_codesniffer": "^3.3"
+                "predis/predis": "^1.1 || ^2.0"
             },
             "suggest": {
                 "ext-fileinfo": "Improves mime type detection for files"
@@ -182,7 +183,7 @@
                 "slack": "https://codeigniterchat.slack.com",
                 "source": "https://github.com/codeigniter4/CodeIgniter4"
             },
-            "time": "2021-05-18T02:07:31+00:00"
+            "time": "2022-08-07T00:10:38+00:00"
         },
         {
             "name": "composer/pcre",
@@ -712,37 +713,32 @@
         },
         {
             "name": "kint-php/kint",
-            "version": "3.3",
+            "version": "4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kint-php/kint.git",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b"
+                "reference": "84a61c9b19abd4bed2b961af8254d38deae33d44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kint-php/kint/zipball/335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
-                "reference": "335ac1bcaf04d87df70d8aa51e8887ba2c6d203b",
+                "url": "https://api.github.com/repos/kint-php/kint/zipball/84a61c9b19abd4bed2b961af8254d38deae33d44",
+                "reference": "84a61c9b19abd4bed2b961af8254d38deae33d44",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.6"
+                "php": ">=5.6"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.0",
-                "phpunit/phpunit": "^4.0",
+                "friendsofphp/php-cs-fixer": "^3.0",
+                "phpspec/prophecy-phpunit": "^2",
+                "phpunit/phpunit": "^9.0",
                 "seld/phar-utils": "^1.0",
-                "symfony/finder": "^2.0 || ^3.0 || ^4.0",
-                "vimeo/psalm": "^3.0"
+                "symfony/finder": "^3.0 || ^4.0 || ^5.0",
+                "vimeo/psalm": "^4.0"
             },
             "suggest": {
-                "ext-ctype": "Simple data type tests",
-                "ext-iconv": "Provides fallback detection for ambiguous legacy string encodings such as the Windows and ISO 8859 code pages",
-                "ext-mbstring": "Provides string encoding detection",
-                "kint-php/kint-js": "Provides a simplified dump to console.log()",
-                "kint-php/kint-twig": "Provides d() and s() functions in twig templates",
-                "symfony/polyfill-ctype": "Replacement for ext-ctype if missing",
-                "symfony/polyfill-iconv": "Replacement for ext-iconv if missing",
-                "symfony/polyfill-mbstring": "Replacement for ext-mbstring if missing"
+                "kint-php/kint-helpers": "Provides extra helper functions",
+                "kint-php/kint-twig": "Provides d() and s() functions in twig templates"
             },
             "type": "library",
             "autoload": {
@@ -763,10 +759,6 @@
                     "homepage": "https://github.com/jnvsor"
                 },
                 {
-                    "name": "Rokas Šleinius",
-                    "homepage": "https://github.com/raveren"
-                },
-                {
                     "name": "Contributors",
                     "homepage": "https://github.com/kint-php/kint/graphs/contributors"
                 }
@@ -780,9 +772,9 @@
             ],
             "support": {
                 "issues": "https://github.com/kint-php/kint/issues",
-                "source": "https://github.com/kint-php/kint/tree/master"
+                "source": "https://github.com/kint-php/kint/tree/4.1.4"
             },
-            "time": "2019-10-17T18:05:24+00:00"
+            "time": "2022-07-30T16:29:40+00:00"
         },
         {
             "name": "laminas/laminas-escaper",

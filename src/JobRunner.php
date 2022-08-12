@@ -87,25 +87,10 @@ class JobRunner
                 log_message('error', $e->getMessage(), $e->getTrace());
                 $error = $e;
             } finally {
-                $end = Time::now();
 
-                $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => $end, 'error' => $error, 'testTime' => $this->testTime ]);
-                //$this->performanceLogs[] = $jobLog;
+                $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
 
-                $this->performanceLogs[] = array(
-                    'name' => ($task->name) ? $task->name : null,
-                    'type' => $task->getType(),
-                    'action' => (\is_object($task->getAction())) ? \json_encode($task->getAction()) : $task->getAction(),
-                    'environment' => \json_encode($task->environments),
-                    'output' => $output,
-                    'error' => $error,
-                    'start_at' => \strval($start),
-                    'end_at' => \strval($end),
-                    'duration' => $jobLog->duration(),
-                    'test_time' => ($this->testTime) ? $this->testTime->format('Y-m-d H:i:s') : null
-                );
-
-                $this->storePerformanceLogs();
+                $this->storePerformanceLog( $jobLog );
             }
         }
     }
@@ -143,37 +128,72 @@ class JobRunner
 
     /**
      * Performance log information is stored
-     * at /writable/tasks/tasks_yyyy_mm_dd.json
      */
-    protected function storePerformanceLogs()
+    protected function storePerformanceLog(JobLog $jobLog)
     {
         $config = config('CronJob');
 
-        if (empty($this->performanceLogs)) {
+        if ($this->performanceLogs) {
             return;
         }
 
+        // "unique" name will be returned if one wasn't set
+        $name = $jobLog->task->name;
+
+        $data = [
+            'task'     => $name,
+            'type'     => $jobLog->task->getType(),
+            'action'   => (\is_object($jobLog->task->getAction())) ? \json_encode($jobLog->task->getAction()) : $jobLog->task->getAction(),
+            'environment' => \json_encode($jobLog->task->environments),
+            'start_at'    => $jobLog->runStart->format('Y-m-d H:i:s'),
+            'end_at' => $jobLog->runEnd->format('Y-m-d H:i:s'),
+            'duration' => $jobLog->duration(),
+            'output'   => $jobLog->output ?? null,
+            'error'    => serialize($jobLog->error ?? null),
+            'test_time' => ($this->testTime) ? $this->testTime->format('Y-m-d H:i:s') : null
+        ];
+
+
         if ($config->logSavingMethod == 'database') {
-            $db = Database::connect($config->databaseGroup);
-            $logModel = new \Daycry\CronJob\Models\CronJobLogModel($db);
-            $logModel->setTableName($config->tableName);
-            $logModel->insertBatch($this->performanceLogs);
+            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
+            $logs = $logModel->where('name', $name)->findAll();
+
+            if( $config->maxLogsPerJob )
+            {
+                // Make sure we have room for one more
+                if((is_countable($logs) ? count($logs) : 0) > $config->maxLogsPerJob ) {
+                    $logModel->where('id', $logs[0]->id)->delete();
+                }
+
+                $logModel->insert($data);
+            }
         } else {
 
-            // Ensure we have someplace to store the log
-            if (file_exists($config->FilePath . $config->FileName)) {
-                if (!is_dir($config->FilePath)) {
-                    mkdir($config->FilePath);
-                }
+            $path = $config->filePath . $name;
+            $fileName = $path . '/' . $config->fileName . '.json';
+            
+            if (!is_dir($path)) {
+                mkdir($path, 0777, true);
             }
 
-            $fileName = 'jobs_' . date('Y-m-d') . '.json';
+            if (file_exists($fileName)) {
+                $logs = \json_decode(\file_get_contents($fileName));
+            }else{
+                $logs = array();
+            }
 
-            // write the file with json content
+            // Make sure we have room for one more
+            if ((is_countable($logs) ? count($logs) : 0) >= $config->maxLogsPerJob ) {
+                array_pop($logs);
+            }
+
+            // Add the log to the top of the array
+            array_unshift($logs, $data);
+
             file_put_contents(
-                $config->FilePath . $fileName,
+                $fileName,
                 json_encode(
-                    $this->performanceLogs,
+                    $logs,
                     JSON_PRETTY_PRINT
                 )
             );

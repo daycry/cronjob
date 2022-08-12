@@ -19,10 +19,6 @@ final class JobRunnerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-
-        $this->config = new \Daycry\CronJob\Config\CronJob();
-        $this->config->logPerformance = true;
-        $this->config->logSavingMethod = 'database';
     }
 
     public function testRunWithNoTasks()
@@ -35,9 +31,11 @@ final class JobRunnerTest extends TestCase
         $config = config('CronJob');
 
         $task1 = (new Job('closure', static function () {
+            sleep(2);
             echo 'Task 1';
         }))->daily('12:05 am', true)->named('task1');
         $task2 = (new Job('closure', static function () {
+            sleep(3);
             echo 'Task 2';
         }))->daily('12:00 am')->named('task2');
 
@@ -53,8 +51,8 @@ final class JobRunnerTest extends TestCase
 
         ob_end_clean();
 
-        $this->assertTrue(is_dir($config->FilePath));
-        $this->assertTrue(is_file($config->FilePath . 'jobs_' . date('Y-m-d') . '.json'));
+        $this->assertTrue(is_dir($config->filePath));
+        $this->assertTrue(is_file($config->filePath . 'task2' . '/' . $config->fileName . '.json'));
     }
 
     protected function getRunner(array $tasks = [])

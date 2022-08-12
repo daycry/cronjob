@@ -8,19 +8,9 @@ use Daycry\CronJob\Scheduler;
 class CronJob extends BaseConfig
 {
     /**
-     * Directory
-     */
-    public $FilePath = WRITEPATH . 'cronJob/';
-
-    /**
-     * Filename setting
-     */
-    public $FileName = 'jobs';
-
-    /**
      * Set true if you want save logs
      */
-    public $logPerformance = true;
+    public bool $logPerformance = true;
 
     /*
     |--------------------------------------------------------------------------
@@ -29,11 +19,34 @@ class CronJob extends BaseConfig
     |
     | Set to specify the REST API requires to be logged in
     |
-    | 'file'   Save in file
+    | 'file'   Save in files
     | 'database'  Save in database
     |
     */
-    public $logSavingMethod = 'file';
+    public string $logSavingMethod = 'file';
+
+    /**
+     * Directory
+     */
+    public string $filePath = WRITEPATH . 'cronJob/';
+
+    /**
+     * File Name in folder jobs structure
+     */
+    public string $fileName = 'jobs';
+
+    /**
+     * --------------------------------------------------------------------------
+     * Maximum performance logs
+     * --------------------------------------------------------------------------
+     *
+     * The maximum number of logs that should be saved per Job.
+     * Lower numbers reduced the amount of database required to
+     * store the logs.
+     * 
+     * If you write 0 it is unlimited
+     */
+    public int $maxLogsPerJob = 3;
 
     /*
     |--------------------------------------------------------------------------
@@ -43,7 +56,7 @@ class CronJob extends BaseConfig
     | Connect to a database group for logging, etc.
     |
     */
-    public $databaseGroup = 'default';
+    public string $databaseGroup = 'default';
 
     /*
     |--------------------------------------------------------------------------
@@ -53,9 +66,7 @@ class CronJob extends BaseConfig
     | The table name in your database that stores cronjobs
     |
     */
-    public $tableName = 'cronjob';
-
-
+    public string $tableName = 'cronjob';
 
     /*
     |--------------------------------------------------------------------------
