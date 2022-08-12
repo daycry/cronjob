@@ -2,7 +2,6 @@
 
 namespace Daycry\CronJob\Config;
 
-use Daycry\CronJob\CronExpression;
 use Config\Services as BaseServices;
 use Daycry\CronJob\Scheduler;
 
@@ -22,21 +21,5 @@ class Services extends BaseServices
         }
 
         return new Scheduler();
-    }
-
-    /**
-     * Returns the CronExpression class.
-     *
-     * @param boolean $getShared
-     *
-     * @return \Daycry\CronJob\CronExpression
-     */
-    public static function cronExpression(bool $getShared = true): CronExpression
-    {
-        if ($getShared) {
-            return static::getSharedInstance('cronExpression');
-        }
-
-        return new CronExpression();
     }
 }

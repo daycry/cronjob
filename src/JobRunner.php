@@ -4,7 +4,7 @@ namespace Daycry\CronJob;
 
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
-use Config\Database;
+use CodeIgniter\Config\BaseConfig;
 
 use DateTime;
 
@@ -19,12 +19,18 @@ class JobRunner
      * @var Scheduler
      */
     protected $scheduler;
+
     /**
      * @var string
      */
     protected ?Datetime $testTime = null;
 
-    public array $jobs = [];
+    /**
+     * @var BaseConfig
+     */
+    protected BaseConfig $config;
+
+    protected array $jobs = [];
     /**
      * Stores aliases of tasks to run
      * If empty, All tasks will be executed as per their schedule
@@ -33,8 +39,9 @@ class JobRunner
      */
     protected $only = [];
 
-    public function __construct()
+    public function __construct( BaseConfig $config = null)
     {
+        $this->config = ( $config ) ? $config : config('CronJob');
         $this->scheduler = service('scheduler');
     }
 
@@ -96,15 +103,25 @@ class JobRunner
     /**
      * Specify tasks to run
      *
-     * @param array $tasks
+     * @param array $jobs
      *
-     * @return TaskRunner
+     * @return JobRunner
      */
-    public function only(array $tasks = []): JobRunner
+    public function only(array $jobs = []): JobRunner
     {
-        $this->only = $tasks;
+        $this->only = $jobs;
 
         return $this;
+    }
+
+    /**
+     * Get runned Jobs
+     *
+     * @return array
+     */
+    public function getJobs(): array
+    {
+        return $this->jobs;
     }
 
     /**
@@ -129,9 +146,7 @@ class JobRunner
      */
     protected function storePerformanceLog(JobLog $jobLog)
     {
-        $config = config('CronJob');
-
-        if (!$config->logPerformance) {
+        if (!$this->config->logPerformance) {
             return;
         }
 
@@ -152,14 +167,14 @@ class JobRunner
         ];
 
 
-        if ($config->logSavingMethod == 'database') {
+        if ($this->config->logSavingMethod == 'database') {
             $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
             $logs = $logModel->where('name', $name)->findAll();
 
-            if( $config->maxLogsPerJob )
+            if( $this->config->maxLogsPerJob )
             {
                 // Make sure we have room for one more
-                if((is_countable($logs) ? count($logs) : 0) > $config->maxLogsPerJob ) {
+                if((is_countable($logs) ? count($logs) : 0) > $this->config->maxLogsPerJob ) {
                     $logModel->where('id', $logs[0]->id)->delete();
                 }
 
@@ -167,8 +182,8 @@ class JobRunner
             }
         } else {
 
-            $path = $config->filePath . $name;
-            $fileName = $path . '/' . $config->fileName . '.json';
+            $path = $this->config->filePath . $name;
+            $fileName = $path . '/' . $this->config->fileName . '.json';
             
             if (!is_dir($path)) {
                 mkdir($path, 0777, true);
@@ -181,7 +196,7 @@ class JobRunner
             }
 
             // Make sure we have room for one more
-            if ((is_countable($logs) ? count($logs) : 0) >= $config->maxLogsPerJob ) {
+            if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob ) {
                 array_pop($logs);
             }
 
