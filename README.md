@@ -2,6 +2,13 @@
 
 # CodeIgniter Task Scheduler
 
+[![Build Status](https://github.com/daycry/cronjob/workflows/PHP%20Tests/badge.svg)](https://github.com/daycry/cronjob/actions?query=workflow%3A%22PHP+Tests%22)
+[![Coverage Status](https://coveralls.io/repos/github/daycry/cronjob/badge.svg?branch=master)](https://coveralls.io/github/daycry/cronjob?branch=master)
+[![Downloads](https://poser.pugx.org/daycry/cronjob/downloads)](https://packagist.org/packages/daycry/cronjob)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
+[![GitHub stars](https://img.shields.io/github/stars/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
+[![GitHub license](https://img.shields.io/github/license/daycry/cronjob)](https://github.com/daycry/cronjob/blob/main/LICENSE)
+
 This makes scheduling cronjobs in your application simple, flexible, and powerful. Instead of setting up 
 multiple cronjobs on each server your application runs on, you only need to setup a single cronjob to 
 point to the script, and then all of your tasks are scheduled in your code. Besides that, it provides 
