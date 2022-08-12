@@ -24,6 +24,7 @@ class JobRunner
      */
     protected ?Datetime $testTime = null;
 
+    public array $jobs = [];
     /**
      * Stores aliases of tasks to run
      * If empty, All tasks will be executed as per their schedule
@@ -31,14 +32,6 @@ class JobRunner
      * @var array
      */
     protected $only = [];
-
-    /**
-     * Stores execution logs for each
-     * task that was ran
-     *
-     * @var array
-     */
-    protected $performanceLogs = [];
 
     public function __construct()
     {
@@ -52,6 +45,7 @@ class JobRunner
      */
     public function run()
     {
+        $this->jobs = [];
         $tasks = $this->scheduler->getTasks();
 
         if ($tasks === []) {
@@ -74,7 +68,11 @@ class JobRunner
 
             $this->cliWrite('Processing: ' . ($task->name ?: 'Task'), 'green');
 
-            try {
+            try
+            {
+                // How many jobs are runned
+                array_push($this->jobs, $task);
+
                 $output = $task->run();
 
                 if (!$output) {
@@ -133,7 +131,7 @@ class JobRunner
     {
         $config = config('CronJob');
 
-        if ($this->performanceLogs) {
+        if (!$config->logPerformance) {
             return;
         }
 

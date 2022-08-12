@@ -1,152 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1660301700">
-  <project timestamp="1660301700">
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\CronJobCommand.php">
-      <class name="Daycry\CronJob\Commands\CronJobCommand" namespace="global">
-        <metrics complexity="10" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="37" coveredelements="0"/>
-      </class>
-      <line num="30" type="method" name="getConfig" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="32" type="stmt" count="0"/>
-      <line num="38" type="method" name="saveSettings" visibility="protected" complexity="3" crap="12" count="0"/>
-      <line num="40" type="stmt" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="65" type="stmt" count="0"/>
-      <line num="72" type="method" name="getSettings" visibility="protected" complexity="2" crap="6" count="0"/>
-      <line num="74" type="stmt" count="0"/>
-      <line num="76" type="stmt" count="0"/>
-      <line num="77" type="stmt" count="0"/>
-      <line num="78" type="stmt" count="0"/>
-      <line num="81" type="stmt" count="0"/>
-      <line num="84" type="method" name="disabled" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="86" type="stmt" count="0"/>
-      <line num="87" type="stmt" count="0"/>
-      <line num="88" type="stmt" count="0"/>
-      <line num="91" type="method" name="enabled" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="93" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="98" type="method" name="alreadyEnabled" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="100" type="stmt" count="0"/>
-      <line num="101" type="stmt" count="0"/>
-      <line num="102" type="stmt" count="0"/>
-      <line num="105" type="method" name="tryToEnable" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="107" type="stmt" count="0"/>
-      <line num="108" type="stmt" count="0"/>
-      <line num="109" type="stmt" count="0"/>
-      <line num="110" type="stmt" count="0"/>
-      <line num="111" type="stmt" count="0"/>
-      <metrics loc="114" ncloc="91" classes="1" methods="7" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="30" coveredstatements="0" elements="37" coveredelements="0"/>
-    </file>
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\Disable.php">
-      <class name="Daycry\CronJob\Commands\Disable" namespace="global">
-        <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="4" coveredelements="0"/>
-      </class>
-      <line num="39" type="method" name="run" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <metrics loc="49" ncloc="25" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="3" coveredstatements="0" elements="4" coveredelements="0"/>
-    </file>
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\Enable.php">
-      <class name="Daycry\CronJob\Commands\Enable" namespace="global">
-        <metrics complexity="2" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
-      </class>
-      <line num="39" type="method" name="run" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="41" type="stmt" count="0"/>
-      <line num="43" type="stmt" count="0"/>
-      <line num="44" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <metrics loc="50" ncloc="27" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="5" coveredelements="0"/>
-    </file>
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\Lister.php">
-      <class name="Daycry\CronJob\Commands\Lister" namespace="global">
-        <metrics complexity="7" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="0" elements="19" coveredelements="0"/>
-      </class>
-      <line num="40" type="method" name="run" visibility="public" complexity="7" crap="56" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="43" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="47" type="stmt" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="57" type="stmt" count="0"/>
-      <line num="58" type="stmt" count="0"/>
-      <line num="60" type="stmt" count="0"/>
-      <line num="61" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="67" type="stmt" count="0"/>
-      <line num="68" type="stmt" count="0"/>
-      <line num="71" type="stmt" count="0"/>
-      <line num="74" type="stmt" count="0"/>
-      <metrics loc="81" ncloc="58" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="18" coveredstatements="0" elements="19" coveredelements="0"/>
-    </file>
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\Publish.php">
-      <class name="Daycry\CronJob\Commands\Publish" namespace="global">
-        <metrics complexity="9" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="0" elements="27" coveredelements="0"/>
-      </class>
-      <line num="40" type="method" name="run" visibility="public" complexity="2" crap="6" count="0"/>
-      <line num="42" type="stmt" count="0"/>
-      <line num="45" type="stmt" count="0"/>
-      <line num="46" type="stmt" count="0"/>
-      <line num="50" type="method" name="publishConfig" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="52" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="56" type="stmt" count="0"/>
-      <line num="58" type="stmt" count="0"/>
-      <line num="64" type="method" name="determineSourcePath" visibility="protected" complexity="3" crap="12" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <line num="68" type="stmt" count="0"/>
-      <line num="69" type="stmt" count="0"/>
-      <line num="70" type="stmt" count="0"/>
-      <line num="81" type="method" name="writeFile" visibility="protected" complexity="3" crap="12" count="0"/>
-      <line num="83" type="stmt" count="0"/>
-      <line num="84" type="stmt" count="0"/>
-      <line num="86" type="stmt" count="0"/>
-      <line num="88" type="stmt" count="0"/>
-      <line num="89" type="stmt" count="0"/>
-      <line num="93" type="stmt" count="0"/>
-      <line num="94" type="stmt" count="0"/>
-      <line num="95" type="stmt" count="0"/>
-      <line num="96" type="stmt" count="0"/>
-      <line num="99" type="stmt" count="0"/>
-      <line num="101" type="stmt" count="0"/>
-      <metrics loc="104" ncloc="70" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="23" coveredstatements="0" elements="27" coveredelements="0"/>
-    </file>
-    <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Commands\Run.php">
-      <class name="Daycry\CronJob\Commands\Run" namespace="global">
-        <metrics complexity="5" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="18" coveredelements="0"/>
-      </class>
-      <line num="48" type="method" name="run" visibility="public" complexity="5" crap="30" count="0"/>
-      <line num="50" type="stmt" count="0"/>
-      <line num="51" type="stmt" count="0"/>
-      <line num="53" type="stmt" count="0"/>
-      <line num="54" type="stmt" count="0"/>
-      <line num="55" type="stmt" count="0"/>
-      <line num="58" type="stmt" count="0"/>
-      <line num="59" type="stmt" count="0"/>
-      <line num="60" type="stmt" count="0"/>
-      <line num="62" type="stmt" count="0"/>
-      <line num="64" type="stmt" count="0"/>
-      <line num="66" type="stmt" count="0"/>
-      <line num="68" type="stmt" count="0"/>
-      <line num="69" type="stmt" count="0"/>
-      <line num="71" type="stmt" count="0"/>
-      <line num="73" type="stmt" count="0"/>
-      <line num="74" type="stmt" count="0"/>
-      <line num="75" type="stmt" count="0"/>
-      <metrics loc="78" ncloc="50" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="17" coveredstatements="0" elements="18" coveredelements="0"/>
-    </file>
+<coverage generated="1660304696">
+  <project timestamp="1660304696">
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Config\CronJob.php">
       <class name="Daycry\CronJob\Config\CronJob" namespace="global">
         <metrics complexity="1" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
@@ -157,9 +11,9 @@
       <class name="Daycry\CronJob\Config\Services" namespace="global">
         <metrics complexity="4" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="3" elements="8" coveredelements="4"/>
       </class>
-      <line num="18" type="method" name="scheduler" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="20" type="stmt" count="2"/>
-      <line num="21" type="stmt" count="2"/>
+      <line num="18" type="method" name="scheduler" visibility="public" complexity="2" crap="2" count="3"/>
+      <line num="20" type="stmt" count="3"/>
+      <line num="21" type="stmt" count="3"/>
       <line num="24" type="stmt" count="1"/>
       <line num="34" type="method" name="cronExpression" visibility="public" complexity="2" crap="6" count="0"/>
       <line num="36" type="stmt" count="0"/>
@@ -190,348 +44,348 @@
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Exceptions\CronJobException.php">
       <class name="Daycry\CronJob\Exceptions\CronJobException" namespace="global">
-        <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+        <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </class>
-      <line num="9" type="method" name="forInvalidTaskType" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="11" type="stmt" count="0"/>
-      <line num="14" type="method" name="forInvalidExpression" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="16" type="stmt" count="0"/>
-      <metrics loc="19" ncloc="19" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+      <line num="9" type="method" name="forInvalidTaskType" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="11" type="stmt" count="1"/>
+      <line num="14" type="method" name="forInvalidExpression" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="16" type="stmt" count="1"/>
+      <metrics loc="19" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\FrequenciesTrait.php">
       <class name="Daycry\CronJob\FrequenciesTrait" namespace="global">
-        <metrics complexity="46" methods="30" coveredmethods="25" conditionals="0" coveredconditionals="0" statements="136" coveredstatements="131" elements="166" coveredelements="156"/>
+        <metrics complexity="46" methods="30" coveredmethods="26" conditionals="0" coveredconditionals="0" statements="136" coveredstatements="132" elements="166" coveredelements="158"/>
       </class>
-      <line num="37" type="method" name="getExpression" visibility="public" complexity="1" crap="1" count="45"/>
-      <line num="39" type="stmt" count="45"/>
-      <line num="49" type="method" name="cron" visibility="public" complexity="2" crap="2.06" count="1"/>
-      <line num="51" type="stmt" count="1"/>
-      <line num="52" type="stmt" count="0"/>
+      <line num="37" type="method" name="getExpression" visibility="public" complexity="1" crap="1" count="46"/>
+      <line num="39" type="stmt" count="46"/>
+      <line num="49" type="method" name="cron" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="51" type="stmt" count="2"/>
+      <line num="52" type="stmt" count="1"/>
       <line num="55" type="stmt" count="1"/>
       <line num="57" type="stmt" count="1"/>
-      <line num="68" type="method" name="daily" visibility="public" complexity="2" crap="2" count="3"/>
-      <line num="70" type="stmt" count="3"/>
-      <line num="71" type="stmt" count="3"/>
-      <line num="72" type="stmt" count="2"/>
-      <line num="75" type="stmt" count="3"/>
-      <line num="77" type="stmt" count="3"/>
-      <line num="78" type="stmt" count="3"/>
-      <line num="80" type="stmt" count="3"/>
-      <line num="82" type="stmt" count="3"/>
+      <line num="68" type="method" name="daily" visibility="public" complexity="2" crap="2" count="4"/>
+      <line num="70" type="stmt" count="4"/>
+      <line num="71" type="stmt" count="4"/>
+      <line num="72" type="stmt" count="3"/>
+      <line num="75" type="stmt" count="4"/>
+      <line num="77" type="stmt" count="4"/>
+      <line num="78" type="stmt" count="4"/>
+      <line num="80" type="stmt" count="4"/>
+      <line num="82" type="stmt" count="4"/>
       <line num="90" type="method" name="hourly" visibility="public" complexity="2" crap="2" count="2"/>
       <line num="92" type="stmt" count="2"/>
-      <line num="94" type="stmt" count="2"/>
-      <line num="96" type="stmt" count="2"/>
+      <line num="95" type="stmt" count="2"/>
       <line num="97" type="stmt" count="2"/>
-      <line num="99" type="stmt" count="2"/>
-      <line num="101" type="stmt" count="2"/>
-      <line num="112" type="method" name="everyHour" visibility="public" complexity="3" crap="3" count="3"/>
-      <line num="114" type="stmt" count="3"/>
-      <line num="116" type="stmt" count="3"/>
+      <line num="98" type="stmt" count="2"/>
+      <line num="100" type="stmt" count="2"/>
+      <line num="102" type="stmt" count="2"/>
+      <line num="113" type="method" name="everyHour" visibility="public" complexity="3" crap="3" count="3"/>
+      <line num="115" type="stmt" count="3"/>
       <line num="117" type="stmt" count="3"/>
-      <line num="119" type="stmt" count="3"/>
+      <line num="118" type="stmt" count="3"/>
       <line num="120" type="stmt" count="3"/>
-      <line num="122" type="stmt" count="3"/>
-      <line num="124" type="stmt" count="3"/>
-      <line num="134" type="method" name="betweenHours" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="136" type="stmt" count="1"/>
+      <line num="121" type="stmt" count="3"/>
+      <line num="123" type="stmt" count="3"/>
+      <line num="125" type="stmt" count="3"/>
+      <line num="135" type="method" name="betweenHours" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="137" type="stmt" count="1"/>
-      <line num="139" type="stmt" count="1"/>
-      <line num="141" type="stmt" count="1"/>
-      <line num="150" type="method" name="hours" visibility="public" complexity="2" crap="2.02" count="1"/>
-      <line num="152" type="stmt" count="1"/>
-      <line num="154" type="stmt" count="1"/>
-      <line num="155" type="stmt" count="0"/>
-      <line num="158" type="stmt" count="1"/>
-      <line num="160" type="stmt" count="1"/>
-      <line num="162" type="stmt" count="1"/>
-      <line num="172" type="method" name="everyMinute" visibility="public" complexity="2" crap="2" count="5"/>
-      <line num="174" type="stmt" count="5"/>
-      <line num="176" type="stmt" count="5"/>
+      <line num="138" type="stmt" count="1"/>
+      <line num="140" type="stmt" count="1"/>
+      <line num="142" type="stmt" count="1"/>
+      <line num="151" type="method" name="hours" visibility="public" complexity="2" crap="2.02" count="1"/>
+      <line num="153" type="stmt" count="1"/>
+      <line num="155" type="stmt" count="1"/>
+      <line num="156" type="stmt" count="0"/>
+      <line num="159" type="stmt" count="1"/>
+      <line num="161" type="stmt" count="1"/>
+      <line num="163" type="stmt" count="1"/>
+      <line num="173" type="method" name="everyMinute" visibility="public" complexity="2" crap="2" count="5"/>
+      <line num="175" type="stmt" count="5"/>
       <line num="177" type="stmt" count="5"/>
-      <line num="179" type="stmt" count="5"/>
-      <line num="181" type="stmt" count="5"/>
-      <line num="189" type="method" name="everyFiveMinutes" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="191" type="stmt" count="1"/>
-      <line num="199" type="method" name="everyFifteenMinutes" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="201" type="stmt" count="1"/>
-      <line num="209" type="method" name="everyThirtyMinutes" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="211" type="stmt" count="1"/>
-      <line num="222" type="method" name="betweenMinutes" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="224" type="stmt" count="1"/>
-      <line num="226" type="stmt" count="1"/>
-      <line num="228" type="stmt" count="1"/>
-      <line num="230" type="stmt" count="1"/>
-      <line num="239" type="method" name="minutes" visibility="public" complexity="2" crap="2.02" count="1"/>
-      <line num="241" type="stmt" count="1"/>
-      <line num="243" type="stmt" count="1"/>
-      <line num="244" type="stmt" count="0"/>
-      <line num="247" type="stmt" count="1"/>
-      <line num="249" type="stmt" count="1"/>
-      <line num="251" type="stmt" count="1"/>
-      <line num="261" type="method" name="days" visibility="public" complexity="2" crap="2.02" count="1"/>
-      <line num="263" type="stmt" count="1"/>
-      <line num="265" type="stmt" count="1"/>
-      <line num="266" type="stmt" count="0"/>
-      <line num="269" type="stmt" count="1"/>
-      <line num="271" type="stmt" count="1"/>
-      <line num="273" type="stmt" count="1"/>
-      <line num="283" type="method" name="sundays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="285" type="stmt" count="2"/>
-      <line num="295" type="method" name="mondays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="297" type="stmt" count="2"/>
-      <line num="307" type="method" name="tuesdays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="309" type="stmt" count="2"/>
-      <line num="319" type="method" name="wednesdays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="321" type="stmt" count="2"/>
-      <line num="331" type="method" name="thursdays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="333" type="stmt" count="2"/>
-      <line num="343" type="method" name="fridays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="345" type="stmt" count="2"/>
-      <line num="355" type="method" name="saturdays" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="357" type="stmt" count="2"/>
-      <line num="367" type="method" name="monthly" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="369" type="stmt" count="2"/>
-      <line num="371" type="stmt" count="2"/>
-      <line num="372" type="stmt" count="1"/>
-      <line num="375" type="stmt" count="2"/>
-      <line num="377" type="stmt" count="2"/>
+      <line num="178" type="stmt" count="5"/>
+      <line num="180" type="stmt" count="5"/>
+      <line num="182" type="stmt" count="5"/>
+      <line num="190" type="method" name="everyFiveMinutes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="192" type="stmt" count="1"/>
+      <line num="200" type="method" name="everyFifteenMinutes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="202" type="stmt" count="1"/>
+      <line num="210" type="method" name="everyThirtyMinutes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="212" type="stmt" count="1"/>
+      <line num="223" type="method" name="betweenMinutes" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="225" type="stmt" count="1"/>
+      <line num="227" type="stmt" count="1"/>
+      <line num="229" type="stmt" count="1"/>
+      <line num="231" type="stmt" count="1"/>
+      <line num="240" type="method" name="minutes" visibility="public" complexity="2" crap="2.02" count="1"/>
+      <line num="242" type="stmt" count="1"/>
+      <line num="244" type="stmt" count="1"/>
+      <line num="245" type="stmt" count="0"/>
+      <line num="248" type="stmt" count="1"/>
+      <line num="250" type="stmt" count="1"/>
+      <line num="252" type="stmt" count="1"/>
+      <line num="262" type="method" name="days" visibility="public" complexity="2" crap="2.02" count="1"/>
+      <line num="264" type="stmt" count="1"/>
+      <line num="266" type="stmt" count="1"/>
+      <line num="267" type="stmt" count="0"/>
+      <line num="270" type="stmt" count="1"/>
+      <line num="272" type="stmt" count="1"/>
+      <line num="274" type="stmt" count="1"/>
+      <line num="284" type="method" name="sundays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="286" type="stmt" count="2"/>
+      <line num="296" type="method" name="mondays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="298" type="stmt" count="2"/>
+      <line num="308" type="method" name="tuesdays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="310" type="stmt" count="2"/>
+      <line num="320" type="method" name="wednesdays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="322" type="stmt" count="2"/>
+      <line num="332" type="method" name="thursdays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="334" type="stmt" count="2"/>
+      <line num="344" type="method" name="fridays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="346" type="stmt" count="2"/>
+      <line num="356" type="method" name="saturdays" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="358" type="stmt" count="2"/>
+      <line num="368" type="method" name="monthly" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="370" type="stmt" count="2"/>
+      <line num="372" type="stmt" count="2"/>
+      <line num="373" type="stmt" count="1"/>
+      <line num="376" type="stmt" count="2"/>
       <line num="378" type="stmt" count="2"/>
       <line num="379" type="stmt" count="2"/>
-      <line num="381" type="stmt" count="2"/>
-      <line num="383" type="stmt" count="2"/>
-      <line num="392" type="method" name="daysOfMonth" visibility="public" complexity="2" crap="2.02" count="1"/>
-      <line num="394" type="stmt" count="1"/>
-      <line num="396" type="stmt" count="1"/>
-      <line num="397" type="stmt" count="0"/>
-      <line num="400" type="stmt" count="1"/>
-      <line num="402" type="stmt" count="1"/>
-      <line num="404" type="stmt" count="1"/>
-      <line num="413" type="method" name="months" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="415" type="stmt" count="1"/>
-      <line num="417" type="stmt" count="1"/>
-      <line num="419" type="stmt" count="1"/>
-      <line num="421" type="stmt" count="1"/>
-      <line num="432" type="method" name="quarterly" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="434" type="stmt" count="2"/>
-      <line num="436" type="stmt" count="2"/>
-      <line num="438" type="stmt" count="2"/>
-      <line num="439" type="stmt" count="1"/>
-      <line num="442" type="stmt" count="2"/>
+      <line num="380" type="stmt" count="2"/>
+      <line num="382" type="stmt" count="2"/>
+      <line num="384" type="stmt" count="2"/>
+      <line num="393" type="method" name="daysOfMonth" visibility="public" complexity="2" crap="2.02" count="1"/>
+      <line num="395" type="stmt" count="1"/>
+      <line num="397" type="stmt" count="1"/>
+      <line num="398" type="stmt" count="0"/>
+      <line num="401" type="stmt" count="1"/>
+      <line num="403" type="stmt" count="1"/>
+      <line num="405" type="stmt" count="1"/>
+      <line num="414" type="method" name="months" visibility="public" complexity="1" crap="1" count="1"/>
+      <line num="416" type="stmt" count="1"/>
+      <line num="418" type="stmt" count="1"/>
+      <line num="420" type="stmt" count="1"/>
+      <line num="422" type="stmt" count="1"/>
+      <line num="433" type="method" name="quarterly" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="435" type="stmt" count="2"/>
+      <line num="437" type="stmt" count="2"/>
+      <line num="439" type="stmt" count="2"/>
+      <line num="440" type="stmt" count="1"/>
       <line num="443" type="stmt" count="2"/>
       <line num="444" type="stmt" count="2"/>
       <line num="445" type="stmt" count="2"/>
-      <line num="447" type="stmt" count="2"/>
-      <line num="449" type="stmt" count="2"/>
-      <line num="459" type="method" name="yearly" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="461" type="stmt" count="2"/>
-      <line num="463" type="stmt" count="2"/>
-      <line num="465" type="stmt" count="2"/>
-      <line num="466" type="stmt" count="1"/>
-      <line num="469" type="stmt" count="2"/>
+      <line num="446" type="stmt" count="2"/>
+      <line num="448" type="stmt" count="2"/>
+      <line num="450" type="stmt" count="2"/>
+      <line num="460" type="method" name="yearly" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="462" type="stmt" count="2"/>
+      <line num="464" type="stmt" count="2"/>
+      <line num="466" type="stmt" count="2"/>
+      <line num="467" type="stmt" count="1"/>
       <line num="470" type="stmt" count="2"/>
       <line num="471" type="stmt" count="2"/>
       <line num="472" type="stmt" count="2"/>
-      <line num="474" type="stmt" count="2"/>
-      <line num="476" type="stmt" count="2"/>
-      <line num="486" type="method" name="weekdays" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="488" type="stmt" count="2"/>
-      <line num="490" type="stmt" count="2"/>
-      <line num="492" type="stmt" count="2"/>
-      <line num="493" type="stmt" count="1"/>
-      <line num="496" type="stmt" count="2"/>
+      <line num="473" type="stmt" count="2"/>
+      <line num="475" type="stmt" count="2"/>
+      <line num="477" type="stmt" count="2"/>
+      <line num="487" type="method" name="weekdays" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="489" type="stmt" count="2"/>
+      <line num="491" type="stmt" count="2"/>
+      <line num="493" type="stmt" count="2"/>
+      <line num="494" type="stmt" count="1"/>
       <line num="497" type="stmt" count="2"/>
       <line num="498" type="stmt" count="2"/>
-      <line num="500" type="stmt" count="2"/>
-      <line num="502" type="stmt" count="2"/>
-      <line num="512" type="method" name="weekends" visibility="public" complexity="2" crap="2" count="2"/>
-      <line num="514" type="stmt" count="2"/>
-      <line num="516" type="stmt" count="2"/>
-      <line num="518" type="stmt" count="2"/>
-      <line num="519" type="stmt" count="1"/>
-      <line num="522" type="stmt" count="2"/>
+      <line num="499" type="stmt" count="2"/>
+      <line num="501" type="stmt" count="2"/>
+      <line num="503" type="stmt" count="2"/>
+      <line num="513" type="method" name="weekends" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="515" type="stmt" count="2"/>
+      <line num="517" type="stmt" count="2"/>
+      <line num="519" type="stmt" count="2"/>
+      <line num="520" type="stmt" count="1"/>
       <line num="523" type="stmt" count="2"/>
       <line num="524" type="stmt" count="2"/>
-      <line num="526" type="stmt" count="2"/>
-      <line num="528" type="stmt" count="2"/>
-      <line num="540" type="method" name="setDayOfWeek" visibility="protected" complexity="2" crap="2" count="14"/>
-      <line num="542" type="stmt" count="14"/>
-      <line num="544" type="stmt" count="14"/>
-      <line num="546" type="stmt" count="14"/>
-      <line num="547" type="stmt" count="7"/>
-      <line num="550" type="stmt" count="14"/>
+      <line num="525" type="stmt" count="2"/>
+      <line num="527" type="stmt" count="2"/>
+      <line num="529" type="stmt" count="2"/>
+      <line num="541" type="method" name="setDayOfWeek" visibility="protected" complexity="2" crap="2" count="14"/>
+      <line num="543" type="stmt" count="14"/>
+      <line num="545" type="stmt" count="14"/>
+      <line num="547" type="stmt" count="14"/>
+      <line num="548" type="stmt" count="7"/>
       <line num="551" type="stmt" count="14"/>
       <line num="552" type="stmt" count="14"/>
-      <line num="554" type="stmt" count="14"/>
-      <line num="556" type="stmt" count="14"/>
-      <line num="564" type="method" name="parseTime" visibility="protected" complexity="1" crap="1" count="14"/>
-      <line num="566" type="stmt" count="14"/>
-      <line num="569" type="stmt" count="14"/>
-      <line num="570" type="stmt" count="14"/>
-      <metrics loc="574" ncloc="359" classes="1" methods="30" coveredmethods="25" conditionals="0" coveredconditionals="0" statements="136" coveredstatements="131" elements="166" coveredelements="156"/>
+      <line num="553" type="stmt" count="14"/>
+      <line num="555" type="stmt" count="14"/>
+      <line num="557" type="stmt" count="14"/>
+      <line num="565" type="method" name="parseTime" visibility="protected" complexity="1" crap="1" count="15"/>
+      <line num="567" type="stmt" count="15"/>
+      <line num="570" type="stmt" count="15"/>
+      <line num="571" type="stmt" count="15"/>
+      <metrics loc="575" ncloc="360" classes="1" methods="30" coveredmethods="26" conditionals="0" coveredconditionals="0" statements="136" coveredstatements="132" elements="166" coveredelements="158"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Job.php">
       <class name="Daycry\CronJob\Job" namespace="global">
-        <metrics complexity="26" methods="15" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="18" elements="61" coveredelements="22"/>
+        <metrics complexity="26" methods="15" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="31" elements="59" coveredelements="38"/>
       </class>
-      <line num="78" type="method" name="__construct" visibility="public" complexity="2" crap="2.06" count="7"/>
-      <line num="80" type="stmt" count="7"/>
-      <line num="81" type="stmt" count="0"/>
-      <line num="84" type="stmt" count="7"/>
-      <line num="85" type="stmt" count="7"/>
+      <line num="78" type="method" name="__construct" visibility="public" complexity="2" crap="2" count="9"/>
+      <line num="80" type="stmt" count="9"/>
+      <line num="81" type="stmt" count="1"/>
+      <line num="84" type="stmt" count="8"/>
+      <line num="85" type="stmt" count="8"/>
       <line num="95" type="method" name="named" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="97" type="stmt" count="1"/>
       <line num="99" type="stmt" count="1"/>
-      <line num="107" type="method" name="getType" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="109" type="stmt" count="1"/>
-      <line num="117" type="method" name="getAction" visibility="public" complexity="1" crap="1" count="4"/>
-      <line num="119" type="stmt" count="4"/>
-      <line num="127" type="method" name="run" visibility="public" complexity="2" crap="2.06" count="1"/>
-      <line num="129" type="stmt" count="1"/>
-      <line num="130" type="stmt" count="1"/>
-      <line num="131" type="stmt" count="0"/>
-      <line num="134" type="stmt" count="1"/>
-      <line num="143" type="method" name="shouldRun" visibility="public" complexity="4" crap="4.13" count="1"/>
-      <line num="146" type="stmt" count="1"/>
-      <line num="147" type="stmt" count="0"/>
-      <line num="150" type="stmt" count="1"/>
-      <line num="152" type="stmt" count="1"/>
-      <line num="154" type="stmt" count="1"/>
-      <line num="165" type="method" name="environments" visibility="public" complexity="1" crap="2" count="0"/>
-      <line num="167" type="stmt" count="0"/>
+      <line num="107" type="method" name="getType" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="109" type="stmt" count="2"/>
+      <line num="117" type="method" name="getAction" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="119" type="stmt" count="5"/>
+      <line num="127" type="method" name="run" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="129" type="stmt" count="2"/>
+      <line num="136" type="stmt" count="2"/>
+      <line num="145" type="method" name="shouldRun" visibility="public" complexity="4" crap="4.13" count="2"/>
+      <line num="148" type="stmt" count="2"/>
+      <line num="149" type="stmt" count="0"/>
+      <line num="152" type="stmt" count="2"/>
+      <line num="154" type="stmt" count="2"/>
+      <line num="156" type="stmt" count="2"/>
+      <line num="167" type="method" name="environments" visibility="public" complexity="1" crap="2" count="0"/>
       <line num="169" type="stmt" count="0"/>
-      <line num="179" type="method" name="runsInEnvironment" visibility="protected" complexity="2" crap="6" count="0"/>
-      <line num="182" type="stmt" count="0"/>
-      <line num="183" type="stmt" count="0"/>
-      <line num="186" type="stmt" count="0"/>
-      <line num="195" type="method" name="runCommand" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="197" type="stmt" count="0"/>
-      <line num="205" type="method" name="runShell" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="207" type="stmt" count="0"/>
+      <line num="171" type="stmt" count="0"/>
+      <line num="181" type="method" name="runsInEnvironment" visibility="protected" complexity="2" crap="6" count="0"/>
+      <line num="184" type="stmt" count="0"/>
+      <line num="185" type="stmt" count="0"/>
+      <line num="188" type="stmt" count="0"/>
+      <line num="197" type="method" name="runCommand" visibility="protected" complexity="1" crap="2" count="0"/>
+      <line num="199" type="stmt" count="0"/>
+      <line num="207" type="method" name="runShell" visibility="protected" complexity="1" crap="2" count="0"/>
       <line num="209" type="stmt" count="0"/>
-      <line num="217" type="method" name="runClosure" visibility="protected" complexity="1" crap="1" count="1"/>
-      <line num="219" type="stmt" count="1"/>
-      <line num="227" type="method" name="runEvent" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="229" type="stmt" count="0"/>
-      <line num="237" type="method" name="runUrl" visibility="protected" complexity="1" crap="2" count="0"/>
-      <line num="239" type="stmt" count="0"/>
+      <line num="211" type="stmt" count="0"/>
+      <line num="219" type="method" name="runClosure" visibility="protected" complexity="1" crap="1" count="2"/>
+      <line num="221" type="stmt" count="2"/>
+      <line num="229" type="method" name="runEvent" visibility="protected" complexity="1" crap="2" count="0"/>
+      <line num="231" type="stmt" count="0"/>
+      <line num="239" type="method" name="runUrl" visibility="protected" complexity="1" crap="2" count="0"/>
       <line num="241" type="stmt" count="0"/>
-      <line num="251" type="method" name="buildName" visibility="protected" complexity="3" crap="12" count="0"/>
-      <line num="255" type="stmt" count="0"/>
-      <line num="256" type="stmt" count="0"/>
-      <line num="257" type="stmt" count="0"/>
-      <line num="258" type="stmt" count="0"/>
-      <line num="259" type="stmt" count="0"/>
-      <line num="261" type="stmt" count="0"/>
-      <line num="262" type="stmt" count="0"/>
-      <line num="263" type="stmt" count="0"/>
-      <line num="265" type="stmt" count="0"/>
-      <line num="267" type="stmt" count="0"/>
-      <line num="270" type="stmt" count="0"/>
-      <line num="274" type="stmt" count="0"/>
-      <line num="276" type="stmt" count="0"/>
-      <line num="286" type="method" name="__get" visibility="public" complexity="4" crap="4.25" count="1"/>
-      <line num="288" type="stmt" count="1"/>
-      <line num="289" type="stmt" count="0"/>
-      <line num="292" type="stmt" count="1"/>
-      <line num="293" type="stmt" count="1"/>
-      <metrics loc="297" ncloc="165" classes="1" methods="15" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="46" coveredstatements="18" elements="61" coveredelements="22"/>
+      <line num="243" type="stmt" count="0"/>
+      <line num="253" type="method" name="buildName" visibility="protected" complexity="3" crap="3.00" count="1"/>
+      <line num="257" type="stmt" count="1"/>
+      <line num="258" type="stmt" count="1"/>
+      <line num="259" type="stmt" count="1"/>
+      <line num="260" type="stmt" count="1"/>
+      <line num="261" type="stmt" count="1"/>
+      <line num="263" type="stmt" count="1"/>
+      <line num="264" type="stmt" count="1"/>
+      <line num="265" type="stmt" count="1"/>
+      <line num="267" type="stmt" count="1"/>
+      <line num="269" type="stmt" count="1"/>
+      <line num="272" type="stmt" count="0"/>
+      <line num="276" type="stmt" count="1"/>
+      <line num="278" type="stmt" count="1"/>
+      <line num="288" type="method" name="__get" visibility="public" complexity="4" crap="4" count="2"/>
+      <line num="290" type="stmt" count="2"/>
+      <line num="291" type="stmt" count="1"/>
+      <line num="294" type="stmt" count="2"/>
+      <line num="295" type="stmt" count="2"/>
+      <metrics loc="299" ncloc="165" classes="1" methods="15" coveredmethods="7" conditionals="0" coveredconditionals="0" statements="44" coveredstatements="31" elements="59" coveredelements="38"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\JobLog.php">
       <class name="Daycry\CronJob\JobLog" namespace="global">
         <metrics complexity="6" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
       </class>
-      <line num="41" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="4"/>
-      <line num="43" type="stmt" count="4"/>
-      <line num="44" type="stmt" count="4"/>
-      <line num="45" type="stmt" count="4"/>
-      <line num="56" type="method" name="duration" visibility="public" complexity="1" crap="1" count="4"/>
-      <line num="58" type="stmt" count="4"/>
-      <line num="60" type="stmt" count="4"/>
-      <line num="61" type="stmt" count="4"/>
-      <line num="64" type="stmt" count="4"/>
-      <line num="66" type="stmt" count="4"/>
-      <line num="76" type="method" name="__get" visibility="public" complexity="2" crap="2" count="1"/>
-      <line num="78" type="stmt" count="1"/>
-      <line num="79" type="stmt" count="1"/>
+      <line num="41" type="method" name="__construct" visibility="public" complexity="3" crap="3" count="5"/>
+      <line num="43" type="stmt" count="5"/>
+      <line num="44" type="stmt" count="5"/>
+      <line num="45" type="stmt" count="5"/>
+      <line num="56" type="method" name="duration" visibility="public" complexity="1" crap="1" count="5"/>
+      <line num="58" type="stmt" count="5"/>
+      <line num="60" type="stmt" count="5"/>
+      <line num="61" type="stmt" count="5"/>
+      <line num="64" type="stmt" count="5"/>
+      <line num="66" type="stmt" count="5"/>
+      <line num="76" type="method" name="__get" visibility="public" complexity="2" crap="2" count="2"/>
+      <line num="78" type="stmt" count="2"/>
+      <line num="79" type="stmt" count="2"/>
       <metrics loc="83" ncloc="47" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="10" coveredstatements="10" elements="13" coveredelements="13"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\JobRunner.php">
       <class name="Daycry\CronJob\JobRunner" namespace="global">
-        <metrics complexity="31" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="46" elements="71" coveredelements="48"/>
+        <metrics complexity="31" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="48" elements="73" coveredelements="50"/>
       </class>
-      <line num="43" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="45" type="stmt" count="2"/>
-      <line num="53" type="method" name="run" visibility="public" complexity="12" crap="13.48" count="2"/>
+      <line num="36" type="method" name="__construct" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="38" type="stmt" count="3"/>
+      <line num="46" type="method" name="run" visibility="public" complexity="12" crap="13.15" count="3"/>
+      <line num="48" type="stmt" count="3"/>
+      <line num="49" type="stmt" count="3"/>
+      <line num="51" type="stmt" count="3"/>
+      <line num="52" type="stmt" count="1"/>
       <line num="55" type="stmt" count="2"/>
       <line num="57" type="stmt" count="2"/>
-      <line num="58" type="stmt" count="1"/>
-      <line num="61" type="stmt" count="1"/>
-      <line num="63" type="stmt" count="1"/>
-      <line num="64" type="stmt" count="0"/>
-      <line num="67" type="stmt" count="1"/>
-      <line num="68" type="stmt" count="1"/>
-      <line num="71" type="stmt" count="1"/>
-      <line num="72" type="stmt" count="1"/>
-      <line num="73" type="stmt" count="1"/>
-      <line num="75" type="stmt" count="1"/>
-      <line num="78" type="stmt" count="1"/>
-      <line num="80" type="stmt" count="1"/>
-      <line num="81" type="stmt" count="1"/>
-      <line num="84" type="stmt" count="1"/>
+      <line num="58" type="stmt" count="0"/>
+      <line num="61" type="stmt" count="2"/>
+      <line num="62" type="stmt" count="1"/>
+      <line num="65" type="stmt" count="2"/>
+      <line num="66" type="stmt" count="2"/>
+      <line num="67" type="stmt" count="2"/>
+      <line num="69" type="stmt" count="2"/>
+      <line num="74" type="stmt" count="2"/>
+      <line num="76" type="stmt" count="2"/>
+      <line num="78" type="stmt" count="2"/>
+      <line num="79" type="stmt" count="2"/>
+      <line num="82" type="stmt" count="2"/>
+      <line num="83" type="stmt" count="0"/>
+      <line num="84" type="stmt" count="0"/>
       <line num="85" type="stmt" count="0"/>
       <line num="86" type="stmt" count="0"/>
-      <line num="87" type="stmt" count="0"/>
-      <line num="88" type="stmt" count="0"/>
-      <line num="89" type="stmt" count="1"/>
-      <line num="91" type="stmt" count="1"/>
-      <line num="93" type="stmt" count="1"/>
-      <line num="105" type="method" name="only" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="87" type="stmt" count="2"/>
+      <line num="89" type="stmt" count="2"/>
+      <line num="91" type="stmt" count="2"/>
+      <line num="103" type="method" name="only" visibility="public" complexity="1" crap="2" count="0"/>
+      <line num="105" type="stmt" count="0"/>
       <line num="107" type="stmt" count="0"/>
-      <line num="109" type="stmt" count="0"/>
-      <line num="121" type="method" name="withTestTime" visibility="public" complexity="1" crap="1" count="1"/>
-      <line num="123" type="stmt" count="1"/>
-      <line num="125" type="stmt" count="1"/>
-      <line num="132" type="method" name="storePerformanceLog" visibility="protected" complexity="12" crap="15.20" count="1"/>
-      <line num="134" type="stmt" count="1"/>
-      <line num="136" type="stmt" count="1"/>
-      <line num="137" type="stmt" count="0"/>
-      <line num="141" type="stmt" count="1"/>
-      <line num="145" type="stmt" count="1"/>
-      <line num="146" type="stmt" count="1"/>
-      <line num="147" type="stmt" count="1"/>
-      <line num="148" type="stmt" count="1"/>
-      <line num="149" type="stmt" count="1"/>
-      <line num="150" type="stmt" count="1"/>
-      <line num="151" type="stmt" count="1"/>
-      <line num="152" type="stmt" count="1"/>
-      <line num="153" type="stmt" count="1"/>
-      <line num="157" type="stmt" count="1"/>
-      <line num="158" type="stmt" count="0"/>
+      <line num="119" type="method" name="withTestTime" visibility="public" complexity="1" crap="1" count="2"/>
+      <line num="121" type="stmt" count="2"/>
+      <line num="123" type="stmt" count="2"/>
+      <line num="130" type="method" name="storePerformanceLog" visibility="protected" complexity="12" crap="15.20" count="2"/>
+      <line num="132" type="stmt" count="2"/>
+      <line num="134" type="stmt" count="2"/>
+      <line num="135" type="stmt" count="0"/>
+      <line num="139" type="stmt" count="2"/>
+      <line num="143" type="stmt" count="2"/>
+      <line num="144" type="stmt" count="2"/>
+      <line num="145" type="stmt" count="2"/>
+      <line num="146" type="stmt" count="2"/>
+      <line num="147" type="stmt" count="2"/>
+      <line num="148" type="stmt" count="2"/>
+      <line num="149" type="stmt" count="2"/>
+      <line num="150" type="stmt" count="2"/>
+      <line num="151" type="stmt" count="2"/>
+      <line num="155" type="stmt" count="2"/>
+      <line num="156" type="stmt" count="0"/>
+      <line num="157" type="stmt" count="0"/>
       <line num="159" type="stmt" count="0"/>
-      <line num="161" type="stmt" count="0"/>
-      <line num="164" type="stmt" count="0"/>
-      <line num="165" type="stmt" count="0"/>
-      <line num="168" type="stmt" count="0"/>
-      <line num="172" type="stmt" count="1"/>
-      <line num="173" type="stmt" count="1"/>
-      <line num="175" type="stmt" count="1"/>
-      <line num="176" type="stmt" count="0"/>
-      <line num="179" type="stmt" count="1"/>
-      <line num="180" type="stmt" count="1"/>
-      <line num="182" type="stmt" count="0"/>
-      <line num="186" type="stmt" count="1"/>
-      <line num="187" type="stmt" count="1"/>
-      <line num="191" type="stmt" count="1"/>
-      <line num="193" type="stmt" count="1"/>
-      <line num="195" type="stmt" count="1"/>
-      <line num="209" type="method" name="cliWrite" visibility="protected" complexity="4" crap="7.46" count="1"/>
-      <line num="212" type="stmt" count="1"/>
-      <line num="213" type="stmt" count="1"/>
-      <line num="216" type="stmt" count="0"/>
-      <line num="217" type="stmt" count="0"/>
-      <line num="220" type="stmt" count="0"/>
-      <metrics loc="223" ncloc="164" classes="1" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="65" coveredstatements="46" elements="71" coveredelements="48"/>
+      <line num="162" type="stmt" count="0"/>
+      <line num="163" type="stmt" count="0"/>
+      <line num="166" type="stmt" count="0"/>
+      <line num="170" type="stmt" count="2"/>
+      <line num="171" type="stmt" count="2"/>
+      <line num="173" type="stmt" count="2"/>
+      <line num="174" type="stmt" count="0"/>
+      <line num="177" type="stmt" count="2"/>
+      <line num="178" type="stmt" count="2"/>
+      <line num="180" type="stmt" count="0"/>
+      <line num="184" type="stmt" count="2"/>
+      <line num="185" type="stmt" count="1"/>
+      <line num="189" type="stmt" count="2"/>
+      <line num="191" type="stmt" count="2"/>
+      <line num="193" type="stmt" count="2"/>
+      <line num="207" type="method" name="cliWrite" visibility="protected" complexity="4" crap="7.46" count="2"/>
+      <line num="210" type="stmt" count="2"/>
+      <line num="211" type="stmt" count="2"/>
+      <line num="214" type="stmt" count="0"/>
+      <line num="215" type="stmt" count="0"/>
+      <line num="218" type="stmt" count="0"/>
+      <metrics loc="221" ncloc="167" classes="1" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="67" coveredstatements="48" elements="73" coveredelements="50"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\Models\CronJobLogModel.php">
       <class name="Daycry\CronJob\Models\CronJobLogModel" namespace="global">
@@ -549,8 +403,8 @@
       <class name="Daycry\CronJob\Scheduler" namespace="global">
         <metrics complexity="7" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="7" elements="16" coveredelements="12"/>
       </class>
-      <line num="19" type="method" name="getTasks" visibility="public" complexity="1" crap="1" count="2"/>
-      <line num="21" type="stmt" count="2"/>
+      <line num="19" type="method" name="getTasks" visibility="public" complexity="1" crap="1" count="3"/>
+      <line num="21" type="stmt" count="3"/>
       <line num="31" type="method" name="call" visibility="public" complexity="1" crap="1" count="1"/>
       <line num="33" type="stmt" count="1"/>
       <line num="41" type="method" name="command" visibility="public" complexity="1" crap="1" count="1"/>
@@ -568,9 +422,9 @@
       <metrics loc="92" ncloc="51" classes="1" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="9" coveredstatements="7" elements="16" coveredelements="12"/>
     </file>
     <file name="C:\Users\46066917X\Documents\GitHub\cronjob\src\language\en\CronJob.php">
-      <line num="4" type="stmt" count="0"/>
-      <metrics loc="7" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="1" coveredelements="0"/>
+      <line num="4" type="stmt" count="1"/>
+      <metrics loc="7" ncloc="7" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="1" coveredelements="1"/>
     </file>
-    <metrics files="17" loc="2000" ncloc="1285" classes="15" methods="84" coveredmethods="40" conditionals="0" coveredconditionals="0" statements="387" coveredstatements="215" elements="471" coveredelements="255"/>
+    <metrics files="11" loc="1525" ncloc="968" classes="9" methods="69" coveredmethods="46" conditionals="0" coveredconditionals="0" statements="292" coveredstatements="234" elements="361" coveredelements="280"/>
   </project>
 </coverage>

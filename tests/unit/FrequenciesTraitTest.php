@@ -18,6 +18,15 @@ final class FrequenciesTraitTest extends TestCase
         };
     }
 
+    public function testInvalidCron()
+    {
+        $this->expectException(Daycry\CronJob\Exceptions\CronJobException::class);
+
+        $cron = '5 10 11 12 6 7';
+
+        $this->class->cron($cron);
+    }
+
     public function testSetCron()
     {
         $cron = '5 10 11 12 6';

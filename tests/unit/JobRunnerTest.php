@@ -26,6 +26,21 @@ final class JobRunnerTest extends TestCase
         $this->assertNull($this->getRunner()->run());
     }
 
+    public function testRunWithInvalidTasks()
+    {
+        $this->expectException(Daycry\CronJob\Exceptions\CronJobException::class);
+
+        $task1 = (new Job('Evento', static function () {
+            sleep(2);
+            echo 'Task 1';
+        }))->daily('12:00 am', true)->named('task1');
+
+        $runner = $this->getRunner([$task1]);
+
+        $time = ( new \DateTime('now') )->setTime(00, 00)->format('Y-m-d H:i:s');
+        $runner->withTestTime($time)->run();
+    }
+
     public function testRunWithSuccess()
     {
         $config = config('CronJob');
@@ -53,6 +68,31 @@ final class JobRunnerTest extends TestCase
 
         $this->assertTrue(is_dir($config->filePath));
         $this->assertTrue(is_file($config->filePath . 'task2' . '/' . $config->fileName . '.json'));
+    }
+
+    public function testRunWithEmptyNameSuccess()
+    {
+        $config = config('CronJob');
+
+        $task2 = (new Job('closure', static function () {
+            sleep(3);
+            echo 'Task 2';
+        }))->daily('12:00 am');
+
+        ob_start();
+
+        $runner = $this->getRunner([$task2]);
+
+        $time = ( new \DateTime('now') )->setTime(00, 00)->format('Y-m-d H:i:s');
+        $runner->withTestTime($time)->run();
+
+        // Only task 2 should have ran
+        $this->assertSame('Task 2', $this->getActualOutput());
+
+        ob_end_clean();
+
+        $this->assertTrue(is_dir($config->filePath));
+        $this->assertTrue(is_file($config->filePath . $task2->name . '/' . $config->fileName . '.json'));
     }
 
     protected function getRunner(array $tasks = [])

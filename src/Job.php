@@ -127,9 +127,11 @@ class Job
     public function run()
     {
         $method = 'run' . ucfirst($this->type);
+        // @codeCoverageIgnoreStart
         if (!method_exists($this, $method)) {
             throw CronJobException::forInvalidTaskType($this->type);
         }
+        // @codeCoverageIgnoreEnd
 
         return $this->$method();
     }

@@ -16,6 +16,9 @@
 		<include>
 			<directory suffix=".php">./src</directory>
 		</include>
+		<exclude>
+			<directory suffix=".php">./src/Commands</directory>
+		</exclude>
 		<report>
 			<clover outputFile="build/logs/clover.xml"/>
 			<html outputDirectory="build/logs/html"/>
