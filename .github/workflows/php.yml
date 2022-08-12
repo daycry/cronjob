@@ -2,9 +2,9 @@ name: PHP Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
   pull_request:
-    branches: [ main ]
+    branches: [ master ]
     
 
   # Allows you to run this workflow manually from the Actions tab
@@ -61,7 +61,7 @@ jobs:
 
     steps:
       - name: Coveralls Finished
-        uses: coverallsapp/github-action@main
+        uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           parallel-finished: true
