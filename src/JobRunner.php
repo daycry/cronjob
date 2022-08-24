@@ -174,12 +174,16 @@ class JobRunner
             if( $this->config->maxLogsPerJob )
             {
                 // Make sure we have room for one more
-                if((is_countable($logs) ? count($logs) : 0) > $this->config->maxLogsPerJob ) {
-                    $logModel->where('id', $logs[0]->id)->delete();
+                if((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob ) {
+                    $forDelete = count($logs) - $this->config->maxLogsPerJob;
+                    for($i = 0; $forDelete >= $i; $i++)
+                    {
+                        $logModel->delete($logs[$i]->id);
+                    }
                 }
-
-                $logModel->insert($data);
             }
+
+            $logModel->insert($data);
         } else {
 
             $path = $this->config->filePath . $name;
