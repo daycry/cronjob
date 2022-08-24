@@ -39,10 +39,10 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (!file_exists($this->config->FilePath . $this->config->FileName)) {
+        if (!file_exists($this->config->filePath . $this->config->fileName)) {
             // dir doesn't exist, make it
-            if (!is_dir($this->config->FilePath)) {
-                mkdir($this->config->FilePath);
+            if (!is_dir($this->config->filePath)) {
+                mkdir($this->config->filePath);
             }
 
             $settings = [
