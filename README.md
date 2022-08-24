@@ -153,18 +153,18 @@ There are a number of ways available to specify how often the task is called.
 | ->everyFiveMinutes()          | Runs every 5 minutes (12:00, 12:05, 12:10, etc)                       |
 | ->everyFifteenMinutes()       | Runs every 15 minutes (12:00, 12:15, etc)                             |
 | ->everyThirtyMinutes()        | Runs every 30 minutes (12:00, 12:30, etc)                             |
-| ->sundays('3:15am')           | Runs every Sunday at midnight, unless time passed in.                 |
-| ->mondays('3:15am')           | Runs every Monday at midnight, unless time passed in.                 |
-| ->tuesdays('3:15am')          | Runs every Tuesday at midnight, unless time passed in.                |
-| ->wednesdays('3:15am')        | Runs every Wednesday at midnight, unless time passed in.              |
-| ->thursdays('3:15am')         | Runs every Thursday at midnight, unless time passed in.               |
-| ->fridays('3:15am')           | Runs every Friday at midnight, unless time passed in.                 |
-| ->saturdays('3:15am')         | Runs every Saturday at midnight, unless time passed in.               |
-| ->monthly('12:21pm')          | Runs the first day of every month at 12:00am unless time passed in.   |
-| ->quarterly('5:00am')         | Runs the first day of each quarter (Jan 1, Apr 1, July 1, Oct 1)      |
-| ->yearly('12:34am')           | Runs the first day of the year.                                       |
-| ->weekdays('1:23pm')          | Runs M-F at 12:00 am unless time passed in.                           |
-| ->weekends('2:34am')          | Runs Saturday and Sunday at 12:00 am unless time passed in.           |
+| ->sundays('3:15 am')           | Runs every Sunday at midnight, unless time passed in.                 |
+| ->mondays('3:15 am')           | Runs every Monday at midnight, unless time passed in.                 |
+| ->tuesdays('3:15 am')          | Runs every Tuesday at midnight, unless time passed in.                |
+| ->wednesdays('3:15 am')        | Runs every Wednesday at midnight, unless time passed in.              |
+| ->thursdays('3:15 am')         | Runs every Thursday at midnight, unless time passed in.               |
+| ->fridays('3:15 am')           | Runs every Friday at midnight, unless time passed in.                 |
+| ->saturdays('3:15 am')         | Runs every Saturday at midnight, unless time passed in.               |
+| ->monthly('12:21 pm')          | Runs the first day of every month at 12:00am unless time passed in.   |
+| ->quarterly('5:00 am')         | Runs the first day of each quarter (Jan 1, Apr 1, July 1, Oct 1)      |
+| ->yearly('12:34 am')           | Runs the first day of the year.                                       |
+| ->weekdays('1:23 pm')          | Runs M-F at 12:00 am unless time passed in.                           |
+| ->weekends('2:34 am')          | Runs Saturday and Sunday at 12:00 am unless time passed in.           |
 | ->environments('local', 'prod')   | Restricts the task to run only in the specified environments      |
 | ->everyHour(3, 15)            | Runs every 3 hours at XX:15.                                          |
 | ->betweenHours(6,12)          | Runs between hours 6 and 12.                                          |
