@@ -154,7 +154,7 @@ class JobRunner
         $name = $jobLog->task->name;
 
         $data = [
-            'task'     => $name,
+            'name'     => $name,
             'type'     => $jobLog->task->getType(),
             'action'   => (\is_object($jobLog->task->getAction())) ? \json_encode($jobLog->task->getAction()) : $jobLog->task->getAction(),
             'environment' => \json_encode($jobLog->task->environments),
