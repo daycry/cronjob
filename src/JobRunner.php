@@ -162,7 +162,7 @@ class JobRunner
             'end_at' => $jobLog->runEnd->format('Y-m-d H:i:s'),
             'duration' => $jobLog->duration(),
             'output'   => $jobLog->output ?? null,
-            'error'    => serialize($jobLog->error ?? null),
+            'error'    => \json_encode($jobLog->error ?? null),
             'test_time' => ($this->testTime) ? $this->testTime->format('Y-m-d H:i:s') : null
         ];
 
