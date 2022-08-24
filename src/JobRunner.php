@@ -169,10 +169,10 @@ class JobRunner
 
         if ($this->config->logSavingMethod == 'database') {
             $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
-            $logs = $logModel->where('name', $name)->findAll();
 
             if( $this->config->maxLogsPerJob )
             {
+                $logs = $logModel->where('name', $name)->findAll();
                 // Make sure we have room for one more
                 if((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob ) {
                     $forDelete = count($logs) - $this->config->maxLogsPerJob;
