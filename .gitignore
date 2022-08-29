@@ -4,3 +4,4 @@ tests/_support/cronJob/*
 build
 .php-cs-fixer.cache
 .phpunit.result.cache
+composer.lock
