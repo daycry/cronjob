@@ -55,22 +55,9 @@ class JobLog
      */
     public function duration()
     {
-        $dif = $this->runEnd->difference($this->runStart);
-
         $interval = $this->runEnd->diff($this->runStart);
 
         return $interval->format('%H:%I:%S');
-        /*dd($interval);
-
-        $hours = (int) $dif->getHours(true);
-        $minutes = (int) $dif->getMinutes(true);
-        $seconds = $dif->getSeconds(true);
-
-        // Since $seconds includes the minutes, calc the extra
-        $minutes = $minutes - ($hours * 60);
-        $seconds = $seconds - ($minutes * 60);
-
-        return str_pad((string) $hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad((string) $minutes, 2, '0', STR_PAD_LEFT) . ':' . str_pad((string) $seconds, 2, '0', STR_PAD_LEFT);*/
     }
 
     /**
