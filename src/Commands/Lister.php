@@ -77,6 +77,7 @@ class Lister extends CronJobCommand
             [
                 'Name',
                 'Type',
+                'Expression',
                 'Last Run',
                 'Next Run'
             ]
