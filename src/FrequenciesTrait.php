@@ -106,11 +106,11 @@ trait FrequenciesTrait
     /**
      * Runs at every hour or every x hours
      *
-     * @param int  $hour
-     * @param null $minute
-     * @return self
+     * @param int $hour
+     * @param int|null $minute
+     * @return $this
      */
-    public function everyHour(int $hour = 1, $minute = null)
+    public function everyHour(int $hour = 1, ?int $minute = null)
     {
         $cron = new \Cron\CronExpression($this->expression);
 
@@ -130,7 +130,7 @@ trait FrequenciesTrait
      *
      * @param int $fromHour
      * @param int $toHour
-     * @return self
+     * @return $this
      */
     public function betweenHours(int $fromHour, int $toHour)
     {
@@ -146,7 +146,7 @@ trait FrequenciesTrait
      * Runs on a specific choosen hours
      *
      * @param array $hours
-     * @return self
+     * @return $this
      */
     public function hours(array $hours)
     {
@@ -168,9 +168,9 @@ trait FrequenciesTrait
      *
      * @param int|string|null When set, specifies that the job will be run every $minute minutes
      *
-     * @return self
+     * @return $this
      */
-    public function everyMinute($minute = null)
+    public function everyMinute(?int $minute = null)
     {
         $minute = is_null($minute) ? "*" : '*/' . $minute;
 
@@ -218,7 +218,7 @@ trait FrequenciesTrait
      *
      * @param int $fromMinute
      * @param int $toMinute
-     * @return self
+     * @return $this
      */
     public function betweenMinutes(int $fromMinute, int $toMinute)
     {
@@ -235,7 +235,7 @@ trait FrequenciesTrait
      * Runs on a specific choosen minutes
      *
      * @param array $minutes
-     * @return self
+     * @return $this
      */
     public function minutes(array $minutes)
     {
@@ -257,7 +257,7 @@ trait FrequenciesTrait
      * Runs on specific days
      *
      * @param array|int $days [0 : Sunday - 6 : Saturday]
-     * @return self
+     * @return $this
      */
     public function days($days)
     {
@@ -388,7 +388,7 @@ trait FrequenciesTrait
      * Runs on specific days of the month
      *
      * @param array|int $days [1-31]
-     * @return self
+     * @return $this
      */
     public function daysOfMonth($days)
     {
@@ -409,7 +409,7 @@ trait FrequenciesTrait
      * Runs on specific months
      *
      * @param array $months
-     * @return self
+     * @return $this
      */
     public function months(array $months = [])
     {

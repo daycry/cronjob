@@ -5,6 +5,7 @@ namespace Daycry\CronJob\Commands;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
+use Daycry\CronJob\Config\Services;
 
 /**
  * Lists currently scheduled tasks.
@@ -47,7 +48,7 @@ class Lister extends CronJobCommand
             return false;
         }
 
-        $scheduler = \Config\Services::scheduler();
+        $scheduler = Services::scheduler();
 
         $this->config->init($scheduler);
 
@@ -56,10 +57,13 @@ class Lister extends CronJobCommand
         foreach ($scheduler->getTasks() as $task) {
             $cron = new \Cron\CronExpression($task->getExpression());
             $nextRun = $cron->getNextRunDate()->format('Y-m-d H:i:s');
+            $lastRun = $task->lastRun();
 
             $tasks[] = [
                 'name'     => $task->name ?: $task->getAction(),
                 'type'     => $task->getType(),
+                'schedule' => $task->getExpression(),
+                'last_run' => $lastRun instanceof Time ? $lastRun->format('Y-m-d H:i:s') : $lastRun,
                 'next_run' => $nextRun
             ];
         }

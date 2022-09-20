@@ -43,7 +43,7 @@ class CronJob extends BaseConfig
      * The maximum number of logs that should be saved per Job.
      * Lower numbers reduced the amount of database required to
      * store the logs.
-     * 
+     *
      * If you write 0 it is unlimited
      */
     public int $maxLogsPerJob = 3;

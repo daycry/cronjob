@@ -39,9 +39,9 @@ class JobRunner
      */
     protected $only = [];
 
-    public function __construct( BaseConfig $config = null)
+    public function __construct(BaseConfig $config = null)
     {
-        $this->config = ( $config ) ? $config : config('CronJob');
+        $this->config = ($config) ? $config : config('CronJob');
         $this->scheduler = service('scheduler');
     }
 
@@ -75,8 +75,7 @@ class JobRunner
 
             $this->cliWrite('Processing: ' . ($task->name ?: 'Task'), 'green');
 
-            try
-            {
+            try {
                 // How many jobs are runned
                 array_push($this->jobs, $task);
 
@@ -92,10 +91,9 @@ class JobRunner
                 log_message('error', $e->getMessage(), $e->getTrace());
                 $error = $e;
             } finally {
-
                 $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
 
-                $this->storePerformanceLog( $jobLog );
+                $this->storePerformanceLog($jobLog);
             }
         }
     }
@@ -170,14 +168,12 @@ class JobRunner
         if ($this->config->logSavingMethod == 'database') {
             $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
 
-            if( $this->config->maxLogsPerJob )
-            {
+            if ($this->config->maxLogsPerJob) {
                 $logs = $logModel->where('name', $name)->findAll();
                 // Make sure we have room for one more
-                if((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob ) {
+                if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob) {
                     $forDelete = count($logs) - $this->config->maxLogsPerJob;
-                    for($i = 0; $forDelete >= $i; $i++)
-                    {
+                    for ($i = 0; $forDelete >= $i; $i++) {
                         $logModel->delete($logs[$i]->id);
                     }
                 }
@@ -185,22 +181,21 @@ class JobRunner
 
             $logModel->insert($data);
         } else {
-
             $path = $this->config->filePath . $name;
             $fileName = $path . '/' . $this->config->fileName . '.json';
-            
+
             if (!is_dir($path)) {
                 mkdir($path, 0777, true);
             }
 
             if (file_exists($fileName)) {
                 $logs = \json_decode(\file_get_contents($fileName));
-            }else{
+            } else {
                 $logs = array();
             }
 
             // Make sure we have room for one more
-            if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob ) {
+            if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob) {
                 array_pop($logs);
             }
 

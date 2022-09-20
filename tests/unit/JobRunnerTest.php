@@ -13,7 +13,6 @@ final class JobRunnerTest extends TestCase
     use DatabaseTestTrait;
 
     protected $refresh   = true;
-    protected $namespace = 'Sparks\Settings';
     protected $config;
 
     protected function setUp(): void
@@ -57,7 +56,7 @@ final class JobRunnerTest extends TestCase
         $runner->withTestTime($time)->run();
 
         ob_end_clean();
-        
+
         $this->assertCount(0, $runner->getJobs());
     }
 

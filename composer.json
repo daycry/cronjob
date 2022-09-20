@@ -17,14 +17,9 @@
     },
     "require-dev":
     {
-        "phpunit/phpunit" : "^9.5",
         "codeigniter4/framework": "^4",
-        "friendsofphp/php-cs-fixer": "3.6.*",
-        "mikey179/vfsstream": "^1.6",
-        "nexusphp/cs-config": "^3.3",
-        "nexusphp/tachycardia": "^1.0",
-        "phpstan/phpstan": "^1.7.1",
-        "rector/rector": "0.13.9"
+        "codeigniter4/devkit": "^1.0",
+        "rector/rector": "0.14.2"
     },
     "autoload":
     {
@@ -39,9 +34,21 @@
             "Tests\\Support\\": "tests/_support"
         }
     },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "scripts": {
+        "analyze": [
+            "phpstan analyze",
+            "psalm",
+            "rector process --dry-run"
+        ],
         "test": "phpunit",
-        "cs-fixer": "vendor/bin/php-cs-fixer fix src",
-        "cs-fixer-tests": "vendor/bin/php-cs-fixer fix tests"
+        "cs-fixer": ["vendor/bin/php-cs-fixer fix src", "vendor/bin/php-cs-fixer fix tests" ],
+        "cs": "php-cs-fixer fix --ansi --verbose --dry-run --diff"
+    },
+    "config": {
+        "allow-plugins": {
+            "phpstan/extension-installer": true
+        }
     }
 }

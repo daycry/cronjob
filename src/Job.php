@@ -145,7 +145,7 @@ class Job
     public function shouldRun(\Datetime $testTime = null): bool
     {
         // Are we restricting to environments?
-        if (!empty($this->environments) && ! $this->runsInEnvironment(ENVIRONMENT)) {
+        if (!empty($this->environments) && ! $this->runsInEnvironment($_SERVER['CI_ENVIRONMENT'])) {
             return false;
         }
 
@@ -153,7 +153,49 @@ class Job
 
         $testTime = ($testTime) ? $testTime : 'now';
 
-        return $cron->isDue($testTime);
+        return $cron->isDue($testTime, config('App')->appTimezone);
+    }
+
+    /**
+     * Returns the date this was last ran.
+     *
+     * @return string|Time
+     */
+    public function lastRun()
+    {
+        $config = config('CronJob');
+
+        if ($config->logPerformance === false) {
+            return '--';
+        }
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+
+        if ($config->logSavingMethod == 'database') {
+            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
+            $log = $logModel->where('name', $name)->orderBy('id', 'DESC')->first();
+
+            if (empty($log)) {
+                return '--';
+            }
+
+            return Time::parse($log->start_at);
+        } else {
+            $path = $config->filePath . $name;
+            $fileName = $path . '/' . $config->fileName . '.json';
+
+            if (!is_dir($path)) {
+                return '--';
+            }
+
+            $logs = \json_decode(\file_get_contents($fileName));
+
+            if (empty($logs)) {
+                return '--';
+            }
+
+            return Time::parse($logs[0]->start_at);
+        }
     }
 
     /**

@@ -33,6 +33,13 @@ class Publish extends CronJobCommand
     protected $usage = 'cronjob:publish';
 
     /**
+     * Source Path
+     *
+     * @var string
+     */
+    protected $sourcePath = '';
+
+    /**
      * Enables task running
      *
      * @param array $params
