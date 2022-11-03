@@ -86,10 +86,12 @@ class JobRunner
                 }
 
                 $this->cliWrite('Executed: ' . ($task->name ?: 'Task'), 'cyan');
+            // @codeCoverageIgnoreStart
             } catch (\Throwable $e) {
                 $this->cliWrite('Failed: ' . ($task->name ?: 'Task'), 'red');
                 log_message('error', $e->getMessage(), $e->getTrace());
                 $error = $e;
+            // @codeCoverageIgnoreEnd
             } finally {
                 $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
 

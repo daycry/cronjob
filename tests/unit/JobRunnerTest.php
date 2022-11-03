@@ -90,6 +90,35 @@ final class JobRunnerTest extends TestCase
         $this->assertTrue(is_file($config->filePath . 'task2' . '/' . $config->fileName . '.json'));
     }
 
+    public function testRunWithOnlyJobsSuccess()
+    {
+        $config = config('CronJob');
+
+        $task1 = (new Job('closure', static function () {
+            sleep(2);
+            echo 'Task 1';
+        }))->daily('12:05 am', true)->named('task1');
+
+        $task2 = (new Job('closure', static function () {
+            sleep(3);
+            echo 'Task 2';
+        }))->daily('12:00 am')->named('task2');
+
+        ob_start();
+
+        $runner = $this->getRunner([$task1, $task2]);
+        $runner->only(['task1'])->run();
+
+        // Only task 2 should have ran
+        $this->assertSame('Task 1', $this->getActualOutput());
+
+        ob_end_clean();
+
+        $this->assertCount(1, $runner->getJobs());
+        $this->assertTrue(is_dir($config->filePath));
+        $this->assertTrue(is_file($config->filePath . 'task1' . '/' . $config->fileName . '.json'));
+    }
+
     public function testRunWithEmptyNameSuccess()
     {
         $config = config('CronJob');

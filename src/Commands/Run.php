@@ -39,7 +39,7 @@ class Run extends CronJobCommand
      *
      * @var array
      */
-    protected $options = [ '-testTime' => 'Set Date to run script' ];
+    protected $options = [ '-testTime' => 'Set Date to run script', '-only' => 'Set name of jobs that you want run separated with comma' ];
 
     /**
      * Runs tasks at the proper time.
@@ -69,6 +69,15 @@ class Run extends CronJobCommand
         if ($testTime) {
             $runner->withTestTime($testTime);
         }
+
+        $only = $params[ 'only' ] ?? CLI::getOption('only');
+        
+        if( $only )
+        {
+            $only = explode(',', $only);
+            $runner->only($only);
+        }
+
         $runner->run();
 
         CLI::newLine(1);
