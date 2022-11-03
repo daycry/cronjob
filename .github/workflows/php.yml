@@ -1,6 +1,8 @@
 name: PHP Tests
 
 on:
+  schedule:
+    - cron: "0 12 * * *"
   push:
     branches: [ master ]
   pull_request:

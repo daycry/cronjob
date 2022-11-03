@@ -114,6 +114,7 @@ You can call out to the server and execute a command using the `shell()` method.
 
 ```
 $schedule->shell('cp foo bar')->daily( '11:00 pm' );
+$schedule->shell('cp foo bar')->daily( '23:00' );
 ``` 
 
 Simply provide the command to call and any arguments, and it will be executed using PHP's `exec()` method. 
