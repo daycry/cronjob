@@ -216,11 +216,12 @@ Or if you prefer, you can run one or more specific jobs by passing the names sep
 This will list all available tasks that have been defined in the project, along with their type and
 the next time they are scheduled to run.
 
-    +---------------+--------------+-----------------------+
-    | Name          | Type         | Next Run              |
-    +---------------+--------------+-----------------------+
-    | emails        | command      | 2020-03-21-18:30:00   |
-    +---------------+--------------+-----------------------+
+    +--------------------------+---------+-------------+---------------------+---------------------+
+    | Name                     | Type    | Expression  | Last Run            | Next Run            |
+    +--------------------------+---------+-------------+---------------------+---------------------+
+    | job1                     | command | 08 10 * * * | --                  | 2022-11-04 10:08:00 |
+    | Job2                     | command | 0 0 * * *   | 2022-10-28 13:23:21 | 2022-11-05 00:00:00 |
+    +--------------------------+---------+-------------+---------------------+---------------------+
 
 **cronjob:disable**
 
