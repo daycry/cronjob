@@ -144,6 +144,25 @@ final class JobRunnerTest extends TestCase
         $this->assertTrue(is_file($config->filePath . $task2->name . '/' . $config->fileName . '.json'));
     }
 
+    public function testRunWithEmptyNameUrlSuccess()
+    {
+        $config = config('CronJob');
+
+        $task = (new Job('url', 'https://google.es'))->daily('12:00 am');
+
+        ob_start();
+
+        $runner = $this->getRunner([$task]);
+
+        $time = ( new \DateTime('now') )->setTime(00, 00)->format('Y-m-d H:i:s');
+        $runner->withTestTime($time)->run();
+
+        ob_end_clean();
+
+        $this->assertTrue(is_dir($config->filePath));
+        $this->assertTrue(is_file($config->filePath . $task->name . '/' . $config->fileName . '.json'));
+    }
+
     protected function getRunner(array $tasks = [])
     {
         $scheduler = service('scheduler');
