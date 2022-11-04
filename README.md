@@ -56,10 +56,6 @@ You only need to add a single line to your cronjob:
 This will call your script every minute. When `cronjob:run` is called, Tasks will determine the
 correct tasks that should be run and execute them.
 
-If you want simulate run a task in a specific time, you can pass in a param.
-
-    > * * * * * cd /path-to-your-project && php spark cronjob:run -testTime "2021-01-01 09:45:00" >> /dev/null 2>&1
-
 ## Defining Schedules
 
 Tasks are configured with the `app/Config/CronJob.php` config file, inside of the `init()` method.
