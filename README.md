@@ -199,13 +199,17 @@ $schedule->command('foo')->hourly()->named('foo-task');
 # CLI Commands
 
 Included in the package are several commands that can be ran from that CLI that provide that bit of emergency
-help you might need when something is going wrong with a cron job at 1am on a Saturday. 
+help you might need when something is going wrong with a cron job at a specific time.
 
 All commands are ran through CodeIgniter's `spark` cli tool: 
 
     > php spark cronjob:list
     > php spark cronjob:run
     > php spark cronjob:run -testTime "2021-01-01 09:45:00"
+
+Or if you prefer, you can run one or more specific jobs by passing the names separated by commas
+
+    > php spark cronjob:run -only "foo-task,foo-task1"
 
 ## Available Commands
 
