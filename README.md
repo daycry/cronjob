@@ -244,3 +244,7 @@ Will enable the task runner if it was previously disabled, allowing all tasks to
 This is the primary entry point to the Tasks system. It should be called by a cron task on the server
 every minute in order to be able to effectively run all of the scheduled tasks. You typically will not
 run this manually.
+
+## Notifications
+
+If you want to receive notifications by email, simply configure the Codeigniter Email library.
