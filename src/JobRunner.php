@@ -5,7 +5,8 @@ namespace Daycry\CronJob;
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Config\BaseConfig;
-
+use Config\Services;
+use CodeIgniter\Email\Email;
 use DateTime;
 
 /**
@@ -86,7 +87,8 @@ class JobRunner
                 }
 
                 $this->cliWrite('Executed: ' . ($task->name ?: 'Task'), 'cyan');
-            // @codeCoverageIgnoreStart
+
+                // @codeCoverageIgnoreStart
             } catch (\Throwable $e) {
                 $this->cliWrite('Failed: ' . ($task->name ?: 'Task'), 'red');
                 log_message('error', $e->getMessage(), $e->getTrace());
@@ -94,8 +96,30 @@ class JobRunner
             // @codeCoverageIgnoreEnd
             } finally {
                 $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
-
                 $this->storePerformanceLog($jobLog);
+                
+                if( $this->config->notification )
+                {
+                    // @codeCoverageIgnoreStart
+                    $email = new Email();
+                    $parser = Services::parser();
+
+                    $email->setMailType('html');
+                    $email->setFrom($this->config->from, $this->config->fromName);
+                    $email->setTo($this->config->to, $this->config->toName);
+                    $email->setSubject($parser->setData(array('job' => $task->name))->renderString(lang('CronJob.emailSubject')));
+                    $email->setMessage($parser->setData(
+                        array(
+                            'name' => $task->name,
+                            'runStart' => $start,
+                            'duration' => $jobLog->duration(),
+                            'output' => $output,
+                            'error' => $error
+                        )
+                    )->render('Daycry\CronJob\Views\email_notification'));
+                    $email->send();
+                    // @codeCoverageIgnoreEnd
+                }
             }
         }
     }

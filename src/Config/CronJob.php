@@ -70,6 +70,20 @@ class CronJob extends BaseConfig
 
     /*
     |--------------------------------------------------------------------------
+    | Cronjob Notification
+    |--------------------------------------------------------------------------
+    |
+    | Notification of each task
+    |
+    */
+    public bool $notification = false;
+    public string $from = 'your@example.com';
+    public string $fromName = 'CronJob';
+    public string $to = 'your@example.com';
+    public string $toName = 'User';
+
+    /*
+    |--------------------------------------------------------------------------
     | Cronjobs
     |--------------------------------------------------------------------------
     |
