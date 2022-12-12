@@ -4,21 +4,17 @@ declare(strict_types=1);
 
 namespace Daycry\CronJob\Controllers;
 
-use App\Controllers\BaseController;
 use Daycry\CronJob\Config\Services;
 
-class Dashboard extends BaseController
+class Dashboard extends BaseCronjob
 {
-    protected $helpers = ['form'];
-
     /**
      * Displays the form the login to the site.
      */
     public function index()
     {
-        $session = \Config\Services::session();
         $config = config('CronJob');
-        if (!$session->get('cronjob')) {
+        if (!$this->checkCronJobSession()) {
             return redirect()->to('cronjob');
         }
 
@@ -26,8 +22,8 @@ class Dashboard extends BaseController
         $scheduler = Services::scheduler();
         $config->init($scheduler);
 
-        $data['jobs'] = $scheduler->getTasks();
+        $this->viewData['jobs'] = $scheduler->getTasks();
 
-        return view(config('CronJob')->views['dashboard'], $data);
+        return view(config('CronJob')->views['dashboard'], $this->viewData);
     }
 }

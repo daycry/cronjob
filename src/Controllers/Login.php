@@ -4,30 +4,22 @@ declare(strict_types=1);
 
 namespace Daycry\CronJob\Controllers;
 
-use App\Controllers\BaseController;
-
-class Login extends BaseController
+class Login extends BaseCronjob
 {
-    protected $helpers = ['form'];
-
     /**
      * Displays the form the login to the site.
      */
     public function index()
     {
-        $session = \Config\Services::session();
-
-        if ($session->get('cronjob')) {
+        if ($this->session->get('cronjob')) {
             return redirect()->to('cronjob/dashboard');
         }
 
-        return view(config('CronJob')->views['login']);
+        return view(config('CronJob')->views['login'], $this->viewData);
     }
 
     public function validation()
     {
-        $session = \Config\Services::session();
-
         $validation = \Config\Services::validation();
         $validation->setRule('username', 'Username', 'required');
         $validation->setRule('password', 'Password', 'required');
@@ -43,7 +35,13 @@ class Login extends BaseController
             return redirect()->to('cronjob');
         }
 
-        $session->set('cronjob', true);
+        $this->session->set('cronjob', true);
         return redirect()->to('cronjob/dashboard');
+    }
+
+    public function logout()
+    {
+        $this->session->remove('cronjob');
+        return redirect()->to('cronjob');
     }
 }
