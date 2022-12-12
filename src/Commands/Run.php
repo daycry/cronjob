@@ -71,9 +71,8 @@ class Run extends CronJobCommand
         }
 
         $only = $params[ 'only' ] ?? CLI::getOption('only');
-        
-        if( $only )
-        {
+
+        if ($only) {
             $only = explode(',', $only);
             $runner->only($only);
         }

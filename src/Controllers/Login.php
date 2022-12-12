@@ -16,10 +16,9 @@ class Login extends BaseController
     public function index()
     {
         $session = \Config\Services::session();
-        
-        if( $session->get('cronjob') )
-        {
-            return redirect()->to('cronjob/dashboard'); 
+
+        if ($session->get('cronjob')) {
+            return redirect()->to('cronjob/dashboard');
         }
 
         return view(config('CronJob')->views['login']);
@@ -33,19 +32,18 @@ class Login extends BaseController
         $validation->setRule('username', 'Username', 'required');
         $validation->setRule('password', 'Password', 'required');
 
-        if( !$validation->withRequest($this->request)->run() )
-        {
+        if (!$validation->withRequest($this->request)->run()) {
             return redirect()->to('cronjob');
         }
 
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        if( $username != config('CronJob')->username || $password != config('CronJob')->password )
-        {
-            return redirect()->to('cronjob'); 
+        if ($username != config('CronJob')->username || $password != config('CronJob')->password) {
+            return redirect()->to('cronjob');
         }
 
         $session->set('cronjob', true);
+        return redirect()->to('cronjob/dashboard');
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
 return [
-    'login' => 'Login'
+    'login' => 'Login',
+    'dashboard' => 'Dashboard'
 ];

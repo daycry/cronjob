@@ -3,6 +3,7 @@
 namespace Daycry\CronJob\Config;
 
 $routes->group('cronjob', ['namespace' => 'Daycry\CronJob\Controllers'], static function ($routes) {
-    $routes->get('', 'Login');
+    $routes->get('', 'Login::index');
     $routes->post('login/validation', 'Login::validation');
+    $routes->get('dashboard', 'Dashboard::index');
 });

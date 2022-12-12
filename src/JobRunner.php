@@ -93,13 +93,12 @@ class JobRunner
                 $this->cliWrite('Failed: ' . ($task->name ?: 'Task'), 'red');
                 log_message('error', $e->getMessage(), $e->getTrace());
                 $error = $e;
-            // @codeCoverageIgnoreEnd
+                // @codeCoverageIgnoreEnd
             } finally {
                 $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
                 $this->storePerformanceLog($jobLog);
-                
-                if( $this->config->notification )
-                {
+
+                if ($this->config->notification) {
                     // @codeCoverageIgnoreStart
                     $email = new Email();
                     $parser = Services::parser();
