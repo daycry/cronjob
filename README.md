@@ -56,6 +56,11 @@ You only need to add a single line to your cronjob:
 This will call your script every minute. When `cronjob:run` is called, Tasks will determine the
 correct tasks that should be run and execute them.
 
+## Dashboard
+
+You can access the web interface to view the status of jobs using the following url: `https://example.com/cronjob`
+![CronJob List](/docs/images/cronjob-list.jpg)
+
 ## Defining Schedules
 
 Tasks are configured with the `app/Config/CronJob.php` config file, inside of the `init()` method.
@@ -244,6 +249,7 @@ Will enable the task runner if it was previously disabled, allowing all tasks to
 This is the primary entry point to the Tasks system. It should be called by a cron task on the server
 every minute in order to be able to effectively run all of the scheduled tasks. You typically will not
 run this manually.
+
 
 ## Notifications
 
