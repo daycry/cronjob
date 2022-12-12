@@ -42,7 +42,7 @@
             "psalm",
             "rector process --dry-run"
         ],
-        "test": "phpunit",
+        "test": "vendor/bin/phpunit",
         "cs-fixer": ["vendor/bin/php-cs-fixer fix src", "vendor/bin/php-cs-fixer fix tests" ],
         "cs": "php-cs-fixer fix --ansi --verbose --dry-run --diff"
     },
