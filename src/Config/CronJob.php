@@ -101,6 +101,7 @@ class CronJob extends BaseConfig
     | Dashboard login
     |--------------------------------------------------------------------------
     */
+    public bool $enableDashboard = false;
     public string $username = 'admin';
     public string $password = 'admin';
 

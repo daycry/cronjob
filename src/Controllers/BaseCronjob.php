@@ -23,6 +23,12 @@ class BaseCronjob extends BaseController
         parent::initController($request, $response, $logger);
 
         // Preload any models, libraries, etc, here.
+        $config = config('CronJob');
+
+        if( !$config->enableDashboard )
+        {
+            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+        }
 
         $this->session = \Config\Services::session();
         $this->checkCronJobSession();
