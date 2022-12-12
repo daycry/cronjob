@@ -59,6 +59,7 @@ correct tasks that should be run and execute them.
 ## Dashboard
 
 You can access the web interface to view the status of jobs using the following url: `https://example.com/cronjob`
+You must configure an username and password in CronJob.php Config file.
 ![CronJob List](/docs/images/cronjob-list.jpg)
 
 ## Defining Schedules
