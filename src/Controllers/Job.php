@@ -13,7 +13,6 @@ class Job extends BaseCronjob
      */
     public function index(string $jobName)
     {
-        
         if (!$this->checkCronJobSession()) {
             return redirect()->to('cronjob');
         }
@@ -23,17 +22,14 @@ class Job extends BaseCronjob
         $config->init($scheduler);
 
         $result = false;
-        foreach( $scheduler->getTasks() as $job )
-        {
-            if( $job->name === $jobName )
-            {
+        foreach ($scheduler->getTasks() as $job) {
+            if ($job->name === $jobName) {
                 $result = $job;
                 break;
             }
         }
 
-        if( !$result )
-        {
+        if (!$result) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 

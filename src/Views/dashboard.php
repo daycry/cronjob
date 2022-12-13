@@ -34,7 +34,7 @@
                             <div class="dropup-center btn-group dropstart">
                                 <a href="#" class="btn btn-secondary dropdown-toggle" role="button" data-bs-auto-close="true" data-bs-reference="parent" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-gear"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item logs" data-job="<?= $job->name ?>" href="<?= base_url('cronjob/job/' . $job->name . '/logs' );?>">Logs</a></li>
+                                    <li><a class="dropdown-item logs" data-job="<?= $job->name ?>" href="<?= base_url('cronjob/job/' . $job->name . '/logs');?>">Logs</a></li>
                                 </ul>
                             </div>
                         </td>

@@ -25,8 +25,7 @@ class BaseCronjob extends BaseController
         // Preload any models, libraries, etc, here.
         $config = config('CronJob');
 
-        if( !$config->enableDashboard )
-        {
+        if (!$config->enableDashboard) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
 
