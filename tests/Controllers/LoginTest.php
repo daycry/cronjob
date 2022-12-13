@@ -23,13 +23,12 @@ class LoginTest extends CIUnitTestCase
         $this->expectException(\CodeIgniter\Exceptions\PageNotFoundException::class);
 
         $result = $this->call('get', 'cronjob');
-
-        $this->assertTrue($result->isOK());
     }
 
-    public function testShowLoginEnabled()
+    /*public function testShowLoginEnabled()
     {
         putenv('cronJob.enableDashboard=true');
+
         $result = $this->call('get', 'cronjob');
 
         $this->assertTrue($result->isOK());
@@ -69,5 +68,5 @@ class LoginTest extends CIUnitTestCase
         ]);
 
         $result->assertRedirectTo('cronjob/dashboard');
-    }
+    }*/
 }
