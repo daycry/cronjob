@@ -6,7 +6,7 @@ namespace Daycry\CronJob\Controllers;
 
 use Daycry\CronJob\Config\Services;
 
-class Job extends BaseCronjob
+class Job extends BaseCronJob
 {
     /**
      * Displays the form the login to the site.
