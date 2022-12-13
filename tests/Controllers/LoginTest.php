@@ -25,7 +25,7 @@ class LoginTest extends CIUnitTestCase
         $result = $this->call('get', 'cronjob');
     }
 
-    public function testShowLoginEnabled()
+    /*public function testShowLoginEnabled()
     {
         putenv('cronJob.enableDashboard=true');
 
@@ -68,5 +68,5 @@ class LoginTest extends CIUnitTestCase
         ]);
 
         $result->assertRedirectTo('cronjob/dashboard');
-    }
+    }*/
 }
