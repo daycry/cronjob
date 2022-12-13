@@ -16,8 +16,10 @@ class LoginTest extends CIUnitTestCase
         parent::setUp();
     }
 
-    public function testShowLoginDisables()
+    public function testShowLoginDisabled()
     {
+        putenv('cronJob.enableDashboard=false');
+
         $this->expectException(\CodeIgniter\Exceptions\PageNotFoundException::class);
 
         $result = $this->call('get', 'cronjob');
