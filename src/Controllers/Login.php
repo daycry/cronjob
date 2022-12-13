@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Daycry\CronJob\Controllers;
 
-class Login extends BaseCronjob
+class Login extends BaseCronJob
 {
     /**
      * Displays the form the login to the site.

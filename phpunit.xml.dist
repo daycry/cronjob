@@ -18,6 +18,7 @@
 		</include>
 		<exclude>
 			<file>./src/Config/Routes.php</file>
+			<file>./src/Config/CronJob.php</file>
 			<directory suffix=".php">./src/Commands</directory>
 			<directory suffix=".php">./src/Database</directory>
 			<directory suffix=".php">./src/Models</directory>
