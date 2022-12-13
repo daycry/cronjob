@@ -199,6 +199,37 @@ class Job
     }
 
     /**
+     * Returns array of logs.
+     *
+     * @return array
+     */
+    public function getLogs()
+    {
+        $config = config('CronJob');
+        $logs = [];
+
+        if ($config->logPerformance === false) {
+            return $logs;
+        }
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+
+        if ($config->logSavingMethod == 'database') {
+            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
+            $logs = $logModel->where('name', $name)->orderBy('id', 'DESC')->findAll();
+        } else {
+            $path = $config->filePath . $name;
+            $fileName = $path . '/' . $config->fileName . '.json';
+
+            if (is_dir($path)) {
+                $logs = \json_decode(\file_get_contents($fileName));
+            }
+        }
+
+        return $logs;
+    }
+
+    /**
      * Restricts this task to run within only
      * specified environements.
      *

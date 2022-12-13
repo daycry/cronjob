@@ -31,7 +31,8 @@ class Login extends BaseCronjob
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
-        if ($username != config('CronJob')->username || $password != config('CronJob')->password) {
+        $config = config('CronJob');
+        if ($username != $config->username || $password != $config->password) {
             return redirect()->to('cronjob');
         }
 

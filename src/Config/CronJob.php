@@ -93,7 +93,8 @@ class CronJob extends BaseConfig
     public array $views = [
         'login'                       => '\Daycry\CronJob\Views\login',
         'dashboard'                   => '\Daycry\CronJob\Views\dashboard',
-        'layout'                      => '\Daycry\CronJob\Views\layout'
+        'layout'                      => '\Daycry\CronJob\Views\layout',
+        'logs'                        => '\Daycry\CronJob\Views\logs'
     ];
 
     /*

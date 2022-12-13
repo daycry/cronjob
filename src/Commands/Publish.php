@@ -55,12 +55,12 @@ class Publish extends CronJobCommand
     {
         $this->determineSourcePath();
 
-        $this->publishAssets();
-
         // Config
         if (CLI::prompt('Publish Config file?', [ 'y', 'n' ]) == 'y') {
             $this->publishConfig();
         }
+
+        $this->call('cronjob:assets');
     }
 
     protected function publishConfig()
@@ -74,12 +74,6 @@ class Publish extends CronJobCommand
         $this->writeFile("Config/CronJob.php", $content);
     }
 
-    protected function publishAssets()
-    {
-        helper('filesystem');
-        directory_mirror($this->assetsPath, FCPATH . 'vendor' . DIRECTORY_SEPARATOR . 'cronjob', true);
-    }
-
     /**
      * Determines the current source path from which all other files are located.
      */
@@ -87,14 +81,7 @@ class Publish extends CronJobCommand
     {
         $this->sourcePath = realpath(__DIR__ . '/../');
 
-        $this->assetsPath = realpath(__DIR__ . '/../../public/');
-
         if ($this->sourcePath == '/' || empty($this->sourcePath)) {
-            CLI::error('Unable to determine the correct source directory. Bailing.');
-            exit();
-        }
-
-        if ($this->assetsPath == '/' || empty($this->assetsPath)) {
             CLI::error('Unable to determine the correct source directory. Bailing.');
             exit();
         }

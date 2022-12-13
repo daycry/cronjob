@@ -13,17 +13,16 @@ class Dashboard extends BaseCronjob
      */
     public function index()
     {
-        $config = config('CronJob');
         if (!$this->checkCronJobSession()) {
             return redirect()->to('cronjob');
         }
 
-        $data = [];
+        $config = config('CronJob');
         $scheduler = Services::scheduler();
         $config->init($scheduler);
 
         $this->viewData['jobs'] = $scheduler->getTasks();
 
-        return view(config('CronJob')->views['dashboard'], $this->viewData);
+        return view($config->views['dashboard'], $this->viewData);
     }
 }

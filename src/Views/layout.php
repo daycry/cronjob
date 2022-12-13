@@ -40,7 +40,10 @@
 <body class="<?= $this->renderSection('bodyClass') ?>">
 <?= $this->renderSection('main') ?>
 
+<script src="<?= base_url('vendor/cronjob/js/jquery.min.js'); ?>"></script>
 <script src="<?= base_url('vendor/cronjob/js/bootstrap.min.js'); ?>"></script>
+<script src="<?= base_url('vendor/cronjob/js/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?= base_url('vendor/cronjob/js/jquery.dataTables.bootstrap.min.js'); ?>"></script>
 <?= $this->renderSection('pageScripts') ?>
 </body>
 </html>
