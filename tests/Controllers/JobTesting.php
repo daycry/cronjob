@@ -7,7 +7,7 @@ use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureTestTrait;
 use Daycry\CronJob\Job;
 
-class JobTest extends CIUnitTestCase
+class JobTesting extends CIUnitTestCase
 {
     use FeatureTestTrait;
 

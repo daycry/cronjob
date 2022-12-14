@@ -5,7 +5,7 @@ namespace Tests\Controllers;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureTestTrait;
 
-class DashboardTest extends CIUnitTestCase
+class DashboardTesting extends CIUnitTestCase
 {
     use FeatureTestTrait;
 

@@ -5,7 +5,7 @@ namespace Tests\Controllers;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\FeatureTestTrait;
 
-class LoginTest extends CIUnitTestCase
+class LoginTesting extends CIUnitTestCase
 {
     use FeatureTestTrait;
 
@@ -16,14 +16,14 @@ class LoginTest extends CIUnitTestCase
         parent::setUp();
     }
 
-    /*public function testShowLoginDisabled()
+    public function testShowLoginDisabled()
     {
         putenv('cronJob.enableDashboard=false');
 
         $this->expectException(\CodeIgniter\Exceptions\PageNotFoundException::class);
 
         $result = $this->call('get', 'cronjob');
-    }*/
+    }
 
     public function testShowLoginEnabled()
     {
