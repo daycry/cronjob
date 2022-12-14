@@ -12,7 +12,7 @@ final class SchedulerTest extends TestCase
     /**
      * @var Scheduler
      */
-    protected $scheduler;
+    protected Scheduler $scheduler;
 
     protected function setUp(): void
     {
@@ -27,27 +27,27 @@ final class SchedulerTest extends TestCase
             return 'Hello';
         };
 
-        $task = $this->scheduler->call($function);
+        $job = $this->scheduler->call($function);
 
         $this->assertInstanceOf(\Closure::class, $function);
-        $this->assertInstanceOf(Job::class, $task);
-        $this->assertSame($function, $task->getAction());
-        $this->assertSame('Hello', $task->getAction()());
+        $this->assertInstanceOf(Job::class, $job);
+        $this->assertSame($function, $job->getAction());
+        $this->assertSame('Hello', $job->getAction()());
     }
 
     public function testCommandSavesTask()
     {
-        $task = $this->scheduler->command('foo:bar');
+        $job = $this->scheduler->command('foo:bar');
 
-        $this->assertInstanceOf(Job::class, $task);
-        $this->assertSame('foo:bar', $task->getAction());
+        $this->assertInstanceOf(Job::class, $job);
+        $this->assertSame('foo:bar', $job->getAction());
     }
 
     public function testShellSavesTask()
     {
-        $task = $this->scheduler->shell('foo:bar');
+        $job = $this->scheduler->shell('foo:bar');
 
-        $this->assertInstanceOf(Job::class, $task);
-        $this->assertSame('foo:bar', $task->getAction());
+        $this->assertInstanceOf(Job::class, $job);
+        $this->assertSame('foo:bar', $job->getAction());
     }
 }

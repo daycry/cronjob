@@ -16,16 +16,16 @@ class LoginTest extends CIUnitTestCase
         parent::setUp();
     }
 
-    public function testShowLoginDisabled()
+    /*public function testShowLoginDisabled()
     {
         putenv('cronJob.enableDashboard=false');
 
         $this->expectException(\CodeIgniter\Exceptions\PageNotFoundException::class);
 
         $result = $this->call('get', 'cronjob');
-    }
+    }*/
 
-    /*public function testShowLoginEnabled()
+    public function testShowLoginEnabled()
     {
         putenv('cronJob.enableDashboard=true');
 
@@ -58,6 +58,18 @@ class LoginTest extends CIUnitTestCase
         $result->assertRedirectTo('cronjob');
     }
 
+    public function testLoginUsernameError()
+    {
+        putenv('cronJob.enableDashboard=true');
+
+        $result = $this->call('post', 'cronjob/login/validation', [
+            'username'  => 'admin1',
+            'password' => 'admin',
+        ]);
+
+        $result->assertRedirectTo('cronjob');
+    }
+
     public function testLoginValidationSuccess()
     {
         putenv('cronJob.enableDashboard=true');
@@ -68,5 +80,14 @@ class LoginTest extends CIUnitTestCase
         ]);
 
         $result->assertRedirectTo('cronjob/dashboard');
-    }*/
+    }
+
+    public function testLoginLogout()
+    {
+        putenv('cronJob.enableDashboard=true');
+
+        $result = $this->call('get', 'cronjob/login/logout');
+
+        $result->assertRedirectTo('cronjob');
+    }
 }

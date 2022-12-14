@@ -18,6 +18,7 @@ class Job extends BaseCronJob
         }
 
         $config = config('CronJob');
+
         $scheduler = Services::scheduler();
         $config->init($scheduler);
 

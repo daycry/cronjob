@@ -42,8 +42,6 @@ final class JobRunnerTest extends TestCase
 
     public function testRunWithEnvironment()
     {
-        $config = config('CronJob');
-
         $task2 = (new Job('closure', static function () {
             sleep(3);
             echo 'Task 2';
