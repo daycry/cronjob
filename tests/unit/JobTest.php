@@ -5,13 +5,14 @@ use Daycry\CronJob\Job;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\Filters\CITestStreamFilter;
 use CodeIgniter\Test\CIUnitTestCase as TestCase;
+use CodeIgniter\Test\StreamFilterTrait;
 
 /**
  * @internal
  */
 final class JobTest extends TestCase
 {
-    use DatabaseTestTrait;
+    use DatabaseTestTrait, StreamFilterTrait;
 
     protected $refresh   = true;
     protected $config;
@@ -20,18 +21,12 @@ final class JobTest extends TestCase
     {
         parent::setUp();
 
-        CITestStreamFilter::$buffer = '';
-        $this->streamFilter         = stream_filter_append(STDOUT, 'CITestStreamFilter');
-        $this->streamFilter         = stream_filter_append(STDERR, 'CITestStreamFilter');
-
         $this->config = config('CronJob');
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
-
-        stream_filter_remove($this->streamFilter);
     }
 
     protected function getBuffer(): string
@@ -157,7 +152,7 @@ final class JobTest extends TestCase
         );
 
         // Should return the current time
-        $this->assertInstanceOf(Datetime::class, $job->lastRun()); // @phpstan-ignore-line
+        $this->assertInstanceOf(\CodeIgniter\I18n\Time::class, $job->lastRun()); // @phpstan-ignore-line
         $this->assertSame($date, $job->lastRun()->format('Y-m-d H:i:s'));
     }
 }
