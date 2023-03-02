@@ -3,13 +3,22 @@
 namespace Daycry\Cronjob\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
+use CodeIgniter\Database\Forge;
 
 class CreateCronjobTable extends Migration
 {
+    protected $config = null;
+
+    public function __construct(?Forge $forge = null)
+    {
+        $this->config = config('Cronjob');
+        $this->DBGroup = $this->config->restDatabaseGroup;
+
+        parent::__construct($forge);
+    }
+
     public function up()
     {
-        $config = $this->_getConfig();
-
         /*
          * Jobs
          */
@@ -33,24 +42,11 @@ class CreateCronjobTable extends Migration
         $this->forge->addKey('id', true);
         $this->forge->addKey('deleted_at');
 
-        $this->forge->createTable($config->tableName, true);
+        $this->forge->createTable($this->config->tableName, true);
     }
 
     public function down()
     {
-        $config = $this->_getConfig();
-
-        $this->forge->dropTable($config->tableName, true);
-    }
-
-    private function _getConfig()
-    {
-        $config = config('CronJob');
-
-        if (!$config) {
-            $config = new \Daycry\CronJob\Config\CronJob();
-        }
-
-        return $config;
+        $this->forge->dropTable($this->config->tableName, true);
     }
 }
