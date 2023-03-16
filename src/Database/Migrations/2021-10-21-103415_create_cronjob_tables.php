@@ -11,7 +11,7 @@ class CreateCronjobTable extends Migration
 
     public function __construct(?Forge $forge = null)
     {
-        $this->config = config('Cronjob');
+        $this->config = config('CronJob');
         $this->DBGroup = $this->config->databaseGroup;
 
         parent::__construct($forge);
@@ -22,7 +22,8 @@ class CreateCronjobTable extends Migration
         /*
          * Jobs
          */
-        $this->forge->addField([
+        $this->forge->addField(
+            [
             'id'                    => ['type' => 'int', 'constraint' => 11, 'unsigned' => true, 'auto_increment' => true],
             'name'                  => ['type' => 'varchar', 'constraint' => 50, 'null' => true, 'default' => null],
             'type'                  => ['type' => 'varchar', 'constraint' => 25, 'null' => false],
@@ -37,7 +38,8 @@ class CreateCronjobTable extends Migration
             'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
             'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
             'deleted_at'       => ['type' => 'datetime', 'null' => true, 'default' => null]
-        ]);
+            ]
+        );
 
         $this->forge->addKey('id', true);
         $this->forge->addKey('deleted_at');
