@@ -4,6 +4,7 @@ namespace Daycry\Cronjob\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\Forge;
+use CodeIgniter\Database\RawSql;
 
 class CreateCronjobTable extends Migration
 {
@@ -35,9 +36,9 @@ class CreateCronjobTable extends Migration
             'end_at'                => ['type' => 'datetime', 'null' => false],
             'duration'              => ['type' => 'time', 'null' => false],
             'test_time'             => ['type' => 'datetime', 'null' => true, 'default' => null],
-            'created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP',
-            'updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP',
-            'deleted_at'       => ['type' => 'datetime', 'null' => true, 'default' => null]
+            'created_at'     => ['type' => 'datetime', 'null' => false, 'default' => new RawSql('CURRENT_TIMESTAMP')],
+            'updated_at'     => ['type' => 'datetime', 'null' => true,'default' => null],
+            'deleted_at'     => ['type' => 'datetime', 'null' => true, 'default' => null],
             ]
         );
 

@@ -27,8 +27,8 @@ class CronJobLogModel extends Model
     public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         if ($db === null) {
-            $db = Database::connect(config('CronJob')->databaseGroup);
             $this->DBGroup = config('CronJob')->databaseGroup;
+            $db = Database::connect($this->DBGroup);
         }
 
         $this->table = config('CronJob')->tableName;
