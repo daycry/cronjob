@@ -180,12 +180,12 @@ class JobRunner
             'name'     => $name,
             'type'     => $jobLog->task->getType(),
             'action'   => (\is_object($jobLog->task->getAction())) ? \json_encode($jobLog->task->getAction()) : $jobLog->task->getAction(),
-            'environment' => \json_encode($jobLog->task->environments),
+            'environment' => $jobLog->task->environments ? \json_encode($jobLog->task->environments) : null,
             'start_at'    => $jobLog->runStart->format('Y-m-d H:i:s'),
             'end_at' => $jobLog->runEnd->format('Y-m-d H:i:s'),
             'duration' => $jobLog->duration(),
-            'output'   => $jobLog->output ?? null,
-            'error'    => \json_encode($jobLog->error ?? null),
+            'output'   => $jobLog->output ? \json_encode($jobLog->output) : null,
+            'error'    => $jobLog->error ? \json_encode($jobLog->error) : null,
             'test_time' => ($this->testTime) ? $this->testTime->format('Y-m-d H:i:s') : null
         ];
 
