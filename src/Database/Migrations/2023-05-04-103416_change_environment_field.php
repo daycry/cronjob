@@ -22,6 +22,9 @@ class CreateCronjobTable extends Migration
     {
         $fields = [
             'environment' => [
+                'name' => 'environment',
+                'type' => 'varchar',
+                'constraint' => 100,
                 'null' => true,
                 'default' => null
             ],
