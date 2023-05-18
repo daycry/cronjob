@@ -6,7 +6,7 @@ use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\Forge;
 use CodeIgniter\Database\RawSql;
 
-class CreateCronjobTable extends Migration
+class ChangeEnvironmentField extends Migration
 {
     protected $config = null;
 
