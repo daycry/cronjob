@@ -17,7 +17,7 @@ abstract class CronJobCommand extends BaseCommand
      *
      * @var string
      */
-    protected $group = 'cronjob';
+    protected $group = 'Cronjob';
 
     /**
      * Config File
