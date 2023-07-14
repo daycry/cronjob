@@ -34,11 +34,11 @@ class ChangeEnvironmentField extends Migration
 
     public function down()
     {
-        $fields = [
+        /*$fields = [
             'environment' => [
                 'null' => false
             ],
         ];
-        $this->forge->modifyColumn($this->config->tableName, $fields);
+        $this->forge->modifyColumn($this->config->tableName, $fields);*/
     }
 }
