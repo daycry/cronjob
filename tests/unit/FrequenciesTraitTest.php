@@ -89,7 +89,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->sundays();
 
-        $this->assertSame('* * * * 0', $this->class->getExpression());
+        $this->assertSame('0 0 * * 0', $this->class->getExpression());
     }
 
     public function testEverySundayWithTime()
@@ -103,7 +103,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->mondays();
 
-        $this->assertSame('* * * * 1', $this->class->getExpression());
+        $this->assertSame('0 0 * * 1', $this->class->getExpression());
     }
 
     public function testEveryMondayWithTime()
@@ -117,7 +117,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->tuesdays();
 
-        $this->assertSame('* * * * 2', $this->class->getExpression());
+        $this->assertSame('0 0 * * 2', $this->class->getExpression());
     }
 
     public function testEveryTuesdayWithTime()
@@ -131,7 +131,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->wednesdays();
 
-        $this->assertSame('* * * * 3', $this->class->getExpression());
+        $this->assertSame('0 0 * * 3', $this->class->getExpression());
     }
 
     public function testEveryWednesdayWithTime()
@@ -145,7 +145,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->thursdays();
 
-        $this->assertSame('* * * * 4', $this->class->getExpression());
+        $this->assertSame('0 0 * * 4', $this->class->getExpression());
     }
 
     public function testEveryThursdayWithTime()
@@ -159,7 +159,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->fridays();
 
-        $this->assertSame('* * * * 5', $this->class->getExpression());
+        $this->assertSame('0 0 * * 5', $this->class->getExpression());
     }
 
     public function testEveryFridayWithTime()
@@ -173,7 +173,7 @@ final class FrequenciesTraitTest extends TestCase
     {
         $this->class->saturdays();
 
-        $this->assertSame('* * * * 6', $this->class->getExpression());
+        $this->assertSame('0 0 * * 6', $this->class->getExpression());
     }
 
     public function testEverySaturdayWithTime()

@@ -540,7 +540,7 @@ trait FrequenciesTrait
      */
     protected function setDayOfWeek(int $day, string $time = null)
     {
-        $min = $hour = '*';
+        $min = $hour = '0';
 
         $cron = new \Cron\CronExpression($this->expression);
 
