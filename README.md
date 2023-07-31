@@ -51,7 +51,7 @@ This command create rest server tables in your database.
 
 You only need to add a single line to your cronjob: 
 
-    > * * * * * cd /path-to-your-project && php spark cronjob:run >> /dev/null 2>&1
+    > * * * * * php /path-to-your-project/spark cronjob:run >> /dev/null 2>&1 >> /dev/null 2>&1
     
 This will call your script every minute. When `cronjob:run` is called, Tasks will determine the
 correct tasks that should be run and execute them.
