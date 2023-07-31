@@ -71,6 +71,27 @@ You must configure an username and password in CronJob.php Config file.
     public string $password = 'admin';
 ```
 
+## Custom Views
+
+Go to app\Config\CronJob.php ->views['dashboard'] and put your view's path there, like: "Cronjob/dashboard" - which is located in app\Views\Cronjob\dashboard.php
+
+```php
+/*
+    |--------------------------------------------------------------------------
+    | Views
+    |--------------------------------------------------------------------------
+    |
+    | Notification of each task
+    |
+    */
+    public array $views = [
+        'login'                       => '\Daycry\CronJob\Views\login',
+        'dashboard'                   => '\Daycry\CronJob\Views\dashboard',
+        'layout'                      => '\Daycry\CronJob\Views\layout',
+        'logs'                        => '\Daycry\CronJob\Views\logs'
+    ];
+```
+
 ![CronJob List](/docs/images/cronjob-list.jpg)
 
 ## Defining Schedules
