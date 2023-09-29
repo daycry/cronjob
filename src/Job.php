@@ -41,6 +41,13 @@ class Job
     ];
 
     /**
+     * The type of cron run.
+     *
+     * @var string
+     */
+    protected string $runType = 'multiple';
+
+    /**
      * The type of action.
      *
      * @var string
@@ -367,5 +374,66 @@ class Job
         if (property_exists($this, $key)) {
             return $this->{ $key };
         }
+    }
+
+    /**
+     * Set the runType of task
+     *
+     * @param string $runType
+     *
+     * @return $this
+     */
+    public function setRunType(string $runType): Job
+    {
+        $this->runType = $runType;
+
+        return $this;
+    }
+
+    /**
+     * Returns the runType.
+     *
+     * @return string
+     */
+    public function getRunType(): string
+    {
+        return $this->runType;
+    }
+
+    /**
+     * Saves the running flag.
+     */
+    public function saveRunningFlag($flag)
+    {
+        $config = config('CronJob');
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+        if ($flag) {
+            if (!file_exists($config->filePath . $name . '/running')) {
+                // dir doesn't exist, make it
+                if (!is_dir($config->filePath)) {
+                    mkdir($config->filePath);
+                }
+
+                $data = [
+                    "flag" => $flag,
+                    "time" => ( new \DateTime() )->format('Y-m-d H:i:s')
+                ];
+
+                // write the file with json content
+                file_put_contents(
+                    $config->filePath . $name . '/running',
+                    json_encode(
+                        $data,
+                        JSON_PRETTY_PRINT
+                    )
+                );
+
+                return $data;
+            }
+        } else {
+            @unlink($config->filePath . $name . '/running');
+        }
+        return false;
     }
 }
