@@ -1,5 +1,8 @@
 vendor
 tests/_support/cronJob/*
+!tests/_support/cronJob/.gitkeep
+tests/_support/cache/*
+!tests/_support/cache/.gitkeep
 !tests/_support/index.html
 build
 .php-cs-fixer.cache
