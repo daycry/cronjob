@@ -81,7 +81,7 @@ class JobRunner
                 array_push($this->jobs, $task);
 
                 if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
-                    $this->cliWrite(($task->name ?: 'Task') . ' is single run task and one instance already running.', 'red');
+                    $this->cliWrite('Failed: ' . ($task->name ?: 'Task'), 'red');
                     throw new \Exception(($task->name ?: 'Task') . ' is single run task and one instance already running.');
                 }
 
