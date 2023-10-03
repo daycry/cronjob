@@ -80,6 +80,11 @@ class JobRunner
                 // How many jobs are runned
                 array_push($this->jobs, $task);
 
+                if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
+                    $this->cliWrite('Failed: ' . $task->name, 'red');
+                    throw new \Exception(($task->name ?: 'Task') . ' is single run task and one instance already running.');
+                }
+
                 $output = $task->run();
 
                 if (!$output) {
@@ -95,6 +100,9 @@ class JobRunner
                 $error = $e;
                 // @codeCoverageIgnoreEnd
             } finally {
+                if (!$error || ($error && strpos($error->getMessage(), 'is single run task and one instance already running') === false)) {
+                    $task->saveRunningFlag(false);
+                }
                 $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
                 $this->storePerformanceLog($jobLog);
 
