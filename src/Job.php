@@ -409,10 +409,14 @@ class Job
 
         $name = ($this->name) ? $this->name : $this->buildName();
         if ($flag) {
-            if (!file_exists($config->filePath . $name . '/running')) {
+            if (!file_exists($config->filePath . 'running/' . $name)) {
                 // dir doesn't exist, make it
                 if (!is_dir($config->filePath)) {
                     mkdir($config->filePath);
+                }
+
+                if (!is_dir($config->filePath . 'running/')) {
+                    mkdir($config->filePath . 'running/');
                 }
 
                 $data = [
@@ -422,7 +426,7 @@ class Job
 
                 // write the file with json content
                 file_put_contents(
-                    $config->filePath . $name . '/running',
+                    $config->filePath . '/running' . $name,
                     json_encode(
                         $data,
                         JSON_PRETTY_PRINT
@@ -432,7 +436,7 @@ class Job
                 return $data;
             }
         } else {
-            @unlink($config->filePath . $name . '/running');
+            @unlink($config->filePath . '/running' . $name);
         }
         return false;
     }
