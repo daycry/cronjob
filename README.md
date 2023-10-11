@@ -2,7 +2,7 @@
 
 # CodeIgniter Task Scheduler
 
-[![Build Status](https://github.com/daycry/cronjob/workflows/PHP%20Tests/badge.svg)](https://github.com/daycry/cronjob/actions?query=workflow%3A%22PHP+Tests%22)
+[![Build Status](https://github.com/daycry/cronjob/actions/workflows/php.yml/badge.svg?branch=master)](https://github.com/daycry/cronjob/actions/workflows/php.yml)
 [![Coverage Status](https://coveralls.io/repos/github/daycry/cronjob/badge.svg?branch=master)](https://coveralls.io/github/daycry/cronjob?branch=master)
 [![Downloads](https://poser.pugx.org/daycry/cronjob/downloads)](https://packagist.org/packages/daycry/cronjob)
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
