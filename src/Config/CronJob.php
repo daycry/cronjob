@@ -56,7 +56,7 @@ class CronJob extends BaseConfig
     | Connect to a database group for logging, etc.
     |
     */
-    public string $databaseGroup = 'default';
+    public string $databaseGroup = null;
 
     /*
     |--------------------------------------------------------------------------

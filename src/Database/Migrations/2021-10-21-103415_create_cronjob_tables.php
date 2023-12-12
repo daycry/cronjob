@@ -13,7 +13,10 @@ class CreateCronjobTable extends Migration
     public function __construct(?Forge $forge = null)
     {
         $this->config = config('CronJob');
-        $this->DBGroup = $this->config->databaseGroup;
+
+        if ($this->config->databaseGroup !== null) {
+            $this->DBGroup = $this->config->databaseGroup;
+        }
 
         parent::__construct($forge);
     }
