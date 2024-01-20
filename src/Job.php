@@ -440,4 +440,75 @@ class Job
         }
         return false;
     }
+
+    /**
+     * get cronjob status
+     */
+    public function status()
+    {
+        $config = config('CronJob');
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+
+        if (!is_dir($config->filePath) || !is_dir($config->filePath . 'disable/') || !file_exists($config->filePath . 'disable/' . $name)) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * disable cronjob
+     */
+    public function disable()
+    {
+        $config = config('CronJob');
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+
+        if (!file_exists($config->filePath . 'disable/' . $name)) {
+            // dir doesn't exist, make it
+            if (!is_dir($config->filePath)) {
+                mkdir($config->filePath);
+            }
+
+            if (!is_dir($config->filePath . 'disable/')) {
+                mkdir($config->filePath . 'disable/');
+            }
+
+            $data = [
+                "name" => $name,
+                "time" => ( new \DateTime() )->format('Y-m-d H:i:s')
+            ];
+
+            // write the file with json content
+            file_put_contents(
+                $config->filePath . '/disable/' . $name,
+                json_encode(
+                    $data,
+                    JSON_PRETTY_PRINT
+                )
+            );
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * enable cronjob
+     */
+    public function enable()
+    {
+        $config = config('CronJob');
+
+        $name = ($this->name) ? $this->name : $this->buildName();
+
+
+        if (file_exists($config->filePath . 'disable/' . $name)) {
+            @unlink($config->filePath . '/disable/' . $name);
+            return true;
+        }
+        log_message('error', 1);
+        return false;
+    }
 }

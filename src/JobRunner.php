@@ -85,6 +85,11 @@ class JobRunner
                     throw new \Exception(($task->name ?: 'Task') . ' is single run task and one instance already running.');
                 }
 
+                if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
+                    $this->cliWrite('Failed: ' . $task->name, 'red');
+                    throw new \Exception(($task->name ?: 'Task') . ' is disable.');
+                }
+
                 $output = $task->run();
 
                 if (!$output) {
