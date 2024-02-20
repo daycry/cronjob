@@ -6,10 +6,14 @@ use CodeIgniter\Events\Events;
 use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Exceptions\CronJobException;
 use Config\Services;
+use Daycry\CronJob\Traits\ActivityTrait;
 use InvalidArgumentException;
 use ReflectionException;
 use ReflectionFunction;
 use SplFileObject;
+use Daycry\CronJob\Traits\FrequenciesTrait;
+use Daycry\CronJob\Traits\LogTrait;
+use Daycry\CronJob\Traits\StatusTrait;
 
 /**
  * Class Job
@@ -26,6 +30,9 @@ use SplFileObject;
 class Job
 {
     use FrequenciesTrait;
+    use LogTrait;
+    use ActivityTrait;
+    use StatusTrait;
 
     /**
      * Supported action types.
@@ -133,6 +140,8 @@ class Job
      */
     public function run()
     {
+        $this->startLog();
+
         $method = 'run' . ucfirst($this->type);
         // @codeCoverageIgnoreStart
         if (!method_exists($this, $method)) {
@@ -143,98 +152,7 @@ class Job
         return $this->$method();
     }
 
-    /**
-     * Determines whether this task should be run now
-     * according to its schedule and environment.
-     *
-     * @return boolean
-     */
-    public function shouldRun(\Datetime $testTime = null): bool
-    {
-        // Are we restricting to environments?
-        if (!empty($this->environments) && ! $this->runsInEnvironment($_SERVER['CI_ENVIRONMENT'])) {
-            return false;
-        }
 
-        $cron = new \Cron\CronExpression($this->getExpression());
-
-        $testTime = ($testTime) ? $testTime : 'now';
-
-        return $cron->isDue($testTime, config('App')->appTimezone);
-    }
-
-    /**
-     * Returns the date this was last ran.
-     *
-     * @return string|Time
-     */
-    public function lastRun()
-    {
-        $config = config('CronJob');
-
-        if ($config->logPerformance === false) {
-            return '--';
-        }
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-        if ($config->logSavingMethod == 'database') {
-            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
-            $log = $logModel->where('name', $name)->orderBy('id', 'DESC')->first();
-
-            if (empty($log)) {
-                return '--';
-            }
-
-            return Time::parse($log->start_at);
-        } else {
-            $path = $config->filePath . $name;
-            $fileName = $path . '/' . $config->fileName . '.json';
-
-            if (!is_dir($path)) {
-                return '--';
-            }
-
-            $logs = \json_decode(\file_get_contents($fileName));
-
-            if (empty($logs)) {
-                return '--';
-            }
-
-            return Time::parse($logs[0]->start_at);
-        }
-    }
-
-    /**
-     * Returns array of logs.
-     *
-     * @return array
-     */
-    public function getLogs()
-    {
-        $config = config('CronJob');
-        $logs = [];
-
-        if ($config->logPerformance === false) {
-            return $logs;
-        }
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-        if ($config->logSavingMethod == 'database') {
-            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
-            $logs = $logModel->where('name', $name)->orderBy('id', 'DESC')->findAll();
-        } else {
-            $path = $config->filePath . $name;
-            $fileName = $path . '/' . $config->fileName . '.json';
-
-            if (is_dir($path)) {
-                $logs = \json_decode(\file_get_contents($fileName));
-            }
-        }
-
-        return $logs;
-    }
 
     /**
      * Restricts this task to run within only
@@ -365,7 +283,7 @@ class Job
      *
      * @return mixed
      */
-    public function __get(String $key)
+    public function __get(string $key)
     {
         if ($key === 'name' && empty($this->name)) {
             return $this->buildName();
@@ -398,117 +316,5 @@ class Job
     public function getRunType(): string
     {
         return $this->runType;
-    }
-
-    /**
-     * Saves the running flag.
-     */
-    public function saveRunningFlag($flag)
-    {
-        $config = config('CronJob');
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-        if ($flag) {
-            if (!file_exists($config->filePath . 'running/' . $name)) {
-                // dir doesn't exist, make it
-                if (!is_dir($config->filePath)) {
-                    mkdir($config->filePath);
-                }
-
-                if (!is_dir($config->filePath . 'running/')) {
-                    mkdir($config->filePath . 'running/');
-                }
-
-                $data = [
-                    "flag" => $flag,
-                    "time" => ( new \DateTime() )->format('Y-m-d H:i:s')
-                ];
-
-                // write the file with json content
-                file_put_contents(
-                    $config->filePath . '/running' . $name,
-                    json_encode(
-                        $data,
-                        JSON_PRETTY_PRINT
-                    )
-                );
-
-                return $data;
-            }
-        } else {
-            @unlink($config->filePath . '/running' . $name);
-        }
-        return false;
-    }
-
-    /**
-     * get cronjob status
-     */
-    public function status()
-    {
-        $config = config('CronJob');
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-        if (!is_dir($config->filePath) || !is_dir($config->filePath . 'disable/') || !file_exists($config->filePath . 'disable/' . $name)) {
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * disable cronjob
-     */
-    public function disable()
-    {
-        $config = config('CronJob');
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-        if (!file_exists($config->filePath . 'disable/' . $name)) {
-            // dir doesn't exist, make it
-            if (!is_dir($config->filePath)) {
-                mkdir($config->filePath);
-            }
-
-            if (!is_dir($config->filePath . 'disable/')) {
-                mkdir($config->filePath . 'disable/');
-            }
-
-            $data = [
-                "name" => $name,
-                "time" => ( new \DateTime() )->format('Y-m-d H:i:s')
-            ];
-
-            // write the file with json content
-            file_put_contents(
-                $config->filePath . '/disable/' . $name,
-                json_encode(
-                    $data,
-                    JSON_PRETTY_PRINT
-                )
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * enable cronjob
-     */
-    public function enable()
-    {
-        $config = config('CronJob');
-
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-
-        if (file_exists($config->filePath . 'disable/' . $name)) {
-            @unlink($config->filePath . '/disable/' . $name);
-            return true;
-        }
-        log_message('error', 1);
-        return false;
     }
 }

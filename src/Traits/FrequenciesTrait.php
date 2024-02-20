@@ -1,6 +1,6 @@
 <?php
 
-namespace Daycry\CronJob;
+namespace Daycry\CronJob\Traits;
 
 /**
  * Trait FrequenciesTrait
@@ -20,7 +20,7 @@ trait FrequenciesTrait
      *
      * @var null
      */
-    protected $allowedEnvironments = null;
+    //protected $allowedEnvironments = null;
 
     /**
      * The generated cron expression

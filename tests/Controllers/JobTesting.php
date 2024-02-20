@@ -35,7 +35,7 @@ class JobTesting extends CIUnitTestCase
 
         $session = \Config\Services::session();
         $session->set('cronjob', true);
-        
+
         $result = $this->withSession()->call('get', 'cronjob/job/1234/logs');
     }
 

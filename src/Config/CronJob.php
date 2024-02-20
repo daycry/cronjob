@@ -4,6 +4,8 @@ namespace Daycry\CronJob\Config;
 
 use CodeIgniter\Config\BaseConfig;
 use Daycry\CronJob\Scheduler;
+use Daycry\CronJob\Loggers\Database as DatabaseLogger;
+use Daycry\CronJob\Loggers\File as FileLogger;
 
 class CronJob extends BaseConfig
 {
@@ -24,6 +26,13 @@ class CronJob extends BaseConfig
     |
     */
     public string $logSavingMethod = 'file';
+
+    public string $papa = 'file';
+
+    public array $logSavingMethodClassMap = [
+        'file' => FileLogger::class,
+        'database' => DatabaseLogger::class
+    ];
 
     /**
      * Directory

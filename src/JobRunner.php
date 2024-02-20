@@ -6,7 +6,6 @@ use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
 use CodeIgniter\Config\BaseConfig;
 use Config\Services;
-use CodeIgniter\Email\Email;
 use DateTime;
 
 /**
@@ -24,7 +23,7 @@ class JobRunner
     /**
      * @var string
      */
-    protected ?Datetime $testTime = null;
+    protected ?Time $testTime = null;
 
     /**
      * @var BaseConfig
@@ -61,6 +60,7 @@ class JobRunner
         }
 
         foreach ($tasks as $task) {
+
             // If specific tasks were chosen then skip executing remaining tasks
             if (!empty($this->only) && ! in_array($task->name, $this->only, true)) {
                 continue;
@@ -108,23 +108,23 @@ class JobRunner
                 if (!$error || ($error && strpos($error->getMessage(), 'is single run task and one instance already running') === false)) {
                     $task->saveRunningFlag(false);
                 }
-                $jobLog = new JobLog([ 'task' => $task, 'output' => $output, 'runStart' => $start, 'runEnd' => Time::now(), 'error' => $error, 'testTime' => $this->testTime ]);
-                $this->storePerformanceLog($jobLog);
 
-                if ($this->config->notification) {
+                $task->saveLog($output, $error);
+
+                if (setting('CronJob.notification')) {
                     // @codeCoverageIgnoreStart
-                    $email = new Email();
+                    $email = Services::email();
                     $parser = Services::parser();
 
                     $email->setMailType('html');
-                    $email->setFrom($this->config->from, $this->config->fromName);
-                    $email->setTo($this->config->to, $this->config->toName);
+                    $email->setFrom(setting('CronJob.from'), setting('CronJob.fromName'));
+                    $email->setTo(setting('CronJob.to'), setting('CronJob.toName'));
                     $email->setSubject($parser->setData(array('job' => $task->name))->renderString(lang('CronJob.emailSubject')));
                     $email->setMessage($parser->setData(
                         array(
                             'name' => $task->name,
                             'runStart' => $start,
-                            'duration' => $jobLog->duration(),
+                            'duration' => $task->duration(),
                             'output' => $output,
                             'error' => $error
                         )
@@ -171,83 +171,9 @@ class JobRunner
      */
     public function withTestTime(string $time): JobRunner
     {
-        $this->testTime = new DateTime($time);
+        $this->testTime = Time::createFromInstance(new DateTime($time));
 
         return $this;
-    }
-
-
-    /**
-     * Performance log information is stored
-     */
-    protected function storePerformanceLog(JobLog $jobLog)
-    {
-        if (!$this->config->logPerformance) {
-            return;
-        }
-
-        // "unique" name will be returned if one wasn't set
-        $name = $jobLog->task->name;
-
-        $data = [
-            'name'     => $name,
-            'type'     => $jobLog->task->getType(),
-            'action'   => (\is_object($jobLog->task->getAction())) ? \json_encode($jobLog->task->getAction()) : $jobLog->task->getAction(),
-            'environment' => $jobLog->task->environments ? \json_encode($jobLog->task->environments) : NULL,
-            'start_at'    => $jobLog->runStart->format('Y-m-d H:i:s'),
-            'end_at' => $jobLog->runEnd->format('Y-m-d H:i:s'),
-            'duration' => $jobLog->duration(),
-            'output'   => $jobLog->output ? \json_encode($jobLog->output) : NULL,
-            'error'    => $jobLog->error ? \json_encode($jobLog->error) : NULL,
-            'test_time' => ($this->testTime) ? $this->testTime->format('Y-m-d H:i:s') : NULL
-        ];
-
-
-        if ($this->config->logSavingMethod == 'database') {
-            $logModel = new \Daycry\CronJob\Models\CronJobLogModel();
-
-            if ($this->config->maxLogsPerJob) {
-                $logs = $logModel->where('name', $name)->findAll();
-                // Make sure we have room for one more
-                if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob) {
-                    $forDelete = count($logs) - $this->config->maxLogsPerJob;
-                    for ($i = 0; $forDelete >= $i; $i++) {
-                        $logModel->delete($logs[$i]->id);
-                    }
-                }
-            }
-
-            $logModel->insert($data);
-        } else {
-            $path = $this->config->filePath . $name;
-            $fileName = $path . '/' . $this->config->fileName . '.json';
-
-            if (!is_dir($path)) {
-                mkdir($path, 0777, true);
-            }
-
-            if (file_exists($fileName)) {
-                $logs = \json_decode(\file_get_contents($fileName));
-            } else {
-                $logs = array();
-            }
-
-            // Make sure we have room for one more
-            if ((is_countable($logs) ? count($logs) : 0) >= $this->config->maxLogsPerJob) {
-                array_pop($logs);
-            }
-
-            // Add the log to the top of the array
-            array_unshift($logs, $data);
-
-            file_put_contents(
-                $fileName,
-                json_encode(
-                    $logs,
-                    JSON_PRETTY_PRINT
-                )
-            );
-        }
     }
 
     /**

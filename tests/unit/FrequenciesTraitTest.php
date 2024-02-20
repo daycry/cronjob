@@ -1,6 +1,7 @@
 <?php
 
-use CodeIgniter\Test\CIUnitTestCase as TestCase;
+use Tests\Support\TestCase;
+use Daycry\CronJob\Traits\FrequenciesTrait;
 
 /**
  * @internal
@@ -14,7 +15,7 @@ final class FrequenciesTraitTest extends TestCase
         parent::setUp();
 
         $this->class = new class () {
-            use \Daycry\CronJob\FrequenciesTrait;
+            use FrequenciesTrait;
         };
     }
 

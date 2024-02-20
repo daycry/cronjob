@@ -2,7 +2,7 @@
 
 use Daycry\CronJob\Scheduler;
 use Daycry\CronJob\Job;
-use CodeIgniter\Test\CIUnitTestCase as TestCase;
+use Tests\Support\TestCase;
 
 /**
  * @internal

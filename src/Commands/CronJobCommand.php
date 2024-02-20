@@ -5,7 +5,7 @@ namespace Daycry\CronJob\Commands;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
-use Daycry\CronJob\TaskRunner;
+use Daycry\CronJob\Config\CronJob;
 
 /**
  * Base functionality for enable/disable.
@@ -29,6 +29,7 @@ abstract class CronJobCommand extends BaseCommand
      */
     protected function getConfig()
     {
+        /** @var CronJob $this->config */
         $this->config = config('CronJob');
     }
 
@@ -39,20 +40,20 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (!file_exists($this->config->filePath . $this->config->fileName)) {
+        if (!file_exists(setting('CronJob.filePath') . setting('CronJob.fileName'))) {
             // dir doesn't exist, make it
-            if (!is_dir($this->config->filePath)) {
-                mkdir($this->config->filePath);
+            if (!is_dir(setting('CronJob.filePath'))) {
+                mkdir(setting('CronJob.filePath'));
             }
 
             $settings = [
                 "status" => $status,
-                "time" => ( new \DateTime() )->format('Y-m-d H:i:s')
+                "time" => (new \DateTime())->format('Y-m-d H:i:s')
             ];
 
             // write the file with json content
             file_put_contents(
-                $this->config->filePath . $this->config->fileName,
+                setting('CronJob.filePath') . setting('CronJob.fileName'),
                 json_encode(
                     $settings,
                     JSON_PRETTY_PRINT
@@ -73,8 +74,8 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (file_exists($this->config->filePath . $this->config->fileName)) {
-            $data = json_decode(file_get_contents($this->config->filePath . $this->config->fileName));
+        if (file_exists(setting('CronJob.filePath') . setting('CronJob.fileName'))) {
+            $data = json_decode(file_get_contents(setting('CronJob.filePath') . setting('CronJob.fileName')));
             return $data;
         }
 

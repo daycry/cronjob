@@ -3,7 +3,7 @@
 use CodeIgniter\I18n\Time;
 use Daycry\CronJob\JobLog;
 use Daycry\CronJob\Job;
-use CodeIgniter\Test\CIUnitTestCase as TestCase;
+use Tests\Support\TestCase;
 
 /**
  * @internal

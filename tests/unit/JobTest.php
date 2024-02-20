@@ -4,7 +4,7 @@ use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Job;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\Filters\CITestStreamFilter;
-use CodeIgniter\Test\CIUnitTestCase as TestCase;
+use Tests\Support\TestCase;
 use CodeIgniter\Test\StreamFilterTrait;
 
 /**
@@ -12,7 +12,8 @@ use CodeIgniter\Test\StreamFilterTrait;
  */
 final class JobTest extends TestCase
 {
-    use DatabaseTestTrait, StreamFilterTrait;
+    use DatabaseTestTrait;
+    use StreamFilterTrait;
 
     protected $refresh   = true;
     protected $config;
@@ -87,8 +88,8 @@ final class JobTest extends TestCase
 
         $now = (new \DateTime('now'))->format('Y-m-d');
 
-        $this->assertTrue($task->shouldRun(new \DateTime($now . ' 23:00:00')));
-        $this->assertFalse($task->shouldRun(new \DateTime($now . ' 23:05:00')));
+        $this->assertTrue($task->shouldRun(Time::createFromInstance(new \DateTime($now . ' 23:00:00'))));
+        $this->assertFalse($task->shouldRun(Time::createFromInstance(new \DateTime($now . ' 23:05:00'))));
     }
 
     public function testShouldRunWithEnvironments()
@@ -100,11 +101,11 @@ final class JobTest extends TestCase
 
         $now = (new \DateTime('now'))->format('Y-m-d');
 
-        $this->assertTrue($task->shouldRun(new \DateTime($now . ' 23:00:00')));
+        $this->assertTrue($task->shouldRun(Time::createFromInstance(new \DateTime($now . ' 23:00:00'))));
 
         $_SERVER['CI_ENVIRONMENT'] = 'production';
 
-        $this->assertFalse($task->shouldRun(new \DateTime($now . ' 23:00:00')));
+        $this->assertFalse($task->shouldRun(Time::createFromInstance(new \DateTime($now . ' 23:00:00'))));
 
         $_SERVER['CI_ENVIRONMENT'] = $originalEnv;
     }
@@ -152,7 +153,7 @@ final class JobTest extends TestCase
         );
 
         // Should return the current time
-        $this->assertInstanceOf(\CodeIgniter\I18n\Time::class, $job->lastRun()); // @phpstan-ignore-line
+        $this->assertInstanceOf(Time::class, $job->lastRun()); // @phpstan-ignore-line
         $this->assertSame($date, $job->lastRun()->format('Y-m-d H:i:s'));
     }
 }
