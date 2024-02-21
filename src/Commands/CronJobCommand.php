@@ -29,6 +29,7 @@ abstract class CronJobCommand extends BaseCommand
      */
     protected function getConfig()
     {
+        helper('setting');
         /** @var CronJob $this->config */
         $this->config = config('CronJob');
     }
