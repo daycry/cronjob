@@ -7,6 +7,7 @@ use CodeIgniter\CLI\CLI;
 
 use Daycry\CronJob\JobRunner;
 use Daycry\CronJob\Config\Services;
+use Daycry\CronJob\Config\CronJob;
 
 /**
  * Runs current tasks.
@@ -60,7 +61,9 @@ class Run extends CronJobCommand
         CLI::write('**** Running Tasks... ****', 'white', 'red');
         CLI::newLine(1);
 
-        $this->config->init(Services::scheduler());
+        /** @var CronJob $config */
+        $config = config('CronJob');
+        $config->init(Services::scheduler());
 
         $runner = new JobRunner();
 

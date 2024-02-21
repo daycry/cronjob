@@ -51,7 +51,9 @@ class Lister extends CronJobCommand
 
         $scheduler = Services::scheduler();
 
-        $this->config->init($scheduler);
+        /** @var CronJob $config */
+        $config = config('CronJob');
+        $config->init($scheduler);
 
         $tasks = [];
 

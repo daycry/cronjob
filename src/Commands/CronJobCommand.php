@@ -5,8 +5,6 @@ namespace Daycry\CronJob\Commands;
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
-use Daycry\CronJob\Config\CronJob;
-
 /**
  * Base functionality for enable/disable.
  */
@@ -20,18 +18,11 @@ abstract class CronJobCommand extends BaseCommand
     protected $group = 'Cronjob';
 
     /**
-     * Config File
-     */
-    protected $config = null;
-
-    /**
      * Get Config File
      */
     protected function getConfig()
     {
         helper('setting');
-        /** @var CronJob $this->config */
-        $this->config = config('CronJob');
     }
 
     /**
