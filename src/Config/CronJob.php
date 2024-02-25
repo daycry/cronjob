@@ -27,8 +27,6 @@ class CronJob extends BaseConfig
     */
     public string $logSavingMethod = 'file';
 
-    public string $papa = 'file';
-
     public array $logSavingMethodClassMap = [
         'file' => FileLogger::class,
         'database' => DatabaseLogger::class
