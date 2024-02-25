@@ -4,8 +4,8 @@ namespace Tests\Support;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Services;
-use Codeigniter4\Settings\Config\Settings as SettingsConfig;
-use Codeigniter4\Settings\Settings;
+use Codeigniter\Settings\Config\Settings as SettingsConfig;
+use Codeigniter\Settings\Settings;
 
 /**
  * @internal
