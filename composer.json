@@ -14,7 +14,7 @@
     "require": {
         "php": ">=8.0",
         "dragonmantank/cron-expression": "^3.3",
-        "codeigniter/settings": "^2.0"
+        "codeigniter4/settings": "^2.0"
     },
     "require-dev":
     {
