@@ -58,7 +58,7 @@ trait LogTrait
         if (setting('CronJob.logPerformance') === false) {
             return [];
         }
-
+        $this->setHandler();
         $this->name = ($this->name) ? $this->name : $this->buildName();
 
         return $this->handler->getLogs($this->name);
