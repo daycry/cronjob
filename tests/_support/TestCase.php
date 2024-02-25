@@ -4,8 +4,8 @@ namespace Tests\Support;
 
 use CodeIgniter\Test\CIUnitTestCase;
 use Config\Services;
-use Daycry\Settings\Config\Settings as SettingsConfig;
-use Daycry\Settings\Settings;
+use Codeigniter4\Settings\Config\Settings as SettingsConfig;
+use Codeigniter4\Settings\Settings;
 
 /**
  * @internal
