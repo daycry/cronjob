@@ -63,7 +63,7 @@ class Lister extends CronJobCommand
             $lastRun = $task->lastRun();
 
             $tasks[] = [
-                'name'     => $task->name ?: $task->getAction(),
+                'name'     => $task->getName() ?: $task->getAction(),
                 'type'     => $task->getType(),
                 'schedule' => $task->getExpression(),
                 'last_run' => $lastRun instanceof Time ? $lastRun->format('Y-m-d H:i:s') : $lastRun,

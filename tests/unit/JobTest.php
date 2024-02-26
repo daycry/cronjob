@@ -40,11 +40,11 @@ final class JobTest extends TestCase
         $task = new Job('command', 'foo:bar');
 
         // Will build a random name
-        $this->assertSame(0, strpos($task->name, 'command_'));
+        $this->assertSame(0, strpos($task->getName(), 'command_'));
 
         $task = (new Job('command', 'foo:bar'))->named('foo');
 
-        $this->assertSame('foo', $task->name);
+        $this->assertSame('foo', $task->getName());
     }
 
     public function testConstructSavesAction()
@@ -121,10 +121,10 @@ final class JobTest extends TestCase
         $date = date('Y-m-d H:i:s');
 
         $data = [
-            'name'     => $job->name,
+            'name'     => $job->getName(),
             'type'     => $job->getType(),
             'action'   => (\is_object($job->getAction())) ? \json_encode($job->getAction()) : $job->getAction(),
-            'environment' => \json_encode($job->environments),
+            'environment' => \json_encode($job->getEnvironments()),
             'start_at'    => $date,
             'duration' => '00:00:11',
             'output'   => null,
@@ -132,7 +132,7 @@ final class JobTest extends TestCase
             'test_time' => null
         ];
 
-        $path = $this->config->filePath . $job->name;
+        $path = $this->config->filePath . $job->getName();
         $fileName = $path . '/' . $this->config->fileName . '.json';
 
         if (!is_dir($path)) {

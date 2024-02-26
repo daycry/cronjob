@@ -24,7 +24,7 @@ class Job extends BaseCronJob
 
         $result = false;
         foreach ($scheduler->getTasks() as $job) {
-            if ($job->name === $jobName) {
+            if ($job->getName() === $jobName) {
                 $result = $job;
                 break;
             }

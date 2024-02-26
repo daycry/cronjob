@@ -60,10 +60,13 @@ final class JobRunnerTest extends TestCase
 
     public function testRunWithSuccess()
     {
+        /** @var Job $task1 */
         $task1 = (new Job('closure', static function () {
             sleep(2);
             echo 'Task 1';
         }))->daily('12:05 am', true)->named('task1');
+
+        /** @var Job $task2 */
         $task2 = (new Job('closure', static function () {
             sleep(3);
             echo 'Task 2';
@@ -81,6 +84,7 @@ final class JobRunnerTest extends TestCase
 
         ob_end_clean();
 
+        $this->assertCount(1, $task2->getLogs());
         $this->assertCount(1, $runner->getJobs());
         $this->assertTrue(is_dir(setting('CronJob.filePath')));
         $this->assertTrue(is_file(setting('CronJob.filePath') . 'task2' . '/' . setting('CronJob.fileName') . '.json'));
@@ -137,7 +141,7 @@ final class JobRunnerTest extends TestCase
         ob_end_clean();
 
         $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . $task2->name . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_file(setting('CronJob.filePath') . $task2->getName() . '/' . setting('CronJob.fileName') . '.json'));
     }
 
     public function testRunWithEmptyNameUrlSuccess()
@@ -156,7 +160,7 @@ final class JobRunnerTest extends TestCase
         ob_end_clean();
 
         $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . $task->name . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_file(setting('CronJob.filePath') . $task->getName() . '/' . setting('CronJob.fileName') . '.json'));
     }
 
     protected function getRunner(array $tasks = [])

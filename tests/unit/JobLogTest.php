@@ -49,14 +49,8 @@ final class JobLogTest extends TestCase
         $start = new Time($start);
         $end   = new Time($end);
 
-        $log = new JobLog([
-            'task' => $job,
-            'output'   => '',
-            'runStart' => $start,
-            'runEnd'   => $end,
-            'error'    => null,
-        ]);
+        $job->startLog($start)->endLog($end);
 
-        $this->assertSame($expected, $log->duration());
+        $this->assertSame($expected, $job->duration());
     }
 }

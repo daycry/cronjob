@@ -53,7 +53,7 @@ trait StatusTrait
     /**
      * get cronjob status
      */
-    public function status()
+    public function status(): bool
     {
         $config = config('CronJob');
 
@@ -68,7 +68,7 @@ trait StatusTrait
     /**
      * disable cronjob
      */
-    public function disable()
+    public function disable(): bool
     {
         $config = config('CronJob');
 
@@ -106,7 +106,7 @@ trait StatusTrait
     /**
      * enable cronjob
      */
-    public function enable()
+    public function enable(): bool
     {
         $config = config('CronJob');
 

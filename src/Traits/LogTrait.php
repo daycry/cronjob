@@ -18,21 +18,33 @@ trait LogTrait
     protected ?Time $testTime = null;
     protected ?LoggerInterface $handler = null;
 
-    public function startLog()
+    public function startLog(?string $start = null): self
     {
-        $this->start = Time::now();
+        $this->start = ($start) ? new Time($start) : Time::now();
+
+        return $this;
+    }
+
+    public function endLog(?string $end = null): self
+    {
+        $this->end = ($end) ? new Time($end) : Time::now();
+
+        return $this;
     }
 
     /**
      * @param ?string $output
      * @param ?string $error
      */
-    public function saveLog(?string $output = null, ?string $error = null)
+    public function saveLog(?string $output = null, ?string $error = null): void
     {
         $this->name = ($this->name) ? $this->name : $this->buildName();
 
         if(setting('CronJob.logPerformance')) {
-            $this->end = Time::now();
+
+            if(!$this->end) {
+                $this->endLog(null);
+            }
 
             $this->setHandler();
 
@@ -53,7 +65,7 @@ trait LogTrait
         }
     }
 
-    public function getLogs()
+    public function getLogs(): array
     {
         if (setting('CronJob.logPerformance') === false) {
             return [];
@@ -64,14 +76,14 @@ trait LogTrait
         return $this->handler->getLogs($this->name);
     }
 
-    public function duration()
+    public function duration(): string
     {
         $interval = $this->end->diff($this->start);
 
         return $interval->format('%H:%I:%S');
     }
 
-    private function setHandler()
+    private function setHandler(): void
     {
         if(!setting('CronJob.logSavingMethod') || !array_key_exists(setting('CronJob.logSavingMethod'), setting('CronJob.logSavingMethodClassMap'))) {
             throw CronJobException::forInvalidLogType();

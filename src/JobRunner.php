@@ -62,7 +62,7 @@ class JobRunner
         foreach ($tasks as $task) {
 
             // If specific tasks were chosen then skip executing remaining tasks
-            if (!empty($this->only) && ! in_array($task->name, $this->only, true)) {
+            if (!empty($this->only) && ! in_array($task->getName(), $this->only, true)) {
                 continue;
             }
 
@@ -74,20 +74,20 @@ class JobRunner
             $start  = Time::now();
             $output = null;
 
-            $this->cliWrite('Processing: ' . ($task->name ?: 'Task'), 'green');
+            $this->cliWrite('Processing: ' . ($task->getName() ?: 'Task'), 'green');
 
             try {
                 // How many jobs are runned
                 array_push($this->jobs, $task);
 
                 if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
-                    $this->cliWrite('Failed: ' . $task->name, 'red');
-                    throw new \Exception(($task->name ?: 'Task') . ' is single run task and one instance already running.');
+                    $this->cliWrite('Failed: ' . $task->getName(), 'red');
+                    throw new \Exception(($task->getName() ?: 'Task') . ' is single run task and one instance already running.');
                 }
 
                 if (!$task->status()) {
-                    $this->cliWrite('Failed: ' . $task->name, 'red');
-                    throw new \Exception(($task->name ?: 'Task') . ' is disable.');
+                    $this->cliWrite('Failed: ' . $task->getName(), 'red');
+                    throw new \Exception(($task->getName() ?: 'Task') . ' is disable.');
                 }
 
                 $output = $task->run();
@@ -96,11 +96,11 @@ class JobRunner
                     $output = \ob_get_contents();
                 }
 
-                $this->cliWrite('Executed: ' . ($task->name ?: 'Task'), 'cyan');
+                $this->cliWrite('Executed: ' . ($task->getName() ?: 'Task'), 'cyan');
 
                 // @codeCoverageIgnoreStart
             } catch (\Throwable $e) {
-                $this->cliWrite('Failed: ' . ($task->name ?: 'Task'), 'red');
+                $this->cliWrite('Failed: ' . ($task->getName() ?: 'Task'), 'red');
                 log_message('error', $e->getMessage(), $e->getTrace());
                 $error = $e;
                 // @codeCoverageIgnoreEnd
@@ -119,10 +119,10 @@ class JobRunner
                     $email->setMailType('html');
                     $email->setFrom(setting('CronJob.from'), setting('CronJob.fromName'));
                     $email->setTo(setting('CronJob.to'), setting('CronJob.toName'));
-                    $email->setSubject($parser->setData(array('job' => $task->name))->renderString(lang('CronJob.emailSubject')));
+                    $email->setSubject($parser->setData(array('job' => $task->getName()))->renderString(lang('CronJob.emailSubject')));
                     $email->setMessage($parser->setData(
                         array(
-                            'name' => $task->name,
+                            'name' => $task->getName(),
                             'runStart' => $start,
                             'duration' => $task->duration(),
                             'output' => $output,

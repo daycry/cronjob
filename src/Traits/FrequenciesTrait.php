@@ -15,19 +15,11 @@ use Daycry\CronJob\Exceptions\CronJobException;
 trait FrequenciesTrait
 {
     /**
-     * If listed, will restrict this to running
-     * within only those environments.
-     *
-     * @var null
-     */
-    //protected $allowedEnvironments = null;
-
-    /**
      * The generated cron expression
      *
      * @var string
      */
-    protected $expression = '* * * * *';
+    protected string $expression = '* * * * *';
 
     /**
      * Returns the generated expression.
@@ -46,7 +38,7 @@ trait FrequenciesTrait
      *
      * @return $this
      */
-    public function cron(string $expression)
+    public function cron(string $expression): self
     {
         if (!\Cron\CronExpression::isValidExpression($expression)) {
             throw CronJobException::forInvalidExpression($expression);
@@ -65,7 +57,7 @@ trait FrequenciesTrait
      *
      * @return $this
      */
-    public function daily(string $time = null)
+    public function daily(string $time = null): self
     {
         $min = $hour = 0;
         if (!empty($time)) {
@@ -87,7 +79,7 @@ trait FrequenciesTrait
      *
      * @return $this
      */
-    public function hourly(int $minute = null)
+    public function hourly(int $minute = null): self
     {
         $cron = new \Cron\CronExpression($this->expression);
 

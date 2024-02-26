@@ -3,7 +3,6 @@
 namespace Daycry\CronJob;
 
 use CodeIgniter\Events\Events;
-use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Exceptions\CronJobException;
 use Config\Services;
 use Daycry\CronJob\Traits\ActivityTrait;
@@ -66,7 +65,7 @@ class Job
      *
      * @var mixed
      */
-    protected $action;
+    protected mixed $action;
 
     /**
      * If not empty, lists the allowed environments
@@ -106,7 +105,7 @@ class Job
      *
      * @return $this
      */
-    public function named(string $name): Job
+    public function named(string $name): self
     {
         $this->name = $name;
 
@@ -128,7 +127,7 @@ class Job
      *
      * @return mixed
      */
-    public function getAction()
+    public function getAction(): mixed
     {
         return $this->action;
     }
@@ -138,7 +137,7 @@ class Job
      *
      * @throws CronJobException
      */
-    public function run()
+    public function run(): mixed
     {
         $this->startLog();
 
@@ -162,11 +161,16 @@ class Job
      *
      * @return $this
      */
-    public function environments(...$environments)
+    public function environments(...$environments): self
     {
         $this->environments = $environments;
 
         return $this;
+    }
+
+    public function getEnvironments()
+    {
+        return $this->environments;
     }
 
     /**
@@ -276,22 +280,13 @@ class Job
         return  $this->getType() . '_' . md5($actionString . '_' . $expHash);
     }
 
-    /**
-     * Magic getter
-     *
-     * @param string $key
-     *
-     * @return mixed
-     */
-    public function __get(string $key)
+    public function getName()
     {
-        if ($key === 'name' && empty($this->name)) {
+        if(empty($this->name)) {
             return $this->buildName();
         }
 
-        if (property_exists($this, $key)) {
-            return $this->{ $key };
-        }
+        return $this->name;
     }
 
     /**
