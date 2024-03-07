@@ -90,6 +90,8 @@ class Job
      */
     public function __construct(string $type, $action)
     {
+        helper('setting');
+        
         if (!in_array($type, $this->types, true)) {
             throw CronJobException::forInvalidTaskType($type);
         }
