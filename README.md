@@ -20,20 +20,6 @@ Use the package with composer install
 
 	> composer require daycry/cronjob
 
-## Manual installation
-
-Download this repo and then enable it by editing **app/Config/Autoload.php** and adding the **Daycry\CronJob**
-namespace to the **$psr4** array. For example, if you copied it into **app/ThirdParty**:
-
-```php
-$psr4 = [
-    'Config'      => APPPATH . 'Config',
-    APP_NAMESPACE => APPPATH,
-    'App'         => APPPATH,
-    'Daycry\CronJob' => APPPATH .'ThirdParty/cronjob/src',
-];
-```
-
 ## Configuration
 
 Run command:
@@ -51,7 +37,7 @@ This command create rest server tables in your database.
 
 You only need to add a single line to your cronjob: 
 
-    > * * * * * php /path-to-your-project/spark cronjob:run >> /dev/null 2>&1 >> /dev/null 2>&1
+    > * * * * * php /path-to-your-project/spark cronjob:run >> /dev/null 2>&1
     
 This will call your script every minute. When `cronjob:run` is called, Tasks will determine the
 correct tasks that should be run and execute them.
