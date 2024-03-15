@@ -151,6 +151,21 @@ use the `event()` method to do that for you, passing in the name of the event to
 $schedule->event('Foo')->hourly();
 ```
 
+### Running On One server
+
+If your scheduler runs on multiple servers, you can determine if your scheduled job 
+will executes in a single or in multiple servers using the `setRunType` method.
+
+> [!Note]
+> By default, the scheduled job will execute in multiple servers
+
+```php
+$schedule->event('Foo')->setRunType('multiple')->hourly(); // Runs in all servers
+$schedule->event('Foo')->setRunType('single')->hourly(); // Runs in one servers
+```
+This prevents duplication of tasks across servers by securing a lock on the job, 
+ensuring it runs exclusively on the first server that obtains it.
+
 ### Scheduling URL Calls
 
 If you need to ping a URL on a regular basis, you can use the `url()` method to perform a simple
