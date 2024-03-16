@@ -141,7 +141,6 @@ class Job
      */
     public function run(): mixed
     {
-        $this->startLog();
 
         $method = 'run' . ucfirst($this->type);
         // @codeCoverageIgnoreStart
