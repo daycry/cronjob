@@ -75,19 +75,18 @@ class JobRunner
             $output = null;
 
             $this->cliWrite('Processing: ' . ($task->getName() ?: 'Task'), 'green');
+            $task->startLog();
 
             try {
                 // How many jobs are runned
                 array_push($this->jobs, $task);
 
                 if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
-                    $this->cliWrite('Failed: ' . $task->getName(), 'red');
-                    throw new \Exception(($task->getName() ?: 'Task') . ' is single run task and one instance already running.');
+                    throw new \Exception(($task->getName() ?: 'Task') . ' is single run task and one instance already running.',100);
                 }
 
                 if (!$task->status()) {
-                    $this->cliWrite('Failed: ' . $task->getName(), 'red');
-                    throw new \Exception(($task->getName() ?: 'Task') . ' is disable.');
+                    throw new \Exception(($task->getName() ?: 'Task') . ' is disable.', 100);
                 }
 
                 $output = $task->run();
