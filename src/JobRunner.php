@@ -7,6 +7,7 @@ use CodeIgniter\I18n\Time;
 use CodeIgniter\Config\BaseConfig;
 use Config\Services;
 use DateTime;
+use Daycry\CronJob\Exceptions\TaskAlreadyRunningException;
 
 /**
  * Class TaskRunner
@@ -82,7 +83,7 @@ class JobRunner
                 array_push($this->jobs, $task);
 
                 if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
-                    throw new \Exception(($task->getName() ?: 'Task') . ' is single run task and one instance already running.',100);
+                    throw new TaskAlreadyRunningException($task);
                 }
 
                 if (!$task->status()) {
@@ -104,35 +105,55 @@ class JobRunner
                 $error = $e;
                 // @codeCoverageIgnoreEnd
             } finally {
-                if (!$error || ($error && strpos($error->getMessage(), 'is single run task and one instance already running') === false)) {
+                if ($task->shouldRunInBackground()) {
+                    return;
+                }
+
+                if (! $error instanceof TaskAlreadyRunningException) {
                     $task->saveRunningFlag(false);
                 }
 
                 $task->saveLog($output, $error);
 
-                if (setting('CronJob.notification')) {
-                    // @codeCoverageIgnoreStart
-                    $email = Services::email();
-                    $parser = Services::parser();
-
-                    $email->setMailType('html');
-                    $email->setFrom(setting('CronJob.from'), setting('CronJob.fromName'));
-                    $email->setTo(setting('CronJob.to'), setting('CronJob.toName'));
-                    $email->setSubject($parser->setData(array('job' => $task->getName()))->renderString(lang('CronJob.emailSubject')));
-                    $email->setMessage($parser->setData(
-                        array(
-                            'name' => $task->getName(),
-                            'runStart' => $start,
-                            'duration' => $task->duration(),
-                            'output' => $output,
-                            'error' => $error
-                        )
-                    )->render('Daycry\CronJob\Views\email_notification'));
-                    $email->send();
-                    // @codeCoverageIgnoreEnd
-                }
+                $this->sendCronJobFinishesEmailNotification(
+                    $task,
+                    $start,
+                    $output,
+                    $error
+                );
             }
         }
+    }
+
+    public function sendCronJobFinishesEmailNotification(
+        Job $task,
+        Time $startAt,
+        ?string $output = null,
+        ?\Throwable $error = null
+    ): void {
+        if (! setting('CronJob.notification')) {
+            return;
+        }
+
+        // @codeCoverageIgnoreStart
+        $email = Services::email();
+        $parser = Services::parser();
+
+        $email->setMailType('html');
+        $email->setFrom(setting('CronJob.from'), setting('CronJob.fromName'));
+        $email->setTo(setting('CronJob.to'));
+        $email->setSubject($parser->setData(array('job' => $task->getName()))->renderString(lang('CronJob.emailSubject')));
+        $email->setMessage($parser->setData(
+            array(
+                'name' => $task->getName(),
+                'runStart' => $startAt,
+                'duration' => $task->duration(),
+                'output' => $output,
+                'error' => $error
+            )
+        )->render('Daycry\CronJob\Views\email_notification'));
+        $email->send();
+        // @codeCoverageIgnoreEnd
     }
 
     /**

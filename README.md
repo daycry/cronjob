@@ -151,6 +151,20 @@ use the `event()` method to do that for you, passing in the name of the event to
 $schedule->event('Foo')->hourly();
 ```
 
+### Running Command In Background 
+
+If you want to run a command in background, you can use the `runInBackground()` method to do that for you,
+so the command won't block the execution of the next schedulers.
+
+> [!Note]
+> Currently only **commands** are able to run in background
+
+```php
+$schedule->command('slow-command')->runInBackground()->hourly();
+```
+
+It prevents the command from blocking the execution of the next schedulers.
+
 ### Running On One server
 
 If your scheduler runs on multiple servers, you can determine if your scheduled job 
@@ -161,7 +175,7 @@ will executes in a single or in multiple servers using the `setRunType` method.
 
 ```php
 $schedule->event('Foo')->setRunType('multiple')->hourly(); // Runs in all servers
-$schedule->event('Foo')->setRunType('single')->hourly(); // Runs in one servers
+$schedule->event('Foo')->setRunType('single')->hourly(); // Runs in one server
 ```
 This prevents duplication of tasks across servers by securing a lock on the job, 
 ensuring it runs exclusively on the first server that obtains it.

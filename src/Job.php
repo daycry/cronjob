@@ -13,6 +13,7 @@ use SplFileObject;
 use Daycry\CronJob\Traits\FrequenciesTrait;
 use Daycry\CronJob\Traits\LogTrait;
 use Daycry\CronJob\Traits\StatusTrait;
+use Daycry\CronJob\Traits\InteractsWithSpark;
 
 /**
  * Class Job
@@ -32,6 +33,7 @@ class Job
     use LogTrait;
     use ActivityTrait;
     use StatusTrait;
+    use InteractsWithSpark;
 
     /**
      * Supported action types.
@@ -52,6 +54,13 @@ class Job
      * @var string
      */
     protected string $runType = 'multiple';
+
+    /**
+     * If the job will run as a background process
+     *
+     * @var bool
+     */
+    protected bool $runInBackground = false;
 
     /**
      * The type of action.
@@ -199,7 +208,26 @@ class Job
      */
     protected function runCommand(): string
     {
-        return command($this->getAction());
+        if (! $this->shouldRunInBackground()) {
+            return command($this->getAction());
+        }
+
+        $output = $this->runCommandInBackground();
+
+        return is_string($output) ? $output : '';
+    }
+
+    private function runCommandInBackground(): bool|string
+    {
+        $this->createFoldersIfNeeded();
+
+        $runCommand = $this->sparkCommandInBackground($this->getAction());
+
+        $afterRunCommand = $this->sparkCommandInBackground(
+            "cronjob:finish --name {$this->getName()} --type {$this->getType()}"
+        );
+
+        return exec("$runCommand && $afterRunCommand");
     }
 
     /**
@@ -312,5 +340,30 @@ class Job
     public function getRunType(): string
     {
         return $this->runType;
+    }
+
+    /**
+     * Mark job to run in background
+     *
+     * @return $this
+     */
+    public function runInBackground(): Job
+    {
+        // Only commands are currently able to execute in background
+        if ($this->type === 'command') {
+            $this->runInBackground = true;
+        }
+
+        return $this;
+    }
+
+    /**
+     * If the job will run in the background
+     *
+     * @return bool
+     */
+    public function shouldRunInBackground(): bool
+    {
+        return $this->runInBackground;
     }
 }
