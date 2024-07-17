@@ -156,4 +156,17 @@ final class JobTest extends TestCase
         $this->assertInstanceOf(Time::class, $job->lastRun()); // @phpstan-ignore-line
         $this->assertSame($date, $job->lastRun()->format('Y-m-d H:i:s'));
     }
+
+    public function testShouldRunInBackgroundProperty(): void
+    {
+        $job = new Job('command', 'app:info');
+
+        // by default, it should be false
+        $this->assertFalse($job->shouldRunInBackground());
+
+        $job->runInBackground();
+
+        // after we call `runInBackground`, it should be true
+        $this->assertTrue($job->shouldRunInBackground());
+    }
 }
