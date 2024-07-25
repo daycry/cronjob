@@ -4,7 +4,7 @@ namespace Daycry\CronJob\Commands;
 
 use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
-
+use Daycry\CronJob\Config\CronJob as CronJobConfig;
 /**
  * Base functionality for enable/disable.
  */
@@ -17,12 +17,13 @@ abstract class CronJobCommand extends BaseCommand
      */
     protected $group = 'Cronjob';
 
+    protected CronJobConfig $config;
     /**
      * Get Config File
      */
     protected function getConfig()
     {
-        helper('setting');
+        $this->config = config('CronJob');
     }
 
     /**
@@ -32,10 +33,10 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (!file_exists(setting('CronJob.filePath') . setting('CronJob.fileName'))) {
+        if (!file_exists($this->configfilePath .$this->configfileName)) {
             // dir doesn't exist, make it
-            if (!is_dir(setting('CronJob.filePath'))) {
-                mkdir(setting('CronJob.filePath'));
+            if (!is_dir($this->configfilePath)) {
+                mkdir($this->configfilePath);
             }
 
             $settings = [
@@ -45,7 +46,7 @@ abstract class CronJobCommand extends BaseCommand
 
             // write the file with json content
             file_put_contents(
-                setting('CronJob.filePath') . setting('CronJob.fileName'),
+                $this->configfilePath . $this->configfileName,
                 json_encode(
                     $settings,
                     JSON_PRETTY_PRINT
@@ -66,8 +67,8 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (file_exists(setting('CronJob.filePath') . setting('CronJob.fileName'))) {
-            $data = json_decode(file_get_contents(setting('CronJob.filePath') . setting('CronJob.fileName')));
+        if (file_exists($this->configfilePath . $this->configfileName)) {
+            $data = json_decode(file_get_contents($this->configfilePath . $this->configfileName));
             return $data;
         }
 

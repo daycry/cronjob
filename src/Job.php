@@ -14,6 +14,7 @@ use Daycry\CronJob\Traits\FrequenciesTrait;
 use Daycry\CronJob\Traits\LogTrait;
 use Daycry\CronJob\Traits\StatusTrait;
 use Daycry\CronJob\Traits\InteractsWithSpark;
+use Daycry\CronJob\Config\CronJob as BaseConfig;
 
 /**
  * Class Job
@@ -35,6 +36,7 @@ class Job
     use StatusTrait;
     use InteractsWithSpark;
 
+    protected BaseConfig $config;
     /**
      * Supported action types.
      *
@@ -99,12 +101,10 @@ class Job
      */
     public function __construct(string $type, $action)
     {
-        helper('setting');
-        
         if (!in_array($type, $this->types, true)) {
             throw CronJobException::forInvalidTaskType($type);
         }
-
+        $this->config = config('CronJob');
         $this->type   = $type;
         $this->action = $action;
     }

@@ -33,7 +33,7 @@ trait ActivityTrait
 
         $testTime = ($testTime) ? $testTime : 'now';
 
-        return $cron->isDue($testTime, setting('App.appTimezone'));
+        return $cron->isDue($testTime, config('App')->appTimezone);
     }
 
     /**
@@ -43,7 +43,7 @@ trait ActivityTrait
      */
     public function lastRun()
     {
-        if (setting('CronJob.logPerformance') === false) {
+        if ($this->config->logPerformance === false) {
             return '--';
         }
 

@@ -4,7 +4,7 @@ namespace Daycry\CronJob;
 
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
-use CodeIgniter\Config\BaseConfig;
+use Daycry\CronJob\Config\CronJob as BaseConfig;
 use Config\Services;
 use DateTime;
 use Daycry\CronJob\Exceptions\TaskAlreadyRunningException;
@@ -12,7 +12,7 @@ use Daycry\CronJob\Exceptions\TaskAlreadyRunningException;
 /**
  * Class TaskRunner
  *
- * @package CodeIgniter\Tasks
+ * @package Daycry\CronJob
  */
 class JobRunner
 {
@@ -22,7 +22,7 @@ class JobRunner
     protected $scheduler;
 
     /**
-     * @var string
+     * @var Time|null
      */
     protected ?Time $testTime = null;
 
@@ -56,13 +56,8 @@ class JobRunner
         $this->jobs = [];
         $tasks = $this->scheduler->getTasks();
 
-        if ($tasks === []) {
-            return;
-        }
-
+        /** Getting all tasks to run */
         foreach ($tasks as $task) {
-
-            // If specific tasks were chosen then skip executing remaining tasks
             if (!empty($this->only) && ! in_array($task->getName(), $this->only, true)) {
                 continue;
             }
@@ -71,6 +66,11 @@ class JobRunner
                 continue;
             }
 
+            array_push($this->jobs, $task);
+        }
+
+        /** Running tasks */
+        foreach ($this->jobs as $task) {
             $error  = null;
             $start  = Time::now();
             $output = null;
@@ -79,9 +79,6 @@ class JobRunner
             $task->startLog();
 
             try {
-                // How many jobs are runned
-                array_push($this->jobs, $task);
-
                 if (!$task->saveRunningFlag(true) && $task->getRunType() == 'single') {
                     throw new TaskAlreadyRunningException($task);
                 }
@@ -97,8 +94,6 @@ class JobRunner
                 }
 
                 $this->cliWrite('Executed: ' . ($task->getName() ?: 'Task'), 'cyan');
-
-                // @codeCoverageIgnoreStart
             } catch (\Throwable $e) {
                 $this->cliWrite('Failed: ' . ($task->getName() ?: 'Task'), 'red');
                 log_message('error', $e->getMessage(), $e->getTrace());
@@ -123,6 +118,7 @@ class JobRunner
                 );
             }
         }
+        
     }
 
     public function sendCronJobFinishesEmailNotification(
@@ -131,7 +127,7 @@ class JobRunner
         ?string $output = null,
         ?\Throwable $error = null
     ): void {
-        if (! setting('CronJob.notification')) {
+        if (! $this->config->notification) {
             return;
         }
 
@@ -140,8 +136,8 @@ class JobRunner
         $parser = Services::parser();
 
         $email->setMailType('html');
-        $email->setFrom(setting('CronJob.from'), setting('CronJob.fromName'));
-        $email->setTo(setting('CronJob.to'));
+        $email->setFrom($this->config->from, $this->config->fromName);
+        $email->setTo($this->config->to);
         $email->setSubject($parser->setData(array('job' => $task->getName()))->renderString(lang('CronJob.emailSubject')));
         $email->setMessage($parser->setData(
             array(

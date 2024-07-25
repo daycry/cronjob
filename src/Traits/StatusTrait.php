@@ -14,12 +14,12 @@ trait StatusTrait
 {
     protected function isRunningFlagPath(): string
     {
-        return setting('CronJob.filePath') . 'running/' . $this->getName();
+        return $this->config->filePath . 'running/' . $this->getName();
     }
 
     protected function createConfigFolderIfNeeded(): void
     {
-        $folder = setting('CronJob.filePath');
+        $folder = $this->config->filePath;
 
         if (is_dir($folder)) {
             return;
@@ -30,7 +30,7 @@ trait StatusTrait
 
     protected function createTasksRunningFolderIfNeeded(): void
     {
-        $folder = setting('CronJob.filePath') . 'running';
+        $folder = $this->config->filePath . 'running';
 
         if (is_dir($folder)) {
             return;
@@ -77,7 +77,7 @@ trait StatusTrait
 
             return $data;
         } else {
-            @unlink(setting('CronJob.filePath') . '/running/' . $name);
+            @unlink($this->config->filePath . '/running/' . $name);
         }
 
         return false;
@@ -92,7 +92,7 @@ trait StatusTrait
 
         $name = ($this->name) ? $this->name : $this->buildName();
 
-        if (!is_dir(setting('CronJob.filePath')) || !is_dir(setting('CronJob.filePath') . 'disable/') || !file_exists(setting('CronJob.filePath') . 'disable/' . $name)) {
+        if (!is_dir($this->config->filePath) || !is_dir($this->config->filePath . 'disable/') || !file_exists($this->config->filePath . 'disable/' . $name)) {
             return true;
         }
         return false;
@@ -107,14 +107,14 @@ trait StatusTrait
 
         $this->name = ($this->name) ? $this->name : $this->buildName();
 
-        if (!file_exists(setting('CronJob.filePath') . 'disable/' . $this->name)) {
+        if (!file_exists($this->config->filePath . 'disable/' . $this->name)) {
             // dir doesn't exist, make it
-            if (!is_dir(setting('CronJob.filePath'))) {
-                mkdir(setting('CronJob.filePath'));
+            if (!is_dir($this->config->filePath)) {
+                mkdir($this->config->filePath);
             }
 
-            if (!is_dir(setting('CronJob.filePath') . 'disable/')) {
-                mkdir(setting('CronJob.filePath') . 'disable/');
+            if (!is_dir($this->config->filePath . 'disable/')) {
+                mkdir($this->config->filePath . 'disable/');
             }
 
             $data = [
@@ -124,7 +124,7 @@ trait StatusTrait
 
             // write the file with json content
             file_put_contents(
-                setting('CronJob.filePath') . '/disable/' . $this->name,
+                $this->config->filePath . '/disable/' . $this->name,
                 json_encode(
                     $data,
                     JSON_PRETTY_PRINT
@@ -146,8 +146,8 @@ trait StatusTrait
         $this->name = ($this->name) ? $this->name : $this->buildName();
 
 
-        if (file_exists(setting('CronJob.filePath') . 'disable/' . $this->name)) {
-            @unlink(setting('CronJob.filePath') . '/disable/' . $this->name);
+        if (file_exists($this->config->filePath . 'disable/' . $this->name)) {
+            @unlink($this->config->filePath . '/disable/' . $this->name);
             return true;
         }
 

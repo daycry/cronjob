@@ -12,11 +12,14 @@ class Database implements LoggerInterface
     {
         $logModel = new CronJobLogModel();
 
-        if (setting('CronJob.maxLogsPerJob')) {
+        /** @var CronJobConfig config */
+        $config = config('CronJob');
+
+        if ($config->maxLogsPerJob) {
             $logs = $logModel->where('name', $data['name'])->findAll();
             // Make sure we have room for one more
-            if ((is_countable($logs) ? count($logs) : 0) >= setting('CronJob.maxLogsPerJob')) {
-                $forDelete = count($logs) - setting('CronJob.maxLogsPerJob');
+            if ((is_countable($logs) ? count($logs) : 0) >= $config->maxLogsPerJob) {
+                $forDelete = count($logs) - $config->maxLogsPerJob;
                 for ($i = 0; $forDelete >= $i; $i++) {
                     $logModel->delete($logs[$i]->id);
                 }

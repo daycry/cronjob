@@ -40,7 +40,7 @@ trait LogTrait
     {
         $this->name = ($this->name) ? $this->name : $this->buildName();
 
-        if(setting('CronJob.logPerformance')) {
+        if($this->config->logPerformance) {
 
             if(!$this->end) {
                 $this->endLog(null);
@@ -67,7 +67,7 @@ trait LogTrait
 
     public function getLogs(): array
     {
-        if (setting('CronJob.logPerformance') === false) {
+        if ($this->config->logPerformance === false) {
             return [];
         }
         $this->setHandler();
@@ -85,11 +85,11 @@ trait LogTrait
 
     private function setHandler(): void
     {
-        if(!setting('CronJob.logSavingMethod') || !array_key_exists(setting('CronJob.logSavingMethod'), setting('CronJob.logSavingMethodClassMap'))) {
+        if(!$this->config->logSavingMethod || !array_key_exists($this->config->logSavingMethod, $this->config->logSavingMethodClassMap)) {
             throw CronJobException::forInvalidLogType();
         }
 
-        $class = setting('CronJob.logSavingMethodClassMap')[setting('CronJob.logSavingMethod')];
+        $class = $this->config->logSavingMethodClassMap[$this->config->logSavingMethod];
         $this->handler = new $class();
     }
 }

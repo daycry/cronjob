@@ -4,13 +4,15 @@ namespace Daycry\CronJob\Loggers;
 
 use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Interfaces\LoggerInterface;
-
+use Daycry\CronJob\Config\CronJob as CronJobConfig;
 class File implements LoggerInterface
 {
     public function save(array $data): void
     {
-        $path = setting('CronJob.filePath') . $data['name'];
-        $fileName = $path . '/' . setting('CronJob.fileName') . '.json';
+        /** @var CronJobConfig config */
+        $config = config('CronJob');
+        $path = $config->filePath . $data['name'];
+        $fileName = $path . '/' . $config->fileName . '.json';
 
         if (!is_dir($path)) {
             mkdir($path, 0777, true);
@@ -23,7 +25,7 @@ class File implements LoggerInterface
         }
 
         // Make sure we have room for one more
-        if ((is_countable($logs) ? count($logs) : 0) >= setting('CronJob.maxLogsPerJob')) {
+        if ((is_countable($logs) ? count($logs) : 0) >= $config->maxLogsPerJob) {
             array_pop($logs);
         }
 
@@ -41,8 +43,10 @@ class File implements LoggerInterface
 
     public function lastRun(string $name): string|Time
     {
-        $path = setting('CronJob.filePath') . $name;
-        $fileName = $path . '/' . setting('CronJob.fileName') . '.json';
+        /** @var CronJobConfig config */
+        $config = config('CronJob');
+        $path = $config->filePath . $name;
+        $fileName = $path . '/' . $config->fileName . '.json';
 
         if (!is_dir($path)) {
             return '--';
@@ -59,8 +63,10 @@ class File implements LoggerInterface
 
     public function getLogs(string $name): array
     {
-        $path = setting('CronJob.filePath') . $name;
-        $fileName = $path . '/' . setting('CronJob.fileName') . '.json';
+        /** @var CronJobConfig config */
+        $config = config('CronJob');
+        $path = $config->filePath . $name;
+        $fileName = $path . '/' . $config->fileName . '.json';
 
         if (is_dir($path) && is_file($fileName)) {
             return \json_decode(\file_get_contents($fileName));

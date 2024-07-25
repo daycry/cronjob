@@ -4,7 +4,7 @@ use Daycry\CronJob\Job;
 use Daycry\CronJob\JobRunner;
 use Tests\Support\TestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
-
+use Daycry\CronJob\Config\CronJob as CronJobConfig;
 /**
  * @internal
  */
@@ -13,11 +13,13 @@ final class JobRunnerTest extends TestCase
     use DatabaseTestTrait;
 
     protected $refresh   = true;
-    protected $config;
+    protected CronJobConfig $config;
 
     protected function setUp(): void
     {
         parent::setUp();
+
+        $this->config = new CronJobConfig();
     }
 
     public function testRunWithNoTasks()
@@ -60,6 +62,7 @@ final class JobRunnerTest extends TestCase
 
     public function testRunWithSuccess()
     {
+
         /** @var Job $task1 */
         $task1 = (new Job('closure', static function () {
             sleep(2);
@@ -86,8 +89,8 @@ final class JobRunnerTest extends TestCase
 
         $this->assertCount(1, $task2->getLogs());
         $this->assertCount(1, $runner->getJobs());
-        $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . 'task2' . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_dir($this->config->filePath));
+        $this->assertTrue(is_file($this->config->filePath . 'task2' . '/' . $this->config->fileName . '.json'));
     }
 
     public function testRunWithOnlyJobsSuccess()
@@ -115,8 +118,8 @@ final class JobRunnerTest extends TestCase
         ob_end_clean();
 
         $this->assertCount(1, $runner->getJobs());
-        $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . 'task1' . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_dir($this->config->filePath));
+        $this->assertTrue(is_file($this->config->filePath . 'task1' . '/' . $this->config->fileName . '.json'));
     }
 
     public function testRunWithEmptyNameSuccess()
@@ -140,8 +143,8 @@ final class JobRunnerTest extends TestCase
 
         ob_end_clean();
 
-        $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . $task2->getName() . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_dir($this->config->filePath));
+        $this->assertTrue(is_file($this->config->filePath . $task2->getName() . '/' . $this->config->fileName . '.json'));
     }
 
     public function testRunWithEmptyNameUrlSuccess()
@@ -159,8 +162,8 @@ final class JobRunnerTest extends TestCase
 
         ob_end_clean();
 
-        $this->assertTrue(is_dir(setting('CronJob.filePath')));
-        $this->assertTrue(is_file(setting('CronJob.filePath') . $task->getName() . '/' . setting('CronJob.fileName') . '.json'));
+        $this->assertTrue(is_dir($this->config->filePath));
+        $this->assertTrue(is_file($this->config->filePath . $task->getName() . '/' . $this->config->fileName . '.json'));
     }
 
     protected function getRunner(array $tasks = [])
