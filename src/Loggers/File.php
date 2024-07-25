@@ -5,6 +5,7 @@ namespace Daycry\CronJob\Loggers;
 use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Interfaces\LoggerInterface;
 use Daycry\CronJob\Config\CronJob as CronJobConfig;
+
 class File implements LoggerInterface
 {
     public function save(array $data): void

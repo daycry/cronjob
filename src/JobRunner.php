@@ -118,7 +118,7 @@ class JobRunner
                 );
             }
         }
-        
+
     }
 
     public function sendCronJobFinishesEmailNotification(

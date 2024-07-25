@@ -68,7 +68,7 @@ class Finish extends CronJobCommand
             ->endLog()
             ->saveRunningFlag(false);
 
-        (new JobRunner)->sendCronJobFinishesEmailNotification(
+        (new JobRunner())->sendCronJobFinishesEmailNotification(
             $task,
             new Time($startAt)
         );
