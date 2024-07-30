@@ -34,10 +34,10 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (!file_exists($this->configfilePath .$this->configfileName)) {
+        if (!file_exists($this->config->filePath .$this->config->fileName)) {
             // dir doesn't exist, make it
-            if (!is_dir($this->configfilePath)) {
-                mkdir($this->configfilePath);
+            if (!is_dir($this->config->filePath)) {
+                mkdir($this->config->filePath);
             }
 
             $settings = [
@@ -47,7 +47,7 @@ abstract class CronJobCommand extends BaseCommand
 
             // write the file with json content
             file_put_contents(
-                $this->configfilePath . $this->configfileName,
+                $this->config->filePath . $this->config->fileName,
                 json_encode(
                     $settings,
                     JSON_PRETTY_PRINT
@@ -68,8 +68,8 @@ abstract class CronJobCommand extends BaseCommand
     {
         $this->getConfig();
 
-        if (file_exists($this->configfilePath . $this->configfileName)) {
-            $data = json_decode(file_get_contents($this->configfilePath . $this->configfileName));
+        if (file_exists($this->config->filePath . $this->config->fileName)) {
+            $data = json_decode(file_get_contents($this->config->filePath . $this->config->fileName));
             return $data;
         }
 
