@@ -41,7 +41,7 @@ class Disable extends CronJobCommand
         $this->getConfig();
 
         //delete the file with json content
-        @unlink($this->configfilePath . $this->configfileName);
+        @unlink($this->config->filePath . $this->config->fileName);
 
         $this->disabled();
     }
