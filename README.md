@@ -1,7 +1,7 @@
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate?business=SYC5XDT23UZ5G&no_recurring=0&item_name=Thank+you%21&currency_code=EUR)
 
 > [!NOTE]  
-> If you want to use a queue system you can use [![queues vendor](https://github.com/daycry/queues)
+> If you want to use a queue system you can use [[queues vendor](https://github.com/daycry/queues)
 
 # CodeIgniter Task Scheduler
 
