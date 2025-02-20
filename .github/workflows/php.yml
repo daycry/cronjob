@@ -17,7 +17,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['8.0', '8.1','8.2']
+        php-versions: ['8.2', '8.3']
 
     steps:
       - uses: actions/checkout@v3
@@ -44,7 +44,7 @@ jobs:
         run: composer install --ansi --no-interaction
 
       - name: Test with PHPUnit
-        run: script -e -c "vendor/bin/phpunit -v"
+        run: script -e -c "vendor/bin/phpunit"
       
       - name: Run Coveralls
         if: matrix.php-versions == '8.0'
