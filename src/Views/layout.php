@@ -19,7 +19,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="<?= base_url('cronjob');?>">
+                    <a class="navbar-brand" href="<?= base_url('cronjob'); ?>">
                         <img src="<?= base_url('vendor/cronjob/img/logo.png'); ?>" alt="Logo" width="50" height="50" class="d-inline-block align-text-top">
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">

@@ -8,7 +8,7 @@ use CodeIgniter\CLI\CLI;
 /**
  * @internal
  */
-final class JobsTest extends BaseCommand
+final class JobsExample extends BaseCommand
 {
     protected $group       = 'Testing';
     protected $name        = 'jobs:test';

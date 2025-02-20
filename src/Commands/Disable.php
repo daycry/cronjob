@@ -2,9 +2,6 @@
 
 namespace Daycry\CronJob\Commands;
 
-use CodeIgniter\CLI\BaseCommand;
-use CodeIgniter\CLI\CLI;
-
 /**
  * Disable Task Running.
  */
@@ -33,14 +30,12 @@ class Disable extends CronJobCommand
 
     /**
      * Disables task running
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
         $this->getConfig();
 
-        //delete the file with json content
+        // delete the file with json content
         @unlink($this->config->filePath . $this->config->fileName);
 
         $this->disabled();

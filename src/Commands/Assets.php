@@ -2,8 +2,6 @@
 
 namespace Daycry\CronJob\Commands;
 
-use Config\Autoload;
-use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
 
 /**
@@ -41,8 +39,6 @@ class Assets extends CronJobCommand
 
     /**
      * Enables task running
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
@@ -64,8 +60,9 @@ class Assets extends CronJobCommand
     {
         $this->assetsPath = realpath(__DIR__ . '/../../public/');
 
-        if ($this->assetsPath == '/' || empty($this->assetsPath)) {
+        if ($this->assetsPath === '/' || empty($this->assetsPath)) {
             CLI::error('Unable to determine the correct source directory. Bailing.');
+
             exit();
         }
     }

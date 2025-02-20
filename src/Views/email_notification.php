@@ -35,7 +35,7 @@
     div[style*="margin: 16px 0;"] { margin: 0 !important; }
 
     /* MEDIA QUERIES */
-    @media all and (max-width:639px){ 
+    @media all and (max-width:639px){
       .wrapper{ width:320px!important; padding: 0 !important; }
       .container{ width:300px!important;  padding: 0 !important; }
       .mobile{ width:300px!important; display:block!important; padding: 0 !important; }
@@ -44,7 +44,7 @@
       *[class*="mobileOn"] { display: block !important; max-height:none !important; }
     }
 
-  </style>    
+  </style>
 </head>
 <body style="margin:0; padding:0; background-color:#F2F2F2;">
   <center>

@@ -2,9 +2,9 @@
 
 namespace Daycry\CronJob\Models;
 
+use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Model;
 use CodeIgniter\Validation\ValidationInterface;
-use CodeIgniter\Database\ConnectionInterface;
 use Config\Database;
 
 class CronJobLogModel extends Model
@@ -28,7 +28,7 @@ class CronJobLogModel extends Model
     {
         if ($db === null) {
             $this->DBGroup = config('CronJob')->databaseGroup;
-            $db = Database::connect($this->DBGroup);
+            $db            = Database::connect($this->DBGroup);
         }
 
         $this->table = config('CronJob')->tableName;

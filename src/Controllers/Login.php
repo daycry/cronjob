@@ -24,7 +24,7 @@ class Login extends BaseCronJob
         $validation->setRule('username', 'Username', 'required');
         $validation->setRule('password', 'Password', 'required');
 
-        if (!$validation->withRequest($this->request)->run()) {
+        if (! $validation->withRequest($this->request)->run()) {
             return redirect()->to('cronjob');
         }
 
@@ -32,17 +32,19 @@ class Login extends BaseCronJob
         $password = $this->request->getPost('password');
 
         $config = config('CronJob');
-        if ($username != $config->username || $password != $config->password) {
+        if ($username !== $config->username || $password !== $config->password) {
             return redirect()->to('cronjob');
         }
 
         $this->session->set('cronjob', true);
+
         return redirect()->to('cronjob/dashboard');
     }
 
     public function logout()
     {
         $this->session->remove('cronjob');
+
         return redirect()->to('cronjob');
     }
 }

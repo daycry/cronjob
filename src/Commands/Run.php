@@ -2,12 +2,10 @@
 
 namespace Daycry\CronJob\Commands;
 
-use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
-
-use Daycry\CronJob\JobRunner;
-use Daycry\CronJob\Config\Services;
 use Daycry\CronJob\Config\CronJob;
+use Daycry\CronJob\Config\Services;
+use Daycry\CronJob\JobRunner;
 
 /**
  * Runs current tasks.
@@ -40,20 +38,19 @@ class Run extends CronJobCommand
      *
      * @var array
      */
-    protected $options = [ '-testTime' => 'Set Date to run script', '-only' => 'Set name of jobs that you want run separated with comma' ];
+    protected $options = ['-testTime' => 'Set Date to run script', '-only' => 'Set name of jobs that you want run separated with comma'];
 
     /**
      * Runs tasks at the proper time.
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
         $this->getConfig();
         $settings = $this->getSettings();
 
-        if (!$settings || (isset($settings->status) && $settings->status !== 'enabled')) {
+        if (! $settings || (isset($settings->status) && $settings->status !== 'enabled')) {
             $this->tryToEnable();
+
             return false;
         }
 
@@ -67,13 +64,13 @@ class Run extends CronJobCommand
 
         $runner = new JobRunner();
 
-        $testTime = $params[ 'testTime' ] ?? CLI::getOption('testTime');
+        $testTime = $params['testTime'] ?? CLI::getOption('testTime');
 
         if ($testTime) {
             $runner->withTestTime($testTime);
         }
 
-        $only = $params[ 'only' ] ?? CLI::getOption('only');
+        $only = $params['only'] ?? CLI::getOption('only');
 
         if ($only) {
             $only = explode(',', $only);

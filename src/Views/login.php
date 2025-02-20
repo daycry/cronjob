@@ -10,7 +10,7 @@
 <?= $this->section('bodyClass') ?>text-center<?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
-    
+
     <main class="form-signin w-100 m-auto">
         <?= form_open('cronjob/login/validation'); ?>
             <img class="mb-4" src="<?= base_url('vendor/cronjob/img/logo.png'); ?>" alt="" width="70" height="70">

@@ -3,9 +3,9 @@
 namespace Daycry\CronJob\Config;
 
 use CodeIgniter\Config\BaseConfig;
-use Daycry\CronJob\Scheduler;
 use Daycry\CronJob\Loggers\Database as DatabaseLogger;
 use Daycry\CronJob\Loggers\File as FileLogger;
+use Daycry\CronJob\Scheduler;
 
 class CronJob extends BaseConfig
 {
@@ -25,11 +25,10 @@ class CronJob extends BaseConfig
     | 'database'  Save in database
     |
     */
-    public string $logSavingMethod = 'file';
-
+    public string $logSavingMethod        = 'file';
     public array $logSavingMethodClassMap = [
-        'file' => FileLogger::class,
-        'database' => DatabaseLogger::class
+        'file'     => FileLogger::class,
+        'database' => DatabaseLogger::class,
     ];
 
     /**
@@ -84,10 +83,10 @@ class CronJob extends BaseConfig
     |
     */
     public bool $notification = false;
-    public string $from = 'your@example.com';
-    public string $fromName = 'CronJob';
-    public string $to = 'your@example.com';
-    public string $toName = 'User';
+    public string $from       = 'your@example.com';
+    public string $fromName   = 'CronJob';
+    public string $to         = 'your@example.com';
+    public string $toName     = 'User';
 
     /*
     |--------------------------------------------------------------------------
@@ -98,10 +97,10 @@ class CronJob extends BaseConfig
     |
     */
     public array $views = [
-        'login'                       => '\Daycry\CronJob\Views\login',
-        'dashboard'                   => '\Daycry\CronJob\Views\dashboard',
-        'layout'                      => '\Daycry\CronJob\Views\layout',
-        'logs'                        => '\Daycry\CronJob\Views\logs'
+        'login'     => '\Daycry\CronJob\Views\login',
+        'dashboard' => '\Daycry\CronJob\Views\dashboard',
+        'layout'    => '\Daycry\CronJob\Views\layout',
+        'logs'      => '\Daycry\CronJob\Views\logs',
     ];
 
     /*
@@ -110,8 +109,8 @@ class CronJob extends BaseConfig
     |--------------------------------------------------------------------------
     */
     public bool $enableDashboard = false;
-    public string $username = 'admin';
-    public string $password = 'admin';
+    public string $username      = 'admin';
+    public string $password      = 'admin';
 
     /*
     |--------------------------------------------------------------------------

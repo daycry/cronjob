@@ -2,16 +2,16 @@
 
 namespace Daycry\Cronjob\Database\Migrations;
 
-use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\Forge;
+use CodeIgniter\Database\Migration;
 
 class ChangeLogToLongText extends Migration
 {
-    protected $config = null;
+    protected $config;
 
     public function __construct(?Forge $forge = null)
     {
-        $this->config = config('CronJob');
+        $this->config  = config('CronJob');
         $this->DBGroup = $this->config->databaseGroup;
 
         parent::__construct($forge);
@@ -34,11 +34,11 @@ class ChangeLogToLongText extends Migration
     {
         $fields = [
             'output' => [
-                'type' => 'varchar',
+                'type'       => 'varchar',
                 'constraint' => 255,
             ],
             'error' => [
-                'type' => 'varchar',
+                'type'       => 'varchar',
                 'constraint' => 255,
             ],
         ];

@@ -12,15 +12,20 @@
     ],
     "license": "MIT",
     "require": {
-        "php": ">=8.0",
-        "dragonmantank/cron-expression": "^3.3"
+        "php": "^8.2",
+        "dragonmantank/cron-expression": "^3.3",
+        "amphp/parallel": "^2.3"
     },
     "require-dev":
     {
         "codeigniter4/framework": "^4",
-        "phpunit/phpunit": "^9.1",
-        "rector/rector": "0.14.2",
-        "codeigniter4/devkit": "^0.1.0"
+        "codeigniter/phpstan-codeigniter": "^1.4",
+        "codeigniter4/devkit": "^1",
+        "daycry/phpunit-extension-vcr": "^1.0",
+        "ergebnis/composer-normalize": "^2.28",
+        "php-vcr/php-vcr": "^1",
+        "phpstan/phpstan-strict-rules": "^2",
+        "phpunit/phpcov": "^10"
     },
     "autoload":
     {
@@ -44,12 +49,13 @@
             "rector process --dry-run"
         ],
         "test": "vendor/bin/phpunit",
-        "cs-fixer": ["vendor/bin/php-cs-fixer fix src", "vendor/bin/php-cs-fixer fix tests" ],
+        "cs-fix": "php-cs-fixer fix --ansi --verbose --diff",
         "cs": "php-cs-fixer fix --ansi --verbose --dry-run --diff"
     },
     "config": {
         "allow-plugins": {
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "ergebnis/composer-normalize": true
         }
     }
 }

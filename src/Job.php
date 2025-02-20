@@ -3,18 +3,18 @@
 namespace Daycry\CronJob;
 
 use CodeIgniter\Events\Events;
-use Daycry\CronJob\Exceptions\CronJobException;
 use Config\Services;
+use Daycry\CronJob\Config\CronJob as BaseConfig;
+use Daycry\CronJob\Exceptions\CronJobException;
 use Daycry\CronJob\Traits\ActivityTrait;
+use Daycry\CronJob\Traits\FrequenciesTrait;
+use Daycry\CronJob\Traits\InteractsWithSpark;
+use Daycry\CronJob\Traits\LogTrait;
+use Daycry\CronJob\Traits\StatusTrait;
 use InvalidArgumentException;
 use ReflectionException;
 use ReflectionFunction;
 use SplFileObject;
-use Daycry\CronJob\Traits\FrequenciesTrait;
-use Daycry\CronJob\Traits\LogTrait;
-use Daycry\CronJob\Traits\StatusTrait;
-use Daycry\CronJob\Traits\InteractsWithSpark;
-use Daycry\CronJob\Config\CronJob as BaseConfig;
 
 /**
  * Class Job
@@ -22,11 +22,11 @@ use Daycry\CronJob\Config\CronJob as BaseConfig;
  * Represents a single task that should be scheduled
  * and run periodically.
  *
- * @property-read array $types
- * @property-read string $type
- * @property-read mixed $action
- * @property-read array $environments
+ * @property-read mixed  $action
+ * @property-read array  $environments
  * @property-read string $name
+ * @property-read string $type
+ * @property-read array  $types
  */
 class Job
 {
@@ -37,10 +37,11 @@ class Job
     use InteractsWithSpark;
 
     protected BaseConfig $config;
+
     /**
      * Supported action types.
      *
-     * @var string[]
+     * @var list<string>
      */
     protected $types = [
         'command',
@@ -52,56 +53,43 @@ class Job
 
     /**
      * The type of cron run.
-     *
-     * @var string
      */
     protected string $runType = 'multiple';
 
     /**
      * If the job will run as a background process
-     *
-     * @var bool
      */
     protected bool $runInBackground = false;
 
     /**
      * The type of action.
-     *
-     * @var string
      */
     protected string $type;
 
     /**
      * The actual content that should be run.
-     *
-     * @var mixed
      */
     protected mixed $action;
 
     /**
      * If not empty, lists the allowed environments
      * this can run in.
-     *
-     * @var array
      */
     protected array $environments = [];
 
     /**
      * The alias this task can be run by
-     *
-     * @var string
      */
     protected ?string $name = null;
 
     /**
-     * @param mixed  $action
-     * @param string $type
+     * @param mixed $action
      *
      * @throws CronJobException
      */
     public function __construct(string $type, $action)
     {
-        if (!in_array($type, $this->types, true)) {
+        if (! in_array($type, $this->types, true)) {
             throw CronJobException::forInvalidTaskType($type);
         }
         $this->config = config('CronJob');
@@ -111,8 +99,6 @@ class Job
 
     /**
      * Set the name to reference this task by
-     *
-     * @param string $name
      *
      * @return $this
      */
@@ -125,8 +111,6 @@ class Job
 
     /**
      * Returns the type.
-     *
-     * @return string
      */
     public function getType(): string
     {
@@ -135,8 +119,6 @@ class Job
 
     /**
      * Returns the saved action.
-     *
-     * @return mixed
      */
     public function getAction(): mixed
     {
@@ -150,18 +132,15 @@ class Job
      */
     public function run(): mixed
     {
-
         $method = 'run' . ucfirst($this->type);
         // @codeCoverageIgnoreStart
-        if (!method_exists($this, $method)) {
+        if (! method_exists($this, $method)) {
             throw CronJobException::forInvalidTaskType($this->type);
         }
         // @codeCoverageIgnoreEnd
 
-        return $this->$method();
+        return $this->{$method}();
     }
-
-
 
     /**
      * Restricts this task to run within only
@@ -185,10 +164,6 @@ class Job
 
     /**
      * Checks if it runs within the specified environment.
-     *
-     * @param string $environment
-     *
-     * @return boolean
      */
     protected function runsInEnvironment(string $environment): bool
     {
@@ -204,7 +179,8 @@ class Job
      * Runs a framework Command.
      *
      * @return string Buffered output from the Command
-     * @throws \InvalidArgumentException
+     *
+     * @throws InvalidArgumentException
      */
     protected function runCommand(): string
     {
@@ -224,10 +200,10 @@ class Job
         $runCommand = $this->sparkCommandInBackground($this->getAction());
 
         $afterRunCommand = $this->sparkCommandInBackground(
-            "cronjob:finish --name {$this->getName()} --type {$this->getType()}"
+            "cronjob:finish --name {$this->getName()} --type {$this->getType()}",
         );
 
-        return exec("$runCommand && $afterRunCommand");
+        return exec("{$runCommand} && {$afterRunCommand}");
     }
 
     /**
@@ -255,7 +231,7 @@ class Job
     /**
      * Triggers an Event.
      *
-     * @return boolean Result of the trigger
+     * @return bool Result of the trigger
      */
     protected function runEvent(): bool
     {
@@ -279,7 +255,8 @@ class Job
      * Used when an existing name doesn't exist.
      *
      * @return string
-     * @throws \ReflectionException
+     *
+     * @throws ReflectionException
      */
     protected function buildName()
     {
@@ -297,7 +274,7 @@ class Job
             }
             $actionString = json_encode([
                 $content,
-                $ref->getStaticVariables()
+                $ref->getStaticVariables(),
             ]);
         } else {
             $actionString = serialize($this->getAction());
@@ -306,12 +283,12 @@ class Job
         // Get a hash based on the expression
         $expHash = $this->getExpression();
 
-        return  $this->getType() . '_' . md5($actionString . '_' . $expHash);
+        return $this->getType() . '_' . md5($actionString . '_' . $expHash);
     }
 
     public function getName()
     {
-        if(empty($this->name)) {
+        if (empty($this->name)) {
             return $this->buildName();
         }
 
@@ -320,8 +297,6 @@ class Job
 
     /**
      * Set the runType of task
-     *
-     * @param string $runType
      *
      * @return $this
      */
@@ -334,8 +309,6 @@ class Job
 
     /**
      * Returns the runType.
-     *
-     * @return string
      */
     public function getRunType(): string
     {
@@ -359,8 +332,6 @@ class Job
 
     /**
      * If the job will run in the background
-     *
-     * @return bool
      */
     public function shouldRunInBackground(): bool
     {

@@ -9,10 +9,6 @@ class Services extends BaseServices
 {
     /**
      * Returns the Task Scheduler
-     *
-     * @param boolean $getShared
-     *
-     * @return \Daycry\CronJob\Scheduler
      */
     public static function scheduler(bool $getShared = true): Scheduler
     {

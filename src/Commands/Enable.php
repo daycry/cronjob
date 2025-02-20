@@ -2,9 +2,6 @@
 
 namespace Daycry\CronJob\Commands;
 
-use CodeIgniter\CLI\BaseCommand;
-use CodeIgniter\CLI\CLI;
-
 /**
  * Enables Task Running
  */
@@ -33,8 +30,6 @@ class Enable extends CronJobCommand
 
     /**
      * Enables task running
-     *
-     * @param array $params
      */
     public function run(array $params)
     {

@@ -7,7 +7,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
-    
+
     <main class="container m-auto">
 
         <table id="tableJobs" class="table table-bordered table-striped table-hover">
@@ -29,7 +29,7 @@
                         <td><?= $log->output ?></td>
                         <td><?= $log->error ?></td>
                     </tr>
-                <?php endforeach ?>          
+                <?php endforeach ?>
             </tbody>
         </table>
     </main>

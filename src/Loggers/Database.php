@@ -20,6 +20,7 @@ class Database implements LoggerInterface
             // Make sure we have room for one more
             if ((is_countable($logs) ? count($logs) : 0) >= $config->maxLogsPerJob) {
                 $forDelete = count($logs) - $config->maxLogsPerJob;
+
                 for ($i = 0; $forDelete >= $i; $i++) {
                     $logModel->delete($logs[$i]->id);
                 }
@@ -32,13 +33,14 @@ class Database implements LoggerInterface
     public function getLogs(string $name): array
     {
         $logModel = new CronJobLogModel();
+
         return $logModel->where('name', $name)->orderBy('id', 'DESC')->findAll();
     }
 
     public function lastRun(string $name): string|Time
     {
         $logModel = new CronJobLogModel();
-        $log = $logModel->where('name', $name)->orderBy('id', 'DESC')->first();
+        $log      = $logModel->where('name', $name)->orderBy('id', 'DESC')->first();
 
         if (empty($log)) {
             return '--';

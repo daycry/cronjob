@@ -4,9 +4,9 @@ namespace Daycry\CronJob\Commands;
 
 use CodeIgniter\CLI\CLI;
 use CodeIgniter\I18n\Time;
-use Daycry\CronJob\Config\Services;
 use Cron\CronExpression;
 use Daycry\CronJob\Config\CronJob;
+use Daycry\CronJob\Config\Services;
 
 /**
  * Lists currently scheduled tasks.
@@ -36,16 +36,15 @@ class Lister extends CronJobCommand
 
     /**
      * Lists upcoming tasks
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
         $this->getConfig();
         $settings = $this->getSettings();
 
-        if (!$settings || (isset($settings->status) && $settings->status !== 'enabled')) {
+        if (! $settings || (isset($settings->status) && $settings->status !== 'enabled')) {
             $this->tryToEnable();
+
             return false;
         }
 
@@ -58,7 +57,7 @@ class Lister extends CronJobCommand
         $tasks = [];
 
         foreach ($scheduler->getTasks() as $task) {
-            $cron = new CronExpression($task->getExpression());
+            $cron    = new CronExpression($task->getExpression());
             $nextRun = $cron->getNextRunDate()->format('Y-m-d H:i:s');
             $lastRun = $task->lastRun();
 
@@ -67,13 +66,11 @@ class Lister extends CronJobCommand
                 'type'     => $task->getType(),
                 'schedule' => $task->getExpression(),
                 'last_run' => $lastRun instanceof Time ? $lastRun->format('Y-m-d H:i:s') : $lastRun,
-                'next_run' => $nextRun
+                'next_run' => $nextRun,
             ];
         }
 
-        usort($tasks, function ($a, $b) {
-            return ($a[ 'next_run' ] < $b[ 'next_run' ]) ? -1 : 1;
-        });
+        usort($tasks, static fn ($a, $b) => ($a['next_run'] < $b['next_run']) ? -1 : 1);
 
         CLI::table(
             $tasks,
@@ -82,8 +79,8 @@ class Lister extends CronJobCommand
                 'Type',
                 'Expression',
                 'Last Run',
-                'Next Run'
-            ]
+                'Next Run',
+            ],
         );
     }
 }

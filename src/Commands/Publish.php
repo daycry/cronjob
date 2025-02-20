@@ -2,9 +2,9 @@
 
 namespace Daycry\CronJob\Commands;
 
-use Config\Autoload;
-use CodeIgniter\CLI\BaseCommand;
 use CodeIgniter\CLI\CLI;
+use Config\Autoload;
+use Exception;
 
 /**
  * Enables Task Running
@@ -48,15 +48,13 @@ class Publish extends CronJobCommand
 
     /**
      * Enables task running
-     *
-     * @param array $params
      */
     public function run(array $params)
     {
         $this->determineSourcePath();
 
         // Config
-        if (CLI::prompt('Publish Config file?', [ 'y', 'n' ]) == 'y') {
+        if (CLI::prompt('Publish Config file?', ['y', 'n']) === 'y') {
             $this->publishConfig();
         }
 
@@ -68,10 +66,10 @@ class Publish extends CronJobCommand
         $path = "{$this->sourcePath}/Config/CronJob.php";
 
         $content = file_get_contents($path);
-        $content = str_replace('namespace Daycry\CronJob\Config', "namespace Config", $content);
-        $content = str_replace('extends BaseConfig', "extends \Daycry\CronJob\Config\CronJob", $content);
+        $content = str_replace('namespace Daycry\CronJob\Config', 'namespace Config', $content);
+        $content = str_replace('extends BaseConfig', 'extends \\Daycry\\CronJob\\Config\\CronJob', $content);
 
-        $this->writeFile("Config/CronJob.php", $content);
+        $this->writeFile('Config/CronJob.php', $content);
     }
 
     /**
@@ -81,8 +79,9 @@ class Publish extends CronJobCommand
     {
         $this->sourcePath = realpath(__DIR__ . '/../');
 
-        if ($this->sourcePath == '/' || empty($this->sourcePath)) {
+        if ($this->sourcePath === '/' || empty($this->sourcePath)) {
             CLI::error('Unable to determine the correct source directory. Bailing.');
+
             exit();
         }
     }
@@ -90,25 +89,23 @@ class Publish extends CronJobCommand
     /**
      * Write a file, catching any exceptions and showing a
      * nicely formatted error.
-     *
-     * @param string $path
-     * @param string $content
      */
     protected function writeFile(string $path, string $content)
     {
-        $config = new Autoload();
-        $appPath = $config->psr4[ APP_NAMESPACE ];
+        $config  = new Autoload();
+        $appPath = $config->psr4[APP_NAMESPACE];
 
         $directory = dirname($appPath . $path);
 
-        if (!is_dir($directory)) {
+        if (! is_dir($directory)) {
             mkdir($directory);
         }
 
         try {
             write_file($appPath . $path, $content);
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             $this->showError($e);
+
             exit();
         }
 

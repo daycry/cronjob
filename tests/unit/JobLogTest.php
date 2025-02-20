@@ -10,7 +10,7 @@ use Tests\Support\TestCase;
  */
 final class JobLogTest extends TestCase
 {
-    public function durationProvider()
+    public static function durationProvider()
     {
         return [
             [

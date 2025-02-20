@@ -2,17 +2,16 @@
 
 namespace Daycry\Cronjob\Database\Migrations;
 
-use CodeIgniter\Database\Migration;
 use CodeIgniter\Database\Forge;
-use CodeIgniter\Database\RawSql;
+use CodeIgniter\Database\Migration;
 
 class ChangeEnvironmentField extends Migration
 {
-    protected $config = null;
+    protected $config;
 
     public function __construct(?Forge $forge = null)
     {
-        $this->config = config('CronJob');
+        $this->config  = config('CronJob');
         $this->DBGroup = $this->config->databaseGroup;
 
         parent::__construct($forge);
@@ -22,11 +21,11 @@ class ChangeEnvironmentField extends Migration
     {
         $fields = [
             'environment' => [
-                'name' => 'environment',
-                'type' => 'varchar',
+                'name'       => 'environment',
+                'type'       => 'varchar',
                 'constraint' => 100,
-                'null' => true,
-                'default' => null
+                'null'       => true,
+                'default'    => null,
             ],
         ];
         $this->forge->modifyColumn($this->config->tableName, $fields);

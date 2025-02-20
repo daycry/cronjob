@@ -2,13 +2,13 @@
 
 namespace Daycry\CronJob\Traits;
 
+use DateTime;
 use Daycry\CronJob\Job;
 
 /**
  * Trait StatusTrait
  *
  * @mixin Job
- * @package Daycry\CronJob
  */
 trait StatusTrait
 {
@@ -17,41 +17,27 @@ trait StatusTrait
         return $this->config->filePath . 'running/' . $this->getName();
     }
 
-    protected function createConfigFolderIfNeeded(): void
+    protected function createFolderIfNotExists(string $folder): void
     {
-        $folder = $this->config->filePath;
-
-        if (is_dir($folder)) {
-            return;
+        if (!is_dir($folder)) {
+            mkdir($folder, 0777, true);
         }
-
-        mkdir($folder);
-    }
-
-    protected function createTasksRunningFolderIfNeeded(): void
-    {
-        $folder = $this->config->filePath . 'running';
-
-        if (is_dir($folder)) {
-            return;
-        }
-
-        mkdir($folder);
     }
 
     protected function createFoldersIfNeeded(): void
     {
-        $this->createConfigFolderIfNeeded();
-        $this->createTasksRunningFolderIfNeeded();
+        $this->createFolderIfNotExists($this->config->filePath);
+        $this->createFolderIfNotExists($this->config->filePath . 'running');
     }
 
     /**
      * Saves the running flag.
+     *
+     * @param mixed $flag
+     * @return array|false
      */
     public function saveRunningFlag($flag)
     {
-        $name = $this->getName();
-
         $path = $this->isRunningFlagPath();
 
         if ($flag) {
@@ -62,92 +48,65 @@ trait StatusTrait
             $this->createFoldersIfNeeded();
 
             $data = [
-                "flag" => $flag,
-                "time" => (new \DateTime())->format('Y-m-d H:i:s')
+                'flag' => $flag,
+                'time' => (new DateTime())->format('Y-m-d H:i:s'),
             ];
 
-            // write the file with json content
-            file_put_contents(
-                $path,
-                json_encode(
-                    $data,
-                    JSON_PRETTY_PRINT
-                )
-            );
+            file_put_contents($path, json_encode($data, JSON_PRETTY_PRINT));
 
             return $data;
-        } else {
-            @unlink($this->config->filePath . '/running/' . $name);
         }
+
+        @unlink($path);
 
         return false;
     }
 
     /**
-     * get cronjob status
+     * Get cronjob status
      */
     public function status(): bool
     {
-        $config = config('CronJob');
+        $name = $this->getName();
 
-        $name = ($this->name) ? $this->name : $this->buildName();
-
-        if (!is_dir($this->config->filePath) || !is_dir($this->config->filePath . 'disable/') || !file_exists($this->config->filePath . 'disable/' . $name)) {
-            return true;
-        }
-        return false;
+        return !is_dir($this->config->filePath) || !is_dir($this->config->filePath . 'disable/') || !file_exists($this->config->filePath . 'disable/' . $name);
     }
 
     /**
-     * disable cronjob
+     * Disable cronjob
      */
     public function disable(): bool
     {
-        $config = config('CronJob');
+        $name = $this->getName();
+        $disablePath = $this->config->filePath . 'disable/' . $name;
 
-        $this->name = ($this->name) ? $this->name : $this->buildName();
-
-        if (!file_exists($this->config->filePath . 'disable/' . $this->name)) {
-            // dir doesn't exist, make it
-            if (!is_dir($this->config->filePath)) {
-                mkdir($this->config->filePath);
-            }
-
-            if (!is_dir($this->config->filePath . 'disable/')) {
-                mkdir($this->config->filePath . 'disable/');
-            }
+        if (!file_exists($disablePath)) {
+            $this->createFolderIfNotExists($this->config->filePath . 'disable');
 
             $data = [
-                "name" => $this->name,
-                "time" => (new \DateTime())->format('Y-m-d H:i:s')
+                'name' => $name,
+                'time' => (new DateTime())->format('Y-m-d H:i:s'),
             ];
 
-            // write the file with json content
-            file_put_contents(
-                $this->config->filePath . '/disable/' . $this->name,
-                json_encode(
-                    $data,
-                    JSON_PRETTY_PRINT
-                )
-            );
+            file_put_contents($disablePath, json_encode($data, JSON_PRETTY_PRINT));
 
             return true;
         }
+
         return false;
     }
 
     /**
-     * enable cronjob
+     * Enable cronjob
      */
     public function enable(): bool
     {
-        $config = config('CronJob');
+        $name = $this->getName();
+        $disablePath = $this->config->filePath . 'disable/' . $name;
 
-        $this->name = ($this->name) ? $this->name : $this->buildName();
+        if (file_exists($disablePath)) {
+            @unlink($disablePath);
 
-
-        if (file_exists($this->config->filePath . 'disable/' . $this->name)) {
-            @unlink($this->config->filePath . '/disable/' . $this->name);
             return true;
         }
 
@@ -171,5 +130,10 @@ trait StatusTrait
         $content = file_get_contents($path);
 
         return json_decode($content, true);
+    }
+
+    private function getName(): string
+    {
+        return $this->name ?: $this->buildName();
     }
 }

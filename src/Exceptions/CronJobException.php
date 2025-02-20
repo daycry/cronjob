@@ -8,7 +8,7 @@ class CronJobException extends RuntimeException
 {
     public static function forInvalidTaskType(string $type)
     {
-        return new self(lang('CronJob.invalidTaskType', [ $type ]));
+        return new self(lang('CronJob.invalidTaskType', [$type]));
     }
 
     public static function forInvalidLogType()
@@ -18,6 +18,6 @@ class CronJobException extends RuntimeException
 
     public static function forInvalidExpression(string $type)
     {
-        return new self(lang('CronJob.invalidExpression', [ $type ]));
+        return new self(lang('CronJob.invalidExpression', [$type]));
     }
 }

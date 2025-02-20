@@ -9,3 +9,4 @@ build
 .phpunit.result.cache
 .php-cs-fixer.cache
 composer.lock
+cronjob.code-workspace

@@ -5,6 +5,7 @@ namespace Daycry\CronJob\Commands;
 use CodeIgniter\I18n\Time;
 use Daycry\CronJob\Job;
 use Daycry\CronJob\JobRunner;
+use Exception;
 
 /**
  * Finish Running Command
@@ -39,12 +40,14 @@ class Finish extends CronJobCommand
      *     type: string,
      *     name: string,
      * } $params
-     * @throws \Exception
+     *
+     * @throws Exception
      */
     public function run(array $params): void
     {
-        if (!isset($params['type']) || !isset($params['name'])) {
+        if (! isset($params['type']) || ! isset($params['name'])) {
             $this->showHelp();
+
             return;
         }
 
@@ -70,7 +73,7 @@ class Finish extends CronJobCommand
 
         (new JobRunner())->sendCronJobFinishesEmailNotification(
             $task,
-            new Time($startAt)
+            new Time($startAt),
         );
     }
 }

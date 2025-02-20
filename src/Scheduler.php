@@ -6,27 +6,22 @@ use Closure;
 
 class Scheduler
 {
-    /**
-     * @var array
-     */
     protected array $tasks = [];
 
     /**
      * Returns the created Tasks.
      *
-     * @return Job[]
+     * @return list<Job>
      */
     public function getTasks(): array
     {
         return $this->tasks;
     }
 
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
     /**
      * Schedules a closure to run.
-     *
-     * @param \Closure $func
      */
     public function call(Closure $func): Job
     {
@@ -35,8 +30,6 @@ class Scheduler
 
     /**
      * Schedules a console command to run.
-     *
-     * @param string $command
      */
     public function command(string $command): Job
     {
@@ -45,8 +38,6 @@ class Scheduler
 
     /**
      * Schedules a local function to be exec'd
-     *
-     * @param string $command
      */
     public function shell(string $command): Job
     {
@@ -56,7 +47,7 @@ class Scheduler
     /**
      * Schedules an Event to trigger
      *
-     * @param string $name  Name of the event to trigger
+     * @param string $name Name of the event to trigger
      */
     public function event(string $name): Job
     {
@@ -65,25 +56,22 @@ class Scheduler
 
     /**
      * Schedules a cURL command to a remote URL
-     *
-     * @param string $url
      */
     public function url(string $url): Job
     {
         return $this->createTask('url', $url);
     }
 
-    //--------------------------------------------------------------------
+    // --------------------------------------------------------------------
 
     /**
-     * @param string $type
-     * @param mixed  $action
+     * @param mixed $action
      *
      * @return Task
      */
     protected function createTask(string $type, $action)
     {
-        $task = new Job($type, $action);
+        $task          = new Job($type, $action);
         $this->tasks[] = $task;
 
         return $task;

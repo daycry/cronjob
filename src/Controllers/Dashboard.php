@@ -13,11 +13,11 @@ class Dashboard extends BaseCronJob
      */
     public function index()
     {
-        if (!$this->checkCronJobSession()) {
+        if (! $this->checkCronJobSession()) {
             return redirect()->to('cronjob');
         }
 
-        $config = config('CronJob');
+        $config    = config('CronJob');
         $scheduler = Services::scheduler();
         $config->init($scheduler);
 

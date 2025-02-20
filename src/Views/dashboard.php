@@ -7,7 +7,7 @@
 <?= $this->endSection() ?>
 
 <?= $this->section('main') ?>
-    
+
     <main class="container m-auto">
 
         <table id="tableJobs" class="table table-bordered table-striped table-hover">
@@ -23,7 +23,7 @@
             </thead>
             <tbody>
                 <?php foreach ($jobs as $job): ?>
-                    <?php $cron = new \Cron\CronExpression($job->getExpression()); ?>
+                    <?php $cron = new Cron\CronExpression($job->getExpression()); ?>
                     <tr>
                         <td><?= $job->getName() ?></td>
                         <td><?= $job->getType() ?></td>
@@ -34,12 +34,12 @@
                             <div class="dropup-center btn-group dropstart">
                                 <a href="#" class="btn btn-secondary dropdown-toggle" role="button" data-bs-auto-close="true" data-bs-reference="parent" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-gear"></i></a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item logs" data-job="<?= $job->getName() ?>" href="<?= base_url('cronjob/job/' . $job->getName() . '/logs');?>">Logs</a></li>
+                                    <li><a class="dropdown-item logs" data-job="<?= $job->getName() ?>" href="<?= base_url('cronjob/job/' . $job->getName() . '/logs'); ?>">Logs</a></li>
                                 </ul>
                             </div>
                         </td>
                     </tr>
-                <?php endforeach ?>          
+                <?php endforeach ?>
             </tbody>
         </table>
     </main>
