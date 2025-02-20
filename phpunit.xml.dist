@@ -21,7 +21,7 @@
 		ignoreDeprecatedCodeUnits="true"
 		disableCodeCoverageIgnore="true">
 		<report>
-			<cobertura outputFile="build/logs/cobertura.xml"/>
+			<clover outputFile="build/logs/clover.xml"/>
 			<html outputDirectory="build/coverage/html" highLowerBound="80"/>
 			<text outputFile="build/coverage/coverage.txt"/>
 		</report>
