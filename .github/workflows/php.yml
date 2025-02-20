@@ -47,7 +47,7 @@ jobs:
         run: script -e -c "vendor/bin/phpunit"
       
       - name: Run Coveralls
-        if: matrix.php-versions == '8.0'
+        if: matrix.php-versions == '8.2'
         run: |
           composer global require --ansi php-coveralls/php-coveralls:^2.4
           php-coveralls --coverage_clover=build/logs/clover.xml -v
