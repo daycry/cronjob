@@ -1,6 +1,6 @@
-# CodeIgniter Task Scheduler Documentation
+# CodeIgniter Job Scheduler Documentation
 
-Welcome to the documentation for the CodeIgniter Task Scheduler.
+Welcome to the documentation for the CodeIgniter Job Scheduler.
 
 ## Sections
 
