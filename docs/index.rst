@@ -7,6 +7,7 @@ Welcome to the CodeIgniter Job Scheduler documentation!
    :maxdepth: 2
    :caption: Contents
 
+   home.md
    installation.md
    dashboard.md
    scheduling.md
