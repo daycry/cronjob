@@ -3,6 +3,7 @@
 namespace Daycry\CronJob\Traits;
 
 use CodeIgniter\I18n\Time;
+use Cron\CronExpression;
 
 /**
  * Trait ActivityTrait
@@ -23,7 +24,7 @@ trait ActivityTrait
             return false;
         }
 
-        $cron = new \Cron\CronExpression($this->getExpression());
+        $cron = new CronExpression($this->getExpression());
 
         $testTime = ($testTime) ?: 'now';
 

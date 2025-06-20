@@ -19,7 +19,7 @@ trait StatusTrait
 
     protected function createFolderIfNotExists(string $folder): void
     {
-        if (!is_dir($folder)) {
+        if (! is_dir($folder)) {
             mkdir($folder, 0777, true);
         }
     }
@@ -34,6 +34,7 @@ trait StatusTrait
      * Saves the running flag.
      *
      * @param mixed $flag
+     *
      * @return array|false
      */
     public function saveRunningFlag($flag)
@@ -69,7 +70,7 @@ trait StatusTrait
     {
         $name = $this->getName();
 
-        return !is_dir($this->config->filePath) || !is_dir($this->config->filePath . 'disable/') || !file_exists($this->config->filePath . 'disable/' . $name);
+        return ! is_dir($this->config->filePath) || ! is_dir($this->config->filePath . 'disable/') || ! file_exists($this->config->filePath . 'disable/' . $name);
     }
 
     /**
@@ -77,10 +78,10 @@ trait StatusTrait
      */
     public function disable(): bool
     {
-        $name = $this->getName();
+        $name        = $this->getName();
         $disablePath = $this->config->filePath . 'disable/' . $name;
 
-        if (!file_exists($disablePath)) {
+        if (! file_exists($disablePath)) {
             $this->createFolderIfNotExists($this->config->filePath . 'disable');
 
             $data = [
@@ -101,7 +102,7 @@ trait StatusTrait
      */
     public function enable(): bool
     {
-        $name = $this->getName();
+        $name        = $this->getName();
         $disablePath = $this->config->filePath . 'disable/' . $name;
 
         if (file_exists($disablePath)) {
@@ -123,7 +124,7 @@ trait StatusTrait
     {
         $path = $this->isRunningFlagPath();
 
-        if (!file_exists($path)) {
+        if (! file_exists($path)) {
             return null;
         }
 

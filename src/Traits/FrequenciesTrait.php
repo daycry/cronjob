@@ -8,6 +8,7 @@ namespace Daycry\CronJob\Traits;
  * Provides the methods to assign frequencies to individual tasks.
  */
 
+use Cron\CronExpression;
 use Daycry\CronJob\Exceptions\CronJobException;
 
 trait FrequenciesTrait
@@ -34,11 +35,11 @@ trait FrequenciesTrait
      */
     public function cron(string $expression): self
     {
-        if (! \Cron\CronExpression::isValidExpression($expression)) {
+        if (! CronExpression::isValidExpression($expression)) {
             throw CronJobException::forInvalidExpression($expression);
         }
 
-        $this->expression = (new \Cron\CronExpression($expression))->getExpression();
+        $this->expression = (new CronExpression($expression))->getExpression();
 
         return $this;
     }
@@ -56,7 +57,7 @@ trait FrequenciesTrait
             [$min, $hour] = $this->parseTime($time);
         }
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $cron->setPart(0, $min);
         $cron->setPart(1, $hour);
@@ -73,7 +74,7 @@ trait FrequenciesTrait
      */
     public function hourly(?int $minute = null): self
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $minute = ($minute) ?: '0';
 
@@ -92,7 +93,7 @@ trait FrequenciesTrait
      */
     public function everyHour(int $hour = 1, ?int $minute = null)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $minute = ($minute) ?: '0';
         $hour   = ($hour === 1) ? '*' : '*/' . $hour;
@@ -112,7 +113,7 @@ trait FrequenciesTrait
      */
     public function betweenHours(int $fromHour, int $toHour)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
         $cron->setPart(1, $fromHour . '-' . $toHour);
 
         $this->expression = $cron->getExpression();
@@ -127,7 +128,7 @@ trait FrequenciesTrait
      */
     public function hours(array $hours)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! is_array($hours)) {
             $hours = [$hours];
@@ -151,7 +152,7 @@ trait FrequenciesTrait
     {
         $minute = null === $minute ? '*' : '*/' . $minute;
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
         $cron->setPart(0, $minute);
 
         $this->expression = $cron->getExpression();
@@ -196,7 +197,7 @@ trait FrequenciesTrait
      */
     public function betweenMinutes(int $fromMinute, int $toMinute)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $cron->setPart(0, $fromMinute . '-' . $toMinute);
 
@@ -212,7 +213,7 @@ trait FrequenciesTrait
      */
     public function minutes(array $minutes)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! is_array($minutes)) {
             $minutes = [$minutes];
@@ -234,7 +235,7 @@ trait FrequenciesTrait
      */
     public function days($days)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! is_array($days)) {
             $days = [$days];
@@ -330,7 +331,7 @@ trait FrequenciesTrait
             [$min, $hour] = $this->parseTime($time);
         }
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $cron->setPart(0, $min);
         $cron->setPart(1, $hour);
@@ -350,7 +351,7 @@ trait FrequenciesTrait
      */
     public function daysOfMonth($days)
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! is_array($days)) {
             $days = [$days];
@@ -370,7 +371,7 @@ trait FrequenciesTrait
      */
     public function months(array $months = [])
     {
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         $cron->setPart(3, implode(',', $months));
 
@@ -389,7 +390,7 @@ trait FrequenciesTrait
     {
         $min = $hour = 0;
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
             [$min, $hour] = $this->parseTime($time);
@@ -414,7 +415,7 @@ trait FrequenciesTrait
     {
         $min = $hour = 0;
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
             [$min, $hour] = $this->parseTime($time);
@@ -439,7 +440,7 @@ trait FrequenciesTrait
     {
         $min = $hour = 0;
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
             [$min, $hour] = $this->parseTime($time);
@@ -463,7 +464,7 @@ trait FrequenciesTrait
     {
         $min = $hour = 0;
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
             [$min, $hour] = $this->parseTime($time);
@@ -487,7 +488,7 @@ trait FrequenciesTrait
     {
         $min = $hour = '0';
 
-        $cron = new \Cron\CronExpression($this->expression);
+        $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
             [$min, $hour] = $this->parseTime($time);

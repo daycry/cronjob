@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Daycry\CronJob\Controllers;
 
+use Config\Services;
+
 class Login extends BaseCronJob
 {
     /**
@@ -20,7 +22,7 @@ class Login extends BaseCronJob
 
     public function validation()
     {
-        $validation = \Config\Services::validation();
+        $validation = Services::validation();
         $validation->setRule('username', 'Username', 'required');
         $validation->setRule('password', 'Password', 'required');
 

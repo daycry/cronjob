@@ -10,6 +10,7 @@ $finder = Finder::create()
         __DIR__ . '/src/',
     ])
     ->exclude('build')
+    ->notPath('Views/dashboard.php')
     ->append([
         __FILE__,
         __DIR__ . '/rector.php',

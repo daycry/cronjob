@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Daycry\CronJob\Controllers;
 
-use Daycry\CronJob\Config\Services;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use Daycry\CronJob\Config\Services;
 
 class Job extends BaseCronJob
 {
@@ -36,7 +36,7 @@ class Job extends BaseCronJob
      */
     private function initializeScheduler()
     {
-        $config = config('CronJob');
+        $config    = config('CronJob');
         $scheduler = Services::scheduler();
         $config->init($scheduler);
 
@@ -45,6 +45,8 @@ class Job extends BaseCronJob
 
     /**
      * Find a job by its name from the scheduler.
+     *
+     * @param mixed $scheduler
      */
     private function findJobByName($scheduler, string $jobName)
     {

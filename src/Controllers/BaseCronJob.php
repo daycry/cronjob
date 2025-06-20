@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Daycry\CronJob\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Config\Services;
 use Psr\Log\LoggerInterface;
 
 class BaseCronJob extends BaseController
@@ -24,10 +26,10 @@ class BaseCronJob extends BaseController
         $config = config('CronJob');
 
         if (! $config->enableDashboard) {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+            throw new PageNotFoundException();
         }
 
-        $this->session = \Config\Services::session();
+        $this->session = Services::session();
         $this->checkCronJobSession();
     }
 

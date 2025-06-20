@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Daycry\CronJob;
 
 use CodeIgniter\Events\Events;
@@ -43,7 +45,7 @@ class Job
      *
      * @var list<string>
      */
-    protected $types = [
+    protected array $types = [
         'command',
         'shell',
         'closure',
@@ -83,6 +85,25 @@ class Job
     protected ?string $name = null;
 
     /**
+     * List of job dependencies
+     *
+     * @var list<string>|null
+     */
+    protected ?array $dependsOn = null;
+
+    /**
+     * The maximum number of retries for this job.
+     */
+    protected ?int $maxRetries = null;
+
+    /**
+     * The timeout (in seconds) for this job.
+     */
+    protected ?int $timeout = null;
+
+    /**
+     * Job constructor.
+     *
      * @param mixed $action
      *
      * @throws CronJobException
@@ -133,18 +154,15 @@ class Job
     public function run(): mixed
     {
         $method = 'run' . ucfirst($this->type);
-        // @codeCoverageIgnoreStart
         if (! method_exists($this, $method)) {
             throw CronJobException::forInvalidTaskType($this->type);
         }
-        // @codeCoverageIgnoreEnd
 
         return $this->{$method}();
     }
 
     /**
-     * Restricts this task to run within only
-     * specified environements.
+     * Restricts this task to run within only specified environments.
      *
      * @param mixed ...$environments
      *
@@ -157,7 +175,10 @@ class Job
         return $this;
     }
 
-    public function getEnvironments()
+    /**
+     * Returns the environments.
+     */
+    public function getEnvironments(): array
     {
         return $this->environments;
     }
@@ -167,7 +188,6 @@ class Job
      */
     protected function runsInEnvironment(string $environment): bool
     {
-        // If nothing is specified then it should run
         if (empty($this->environments)) {
             return true;
         }
@@ -286,6 +306,9 @@ class Job
         return $this->getType() . '_' . md5($actionString . '_' . $expHash);
     }
 
+    /**
+     * @return string
+     */
     public function getName()
     {
         if (empty($this->name)) {
@@ -336,5 +359,65 @@ class Job
     public function shouldRunInBackground(): bool
     {
         return $this->runInBackground;
+    }
+
+    /**
+     * Set dependencies for this job.
+     *
+     * @return $this
+     */
+    public function dependsOn(array|string $jobNames): self
+    {
+        $this->dependsOn = is_array($jobNames) ? $jobNames : [$jobNames];
+
+        return $this;
+    }
+
+    /**
+     * Get dependencies for this job.
+     */
+    public function getDependsOn(): ?array
+    {
+        return $this->dependsOn;
+    }
+
+    /**
+     * Set the maximum number of retries for this job.
+     *
+     * @return $this
+     */
+    public function maxRetries(int $retries): self
+    {
+        $this->maxRetries = $retries;
+
+        return $this;
+    }
+
+    /**
+     * Set the timeout (in seconds) for this job.
+     *
+     * @return $this
+     */
+    public function timeout(int $timeout): self
+    {
+        $this->timeout = $timeout;
+
+        return $this;
+    }
+
+    /**
+     * Get the maximum number of retries for this job.
+     */
+    public function getMaxRetries(): ?int
+    {
+        return $this->maxRetries ?? null;
+    }
+
+    /**
+     * Get the timeout (in seconds) for this job.
+     */
+    public function getTimeout(): ?int
+    {
+        return $this->timeout ?? null;
     }
 }

@@ -3,14 +3,22 @@
 > [!NOTE]  
 > If you want to use a queue system you can use [queues vendor](https://github.com/daycry/queues)
 
-# CodeIgniter Task Scheduler
+# CodeIgniter Job Scheduler
 
-[![Build Status](https://github.com/daycry/cronjob/actions/workflows/php.yml/badge.svg?branch=master)](https://github.com/daycry/cronjob/actions/workflows/php.yml)
-[![Coverage Status](https://coveralls.io/repos/github/daycry/cronjob/badge.svg?branch=master)](https://coveralls.io/github/daycry/cronjob?branch=master)
-[![Downloads](https://poser.pugx.org/daycry/cronjob/downloads)](https://packagist.org/packages/daycry/cronjob)
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
-[![GitHub stars](https://img.shields.io/github/stars/daycry/cronjob)](https://packagist.org/packages/daycry/cronjob)
-[![GitHub license](https://img.shields.io/github/license/daycry/cronjob)](https://github.com/daycry/cronjob/blob/master/LICENSE)
+Welcome! The documentation is now organized for easier reading:
+
+- [Installation](docs/installation.md)
+- [Dashboard](docs/dashboard.md)
+- [Defining Schedules](docs/scheduling.md)
+- [Job Dependencies](docs/dependencies.md)
+- [Advanced Features](docs/advanced.md)
+- [Metrics & Monitoring](docs/metrics-monitoring.md)
+
+For full usage, examples, and integration details, see each section above.
+
+---
+
+## Quick Start
 
 This makes scheduling cronjobs in your application simple, flexible, and powerful. Instead of setting up 
 multiple cronjobs on each server your application runs on, you only need to setup a single cronjob to 
@@ -248,6 +256,101 @@ You can name tasks so they can be easily referenced later, such as through the C
 $schedule->command('foo')->hourly()->named('foo-task');
 ```
 
+## Job Dependencies (NEW)
+
+You can now define dependencies between jobs. A job will only run after all the jobs it depends on have been executed successfully in the same run. This is useful for workflows where certain tasks must be completed before others start.
+
+### Usage Example
+
+```php
+$schedule->command('generate:report')->everyDay()->named('generate-report');
+$schedule->command('send:report')->everyDay()->dependsOn('generate-report');
+```
+
+You can also specify multiple dependencies:
+
+```php
+$schedule->command('archive:report')->everyDay()->dependsOn(['generate-report', 'send-report']);
+```
+
+- The `dependsOn()` method accepts a string (job name) or an array of job names.
+- Make sure to use the `named()` method to assign unique names to jobs you want to reference as dependencies.
+- If there is a circular dependency or a missing job name, the scheduler will skip those jobs to prevent infinite loops.
+
+## Advanced Features (NEW)
+
+### Job Retries and Timeout
+
+You can now configure automatic retries and a timeout for each job:
+
+```php
+$schedule->command('unstable:task')->maxRetries(3)->timeout(60); // Retries up to 3 times, 60s timeout
+```
+- `maxRetries(int)` sets how many times the job will be retried if it fails.
+- `timeout(int)` sets the maximum execution time in seconds (enforced at the job logic level).
+
+### Hooks: Before and After Job Execution
+
+You can hook into the execution lifecycle of jobs by overriding the `beforeJob` and `afterJob` methods in a custom JobRunner:
+
+```php
+class MyJobRunner extends \Daycry\CronJob\JobRunner {
+    protected function beforeJob($job) { /* ... */ }
+    protected function afterJob($job, $result, $error) { /* ... */ }
+}
+```
+
+This allows you to add custom logging, notifications, or metrics around job execution.
+
+### Monitoring a Job (Example)
+
+You can monitor the execution of a job by overriding the `afterJob` method in your custom `JobRunner` class. For example, you can send an alert if a job fails or takes too long:
+
+```php
+class MonitoringJobRunner extends \Daycry\CronJob\JobRunner {
+    protected function afterJob($job, $result, $error) {
+        $duration = $job->duration(); // Or use your own timing logic
+        if ($error) {
+            // Send alert to Slack, email, etc.
+            log_message('alert', "Job '{$job->getName()}' failed: " . $error->getMessage());
+        }
+        if ($duration > 10) { // seconds
+            // Alert if job took too long
+            log_message('warning', "Job '{$job->getName()}' took {$duration}s to complete.");
+        }
+    }
+}
+```
+
+You can also integrate with external monitoring tools (like Prometheus, Grafana, Sentry, etc.) by sending metrics or events from within `afterJob` or `reportMetrics`.
+
+### Dependency Validation
+
+The scheduler now validates that all dependencies exist and that there are no circular dependencies. If a dependency is missing or a cycle is detected, an exception is thrown during validation:
+
+```php
+$schedule->validateDependencies();
+```
+
+### Utility Methods for Scheduler
+
+- `removeTaskByName($name)`: Remove a job by name.
+- `hasTask($name)`: Check if a job exists by name.
+- `getTaskNames()`: Get all job names.
+
+## Job Execution Metrics (NEW)
+
+The scheduler now measures and reports the execution time of each job. After running all jobs, you will see output like:
+
+```
+[METRIC] Job 'generate-report' average duration: 0.1234s
+[METRIC] Job 'send-report' average duration: 0.0456s
+```
+
+You can customize the `reportMetrics` method in your `JobRunner` to log, store, or alert on these metrics as needed. This helps you identify slow jobs and performance bottlenecks in your scheduled tasks.
+
+---
+
 # CLI Commands
 
 Included in the package are several commands that can be ran from that CLI that provide that bit of emergency
@@ -305,3 +408,67 @@ run this manually.
 ## Notifications
 
 If you want to receive notifications by email, simply configure the Codeigniter Email library.
+
+## Monitoring Integration Examples
+
+#### 1. Slack Alert Example
+
+Send a message to a Slack channel if a job fails:
+
+```php
+class SlackMonitoringJobRunner extends \Daycry\CronJob\JobRunner {
+    protected function afterJob($job, $result, $error) {
+        if ($error) {
+            $payload = json_encode([
+                'text' => "Job '{$job->getName()}' failed: " . $error->getMessage()
+            ]);
+            $ch = curl_init('https://hooks.slack.com/services/YOUR/SLACK/WEBHOOK');
+            curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_exec($ch);
+            curl_close($ch);
+        }
+    }
+}
+```
+
+#### 2. Sentry Error Reporting Example
+
+Report job exceptions to Sentry:
+
+```php
+class SentryMonitoringJobRunner extends \Daycry\CronJob\JobRunner {
+    protected function afterJob($job, $result, $error) {
+        if ($error) {
+            if (class_exists('Sentry\captureException')) {
+                \Sentry\captureException($error);
+            }
+        }
+    }
+}
+```
+
+#### 3. Prometheus Metrics Example
+
+Expose job duration as a Prometheus metric (using a PHP Prometheus client):
+
+```php
+use Prometheus\CollectorRegistry;
+use Prometheus\Storage\InMemory;
+
+class PrometheusMonitoringJobRunner extends \Daycry\CronJob\JobRunner {
+    protected $registry;
+    public function __construct() {
+        parent::__construct();
+        $this->registry = new CollectorRegistry(new InMemory());
+    }
+    protected function afterJob($job, $result, $error) {
+        $duration = $job->duration();
+        $gauge = $this->registry->getOrRegisterGauge('cronjob', 'job_duration_seconds', 'Job duration in seconds', ['job']);
+        $gauge->set($duration, [$job->getName()]);
+    }
+}
+```
+You can adapt these examples to your environment and needs. Refer to the official documentation of each tool for configuration and authentication details.
