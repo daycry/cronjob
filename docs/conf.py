@@ -13,9 +13,9 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-master_doc = 'home'
+master_doc = 'index'
 
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'index.md', 'index.rst']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', 'index.md', 'home.rst']
 
 html_theme = 'sphinx_rtd_theme'
 html_logo = 'images/logo.svg'
