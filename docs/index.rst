@@ -5,7 +5,7 @@ Welcome to the CodeIgniter Job Scheduler documentation!
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents
+   :caption: Sections
 
    home.md
    installation.md
