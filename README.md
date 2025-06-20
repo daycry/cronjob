@@ -2,7 +2,7 @@
 
 ---
 
-🚀 **[VER DOCUMENTACIÓN ONLINE](https://cronjob.readthedocs.io/)** 🚀
+🚀 **[VIEW ONLINE DOCUMENTATION](https://cronjob.readthedocs.io/)** 🚀
 
 ---
 
