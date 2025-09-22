@@ -2,9 +2,14 @@
 
 namespace Daycry\CronJob\Exceptions;
 
-use RuntimeException;
+use CodeIgniter\Exceptions\RuntimeException as BaseRuntimeException;
 
-class CronJobException extends RuntimeException
+/**
+ * Base library exception extending CodeIgniter's RuntimeException
+ * so framework handlers (logging, HTTP converters, etc.) can treat
+ * these uniformly.
+ */
+class CronJobException extends BaseRuntimeException
 {
     public static function forInvalidTaskType(string $type)
     {

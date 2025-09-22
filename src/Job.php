@@ -100,6 +100,10 @@ class Job
      * The timeout (in seconds) for this job.
      */
     protected ?int $timeout = null;
+    /**
+     * Cached computed name hash to avoid recalculating reflection/serialization repeatedly.
+     */
+    private ?string $computedName = null;
 
     /**
      * Job constructor.
@@ -311,11 +315,15 @@ class Job
      */
     public function getName()
     {
-        if (empty($this->name)) {
-            return $this->buildName();
+        if ($this->name) {
+            return $this->name;
+        }
+        // Cache computed hash so multiple calls don't repeat reflection work
+        if ($this->computedName === null) {
+            $this->computedName = $this->buildName();
         }
 
-        return $this->name;
+        return $this->computedName;
     }
 
     /**

@@ -26,6 +26,7 @@ Welcome! The documentation is now organized for easier reading:
 - [Job Dependencies](docs/dependencies.md)
 - [Advanced Features](docs/advanced.md)
 - [Metrics & Monitoring](docs/metrics-monitoring.md)
+- [Roadmap](docs/roadmap.md)
 
 For full usage, examples, and integration details, see each section above.
 

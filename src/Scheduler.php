@@ -145,13 +145,7 @@ class Scheduler
      */
     public function getTaskNames(): array
     {
-        $names = [];
-
-        foreach ($this->tasks as $task) {
-            $names[] = $task->getName();
-        }
-
-        return $names;
+        return array_map(static fn(Job $t) => $t->getName(), $this->tasks);
     }
 
     /**
@@ -167,11 +161,10 @@ class Scheduler
         // Existence check
         foreach ($this->tasks as $task) {
             $deps = $task->getDependsOn();
-            if ($deps) {
-                foreach ($deps as $dep) {
-                    if (! in_array($dep, $names, true)) {
-                        throw new RuntimeException("Dependency '{$dep}' for job '{$task->getName()}' does not exist.");
-                    }
+            if (! $deps) { continue; }
+            foreach ($deps as $dep) {
+                if (! in_array($dep, $names, true)) {
+                    throw new RuntimeException("Dependency '{$dep}' for job '{$task->getName()}' does not exist.");
                 }
             }
         }
@@ -229,10 +222,10 @@ class Scheduler
         $graph      = [];
 
         foreach ($this->tasks as $job) {
-            $name              = $job->getName();
+            $name = $job->getName();
             $jobsByName[$name] = $job;
-            $inDegree[$name]   = 0;
-            $graph[$name]      = [];
+            $inDegree[$name] = 0;
+            $graph[$name] = [];
         }
 
         foreach ($this->tasks as $job) {
@@ -249,11 +242,7 @@ class Scheduler
         }
         $queue = [];
 
-        foreach ($inDegree as $name => $deg) {
-            if ($deg === 0) {
-                $queue[] = $name;
-            }
-        }
+        foreach ($inDegree as $name => $deg) { if ($deg === 0) { $queue[] = $name; } }
         $order = [];
 
         while ($queue) {
@@ -261,10 +250,7 @@ class Scheduler
             $order[] = $jobsByName[$current];
 
             foreach ($graph[$current] as $neighbor) {
-                $inDegree[$neighbor]--;
-                if ($inDegree[$neighbor] === 0) {
-                    $queue[] = $neighbor;
-                }
+                if (--$inDegree[$neighbor] === 0) { $queue[] = $neighbor; }
             }
         }
         if (count($order) !== count($jobsByName)) {

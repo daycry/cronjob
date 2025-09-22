@@ -52,19 +52,8 @@ trait FrequenciesTrait
      */
     public function daily(?string $time = null): self
     {
-        $min = $hour = 0;
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron = new CronExpression($this->expression);
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        // Defaults to 00:00 unless time provided
+        return $this->applyParts([0 => '0', 1 => '0'], $time);
     }
 
     /**
@@ -74,16 +63,8 @@ trait FrequenciesTrait
      */
     public function hourly(?int $minute = null): self
     {
-        $cron = new CronExpression($this->expression);
-
         $minute = ($minute) ?: '0';
-
-        $cron->setPart(0, $minute);
-        $cron->setPart(1, '*');
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => (string) $minute, 1 => '*']);
     }
 
     /**
@@ -93,17 +74,9 @@ trait FrequenciesTrait
      */
     public function everyHour(int $hour = 1, ?int $minute = null)
     {
-        $cron = new CronExpression($this->expression);
-
         $minute = ($minute) ?: '0';
         $hour   = ($hour === 1) ? '*' : '*/' . $hour;
-
-        $cron->setPart(0, $minute);
-        $cron->setPart(1, $hour);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => (string) $minute, 1 => $hour]);
     }
 
     /**
@@ -113,12 +86,7 @@ trait FrequenciesTrait
      */
     public function betweenHours(int $fromHour, int $toHour)
     {
-        $cron = new CronExpression($this->expression);
-        $cron->setPart(1, $fromHour . '-' . $toHour);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([1 => $fromHour . '-' . $toHour]);
     }
 
     /**
@@ -128,17 +96,10 @@ trait FrequenciesTrait
      */
     public function hours(array $hours)
     {
-        $cron = new CronExpression($this->expression);
-
-        if (! is_array($hours)) {
+        if (! is_array($hours)) { // defensive (param already typed array)
             $hours = [$hours];
         }
-
-        $cron->setPart(1, implode(',', $hours));
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([1 => implode(',', $hours)]);
     }
 
     /**
@@ -151,13 +112,7 @@ trait FrequenciesTrait
     public function everyMinute(?int $minute = null)
     {
         $minute = null === $minute ? '*' : '*/' . $minute;
-
-        $cron = new CronExpression($this->expression);
-        $cron->setPart(0, $minute);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => $minute]);
     }
 
     /**
@@ -197,13 +152,7 @@ trait FrequenciesTrait
      */
     public function betweenMinutes(int $fromMinute, int $toMinute)
     {
-        $cron = new CronExpression($this->expression);
-
-        $cron->setPart(0, $fromMinute . '-' . $toMinute);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => $fromMinute . '-' . $toMinute]);
     }
 
     /**
@@ -213,17 +162,10 @@ trait FrequenciesTrait
      */
     public function minutes(array $minutes)
     {
-        $cron = new CronExpression($this->expression);
-
-        if (! is_array($minutes)) {
+        if (! is_array($minutes)) { // defensive
             $minutes = [$minutes];
         }
-
-        $cron->setPart(0, implode(',', $minutes));
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => implode(',', $minutes)]);
     }
 
     /**
@@ -235,17 +177,10 @@ trait FrequenciesTrait
      */
     public function days($days)
     {
-        $cron = new CronExpression($this->expression);
-
         if (! is_array($days)) {
             $days = [$days];
         }
-
-        $cron->setPart(4, implode(',', $days));
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([4 => implode(',', $days)]);
     }
 
     /**
@@ -325,21 +260,7 @@ trait FrequenciesTrait
      */
     public function monthly(?string $time = null)
     {
-        $min = $hour = 0;
-
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron = new CronExpression($this->expression);
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(2, 1);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => '0', 1 => '0', 2 => '1'], $time);
     }
 
     /**
@@ -351,17 +272,10 @@ trait FrequenciesTrait
      */
     public function daysOfMonth($days)
     {
-        $cron = new CronExpression($this->expression);
-
         if (! is_array($days)) {
             $days = [$days];
         }
-
-        $cron->setPart(2, implode(',', $days));
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([2 => implode(',', $days)]);
     }
 
     /**
@@ -371,13 +285,7 @@ trait FrequenciesTrait
      */
     public function months(array $months = [])
     {
-        $cron = new CronExpression($this->expression);
-
-        $cron->setPart(3, implode(',', $months));
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([3 => implode(',', $months)]);
     }
 
     /**
@@ -388,22 +296,7 @@ trait FrequenciesTrait
      */
     public function quarterly(?string $time = null)
     {
-        $min = $hour = 0;
-
-        $cron = new CronExpression($this->expression);
-
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(2, 1);
-        $cron->setPart(3, '*/3');
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => '0', 1 => '0', 2 => '1', 3 => '*/3'], $time);
     }
 
     /**
@@ -413,22 +306,7 @@ trait FrequenciesTrait
      */
     public function yearly(?string $time = null)
     {
-        $min = $hour = 0;
-
-        $cron = new CronExpression($this->expression);
-
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(2, 1);
-        $cron->setPart(3, 1);
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => '0', 1 => '0', 2 => '1', 3 => '1'], $time);
     }
 
     /**
@@ -438,21 +316,7 @@ trait FrequenciesTrait
      */
     public function weekdays(?string $time = null)
     {
-        $min = $hour = 0;
-
-        $cron = new CronExpression($this->expression);
-
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(4, '1-5');
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => '0', 1 => '0', 4 => '1-5'], $time);
     }
 
     /**
@@ -462,21 +326,7 @@ trait FrequenciesTrait
      */
     public function weekends(?string $time = null)
     {
-        $min = $hour = 0;
-
-        $cron = new CronExpression($this->expression);
-
-        if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
-        }
-
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(4, '6-7');
-
-        $this->expression = $cron->getExpression();
-
-        return $this;
+        return $this->applyParts([0 => '0', 1 => '0', 4 => '6-7'], $time);
     }
 
     /**
@@ -486,20 +336,34 @@ trait FrequenciesTrait
      */
     protected function setDayOfWeek(int $day, ?string $time = null)
     {
-        $min = $hour = '0';
+        return $this->applyParts([0 => '0', 1 => '0', 4 => (string) $day], $time);
+    }
 
+    /**
+     * Helper to mutate the current cron expression with optional time parsing.
+     * $overrides is an associative array where the key is the cron field index (0-4)
+     * and the value is the string to set. If a $time is provided it will always
+     * override minute (0) and hour (1) unless those indexes are intentionally
+     * provided with a different value in $overrides.
+     */
+    protected function applyParts(array $overrides, ?string $time = null): self
+    {
         $cron = new CronExpression($this->expression);
 
         if (! empty($time)) {
-            [$min, $hour] = $this->parseTime($time);
+            [$min, $hour]   = $this->parseTime($time); // [min, hour]
+            $overrides[0] = $min;   // force parsed minute
+            $overrides[1] = $hour;  // force parsed hour
         }
 
-        $cron->setPart(0, $min);
-        $cron->setPart(1, $hour);
-        $cron->setPart(4, $day);
+        foreach ($overrides as $index => $value) {
+            if ($value === null) {
+                continue;
+            }
+            $cron->setPart($index, $value);
+        }
 
         $this->expression = $cron->getExpression();
-
         return $this;
     }
 

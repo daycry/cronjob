@@ -32,7 +32,7 @@ trait LogTrait
 
     public function saveLog(?string $output = null, ?string $error = null): void
     {
-        $this->name = ($this->name) ?: $this->buildName();
+        $localName = $this->getName();
 
         if ($this->config->logPerformance) {
             if (! $this->end) {
@@ -41,8 +41,24 @@ trait LogTrait
 
             $this->setHandler();
 
+            // Truncate output & error if configured
+            if ($this->config->maxOutputLength !== null && $this->config->maxOutputLength >= 0) {
+                if ($output !== null) {
+                    $len = \strlen($output);
+                    if ($len > $this->config->maxOutputLength) {
+                        $output = \substr($output, 0, $this->config->maxOutputLength) . "\n[truncated {$len} -> {$this->config->maxOutputLength} chars]";
+                    }
+                }
+                if ($error !== null) {
+                    $lenErr = \strlen($error);
+                    if ($lenErr > $this->config->maxOutputLength) {
+                        $error = \substr($error, 0, $this->config->maxOutputLength) . "\n[truncated {$lenErr} -> {$this->config->maxOutputLength} chars]";
+                    }
+                }
+            }
+
             $data = [
-                'name'        => $this->name,
+                'name'        => $localName,
                 'type'        => $this->getType(),
                 'action'      => (\is_object($this->getAction())) ? \json_encode($this->getAction()) : $this->getAction(),
                 'environment' => $this->environments ? \json_encode($this->environments) : null,
@@ -64,9 +80,9 @@ trait LogTrait
             return [];
         }
         $this->setHandler();
-        $this->name = ($this->name) ?: $this->buildName();
+        $localName = $this->getName();
 
-        return $this->handler->getLogs($this->name);
+        return $this->handler->getLogs($localName);
     }
 
     public function duration(): string

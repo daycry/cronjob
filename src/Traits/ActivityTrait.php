@@ -48,4 +48,17 @@ trait ActivityTrait
 
         return $this->handler->lastRun($name);
     }
+
+    /**
+     * Returns the last run time as a Time instance or null when not available.
+     * (Non-breaking addition alongside legacy lastRun() method that can return string "--").
+     */
+    public function getLastRunTime(): ?Time
+    {
+        if ($this->config->logPerformance === false) {
+            return null;
+        }
+        $val = $this->lastRun();
+        return $val instanceof Time ? $val : null;
+    }
 }

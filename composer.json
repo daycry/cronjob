@@ -11,21 +11,25 @@
         }
     ],
     "license": "MIT",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": "^8.2",
-        "dragonmantank/cron-expression": "^3.3",
-        "amphp/parallel": "^2.3"
+        "dragonmantank/cron-expression": "^3.3"
     },
     "require-dev":
     {
         "codeigniter4/framework": "^4",
         "codeigniter/phpstan-codeigniter": "^1.4",
         "codeigniter4/devkit": "^1",
-        "daycry/phpunit-extension-vcr": "^1.0",
         "ergebnis/composer-normalize": "^2.28",
-        "php-vcr/php-vcr": "^1",
         "phpstan/phpstan-strict-rules": "^2",
         "phpunit/phpcov": "^10"
+    },
+    "suggest": {
+        "psr/log": "Use a generic PSR-3 logger implementation",
+        "ext-pcntl": "Graceful signal handling for long-running cron workers on Unix",
+        "promphp/prometheus_client_php": "Export job execution metrics to Prometheus"
     },
     "autoload":
     {
@@ -40,12 +44,9 @@
             "Tests\\Support\\": "tests/_support"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "scripts": {
         "analyze": [
             "phpstan analyze",
-            "psalm",
             "rector process --dry-run"
         ],
         "test": "vendor/bin/phpunit",
