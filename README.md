@@ -7,6 +7,9 @@
 ---
 
 > [!NOTE]  
+> An improved library has been created that includes everything from this library, plus queues, with an enhanced structure. [jobs vendor](https://github.com/daycry/jobs)
+
+> [!NOTE]  
 > If you want to use a queue system you can use [queues vendor](https://github.com/daycry/queues)
 
 # CodeIgniter Job Scheduler
