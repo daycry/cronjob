@@ -234,12 +234,49 @@ class Job
      * Executes a shell script.
      *
      * @return array Lines of output from exec
+     * @throws CronJobException
      */
     protected function runShell(): array
     {
-        exec($this->getAction(), $output);
+        // Validar y escapar el comando para prevenir inyección
+        $command = $this->getAction();
+
+        // Validar que el comando esté en una lista blanca o tenga caracteres seguros
+        if (!$this->isValidCommand($command)) {
+            throw CronJobException::forInvalidCommand($command);
+        }
+
+        // Escapar el comando para mayor seguridad
+        $escapedCommand = escapeshellcmd($command);
+
+        exec($escapedCommand, $output, $returnCode);
+
+        if ($returnCode !== 0) {
+            throw CronJobException::forCommandExecutionFailed($command, $returnCode);
+        }
 
         return $output;
+    }
+
+    /**
+     * Validates if a command is safe to execute
+     */
+    private function isValidCommand(string $command): bool
+    {
+        // Lista de comandos/caracteres peligrosos
+        $dangerousPatterns = [
+            '/[;&|`$(){}[\]<>]/',  // Caracteres de control de shell
+            '/\b(rm|del|format|fdisk|mkfs)\b/i',  // Comandos destructivos
+            '/\b(wget|curl|nc|netcat)\b.*http/i',  // Comandos de red sospechosos
+        ];
+
+        foreach ($dangerousPatterns as $pattern) {
+            if (preg_match($pattern, $command)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -266,12 +303,72 @@ class Job
      * Queries a URL.
      *
      * @return mixed|string Body of the Response
+     * @throws CronJobException
      */
     protected function runUrl()
     {
-        $response = Services::curlrequest()->request('GET', $this->getAction());
+        $url = $this->getAction();
 
-        return $response->getBody();
+        // Validar URL para prevenir SSRF
+        if (!$this->isValidUrl($url)) {
+            throw CronJobException::forInvalidUrl($url);
+        }
+
+        try {
+            $response = Services::curlrequest([
+                'timeout' => 30,
+                'verify' => true, // Verificar certificados SSL
+                'allow_redirects' => [
+                    'max' => 3, // Limitar redirects
+                    'strict' => true
+                ]
+            ])->request('GET', $url);
+
+            return $response->getBody();
+        } catch (\Exception $e) {
+            throw CronJobException::forUrlRequestFailed($url, $e->getMessage());
+        }
+    }
+
+    /**
+     * Validates if a URL is safe to request (prevents SSRF)
+     */
+    private function isValidUrl(string $url): bool
+    {
+        // Validar formato de URL
+        if (!filter_var($url, FILTER_VALIDATE_URL)) {
+            return false;
+        }
+
+        $parsedUrl = parse_url($url);
+
+        // Solo permitir HTTP/HTTPS
+        if (!in_array($parsedUrl['scheme'] ?? '', ['http', 'https'], true)) {
+            return false;
+        }
+
+        // Resolver IP del host
+        $host = $parsedUrl['host'] ?? '';
+        $ip = gethostbyname($host);
+
+        // Bloquear IPs privadas y localhost para prevenir SSRF
+        if ($this->isPrivateOrLocalIp($ip)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Check if IP is private or local (SSRF protection)
+     */
+    private function isPrivateOrLocalIp(string $ip): bool
+    {
+        return !filter_var(
+            $ip,
+            FILTER_VALIDATE_IP,
+            FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
+        );
     }
 
     /**
