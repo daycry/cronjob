@@ -29,7 +29,8 @@
     "suggest": {
         "psr/log": "Use a generic PSR-3 logger implementation",
         "ext-pcntl": "Graceful signal handling for long-running cron workers on Unix",
-        "promphp/prometheus_client_php": "Export job execution metrics to Prometheus"
+        "promphp/prometheus_client_php": "Export job execution metrics to Prometheus",
+        "daycry/jobs": "New version of cronjobs library with queues support"
     },
     "autoload":
     {
