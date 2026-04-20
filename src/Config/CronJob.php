@@ -174,8 +174,17 @@ class CronJob extends BaseConfig
     |--------------------------------------------------------------------------
     */
     public bool $enableDashboard = false;
-    public string $username      = 'admin';
-    public string $password      = 'admin';
+
+    // SECURITY: No usar credenciales por defecto en producción
+    // Estas credenciales deben ser cambiadas obligatoriamente
+    public string $username = '';  // Debe configurarse en el archivo de configuración local
+    public string $password = '';  // Debe configurarse en el archivo de configuración local
+
+    // Configuraciones de seguridad adicionales
+    public int $maxLoginAttempts = 5;  // Máximo intentos de login
+    public int $lockoutTime = 300;     // Tiempo de bloqueo en segundos (5 minutos)
+    public bool $enableCSRFProtection = true;  // Protección CSRF
+    public int $sessionTimeout = 3600; // Timeout de sesión en segundos (1 hora)
 
     /*
     |--------------------------------------------------------------------------

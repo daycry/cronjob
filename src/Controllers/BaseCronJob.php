@@ -36,7 +36,27 @@ class BaseCronJob extends BaseController
     protected function checkCronJobSession()
     {
         $result = false;
+        $config = config('CronJob');
+
         if ($this->session->get('cronjob')) {
+            // Verificar timeout de sesión
+            $loginTime = $this->session->get('cronjob_login_time');
+            if ($loginTime && (time() - $loginTime) > $config->sessionTimeout) {
+                $this->session->destroy();
+                log_message('info', 'CronJob: Sesión expirada por timeout');
+                return false;
+            }
+
+            // Verificar IP (opcional - podría ser problemático con proxies)
+            $sessionIP = $this->session->get('cronjob_ip');
+            $currentIP = $this->request->getIPAddress();
+            if ($sessionIP && $sessionIP !== $currentIP) {
+                log_message('warning', 'CronJob: Intento de acceso desde IP diferente. IP de sesión: ' . $sessionIP . ', IP actual: ' . $currentIP);
+                // Opcional: descomentar para forzar logout en cambio de IP
+                // $this->session->destroy();
+                // return false;
+            }
+
             $result = true;
         }
 
